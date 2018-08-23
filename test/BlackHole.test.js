@@ -1,11 +1,18 @@
-const BlackHole = artifacts.require('BlackHole')
+const BlackHole = artifacts.require('BlackHole');
 
 contract('BlackHole', accounts => {
-    beforeEach(async function () {
-        await BlackHole.new();
+    let blackHole = null;
+
+    beforeEach(async () => {
+        blackHole = await BlackHole.new();
     });
 
-    it('check deployment', () => BlackHole.deployed().then(
-        instance => assert.notEqual(null, instance)
-    ))
-})
+    it('correct deployed', async () => {
+        assert.notEqual(blackHole, null)
+    });
+
+    it("new blackHole isn't evaporated", async () => {
+        const evaporated = await blackHole.evaporated();
+        assert.equal(evaporated, false);
+    });
+});
