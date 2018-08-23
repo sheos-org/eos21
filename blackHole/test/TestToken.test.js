@@ -31,15 +31,6 @@ contract('TestToken', accounts => {
     const decimals = await testToken.decimals();
     decimals.should.be.bignumber.equal(_decimals);
   });
-
-  describe('total supply', function () {
-    it('returns the total amount of tokens', async function () {
-      const totalSupply = await testToken.totalSupply();
-
-      assert.equal(totalSupply, 100);
-    });
-  });
-
 });
 
 return
