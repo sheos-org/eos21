@@ -9,7 +9,9 @@ contract BlackHole {
     }
 
     function evaporate() public {
-        if (block.number >= criticBlock)
-            evaporated = true;
+        if (block.number < criticBlock)
+            return;
+
+        evaporated = true;
     }
 }
