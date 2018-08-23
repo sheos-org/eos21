@@ -1,4 +1,5 @@
 const BlackHole = artifacts.require('BlackHole');
+require('chai').should();
 
 contract('BlackHole', accounts => {
     let blackHole = null;
@@ -8,11 +9,11 @@ contract('BlackHole', accounts => {
     });
 
     it('correct deployed', async () => {
-        assert.notEqual(blackHole, null)
+        blackHole.should.not.equal(null);
     });
 
     it("new blackHole isn't evaporated", async () => {
         const evaporated = await blackHole.evaporated();
-        assert.equal(evaporated, false);
+        evaporated.should.equal(false);
     });
 });
