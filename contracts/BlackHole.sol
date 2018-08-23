@@ -29,6 +29,6 @@ contract BlackHole {
 
     event Teleport(
         uint _value,
-        string note
+        string _note
     );
 }
