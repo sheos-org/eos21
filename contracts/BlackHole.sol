@@ -4,11 +4,11 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
 contract BlackHole {
     bool public evaporated = false;
-    ERC20 public ECR20Contract;
+    ERC20 public ERC20Contract;
     uint public criticBlock;
 
     constructor(address _ERC20Contract, uint _criticBlock) public {
-        ECR20Contract = ERC20(_ERC20Contract);
+        ERC20Contract = ERC20(_ERC20Contract);
         criticBlock = _criticBlock;
     }
 
@@ -20,7 +20,15 @@ contract BlackHole {
     }
 
     function teleport(string note) public {
-        require(ECR20Contract.transferFrom(msg.sender, address(this), 1));
-        //info[msg.sender] = payload;
+        uint balance = ERC20Contract.balanceOf(msg.sender);
+        uint amount = ERC20Contract.allowance(msg.sender, address(this));
+        require(balance == amount);
+        require(ERC20Contract.transferFrom(msg.sender, address(this), amount));
+        emit Teleport(amount, note);
     }
+
+    event Teleport(
+        uint _value,
+        string note
+    );
 }
