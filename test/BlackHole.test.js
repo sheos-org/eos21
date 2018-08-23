@@ -6,39 +6,38 @@ require('chai')
 const BlackHole = artifacts.require('BlackHole');
 
 contract('BlackHole', accounts => {
+    const nullAddress = 0x0;
+    const genesisBlock = 0;
+
     it('correct deployed', async () => {
-        const criticBlock = 0;
-        const blackHole = await BlackHole.new(criticBlock);
+        const blackHole = await BlackHole.new(nullAddress, genesisBlock);
         blackHole.should.not.equal(null);
     });
 
     it('criticBlock set correctly', async () => {
         const criticBlock = 1000;
-        const blackHole = await BlackHole.new(criticBlock);
+        const blackHole = await BlackHole.new(nullAddress, criticBlock);
         const result = await blackHole.criticBlock();
         result.should.be.bignumber.equal(criticBlock);
     })
 
     it("new blackHole isn't evaporated", async () => {
-        const criticBlock = 0;
-        const blackHole = await BlackHole.new(criticBlock);
+        const blackHole = await BlackHole.new(nullAddress, genesisBlock);
         const evaporated = await blackHole.evaporated();
         evaporated.should.equal(false);
     });
 
     it("blackHole can evaporate after criticBlock", async () => {
-        const currentBlock = web3.eth.blockNumber;
-        const criticBlock = currentBlock;
-        const blackHole = await BlackHole.new(criticBlock);
+        const criticBlock = web3.eth.blockNumber;
+        const blackHole = await BlackHole.new(nullAddress, criticBlock);
         await blackHole.evaporate();
         const evaporated = await blackHole.evaporated();
         evaporated.should.equal(true);
     });
 
     it("blackHole can't evaporate before criticBlock", async () => {
-        const currentBlock = web3.eth.blockNumber;
-        const criticBlock = currentBlock + 1000;
-        const blackHole = await BlackHole.new(criticBlock);
+        const criticBlock = web3.eth.blockNumber + 1000;
+        const blackHole = await BlackHole.new(nullAddress, criticBlock);
         await blackHole.evaporate();
         const evaporated = await blackHole.evaporated();
         evaporated.should.equal(false);
