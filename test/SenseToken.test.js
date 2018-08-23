@@ -20,6 +20,6 @@ contract('SenseToken', accounts => {
 
   it('initial balance', async function () {
     const amount = await senseToken.balanceOf(accounts[0]);
-    assert.equal(amount.toNumber(), 1000000, "not equals");
+    amount.should.be.bignumber.equal(1000000)
   });
 });
