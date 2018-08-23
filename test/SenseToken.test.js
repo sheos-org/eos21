@@ -11,7 +11,7 @@ contract('SenseToken', accounts => {
 
   const name = 'Sense test';
   const symbol = 'SNS';
-  const decimals = 4;
+  const decimals = 8;
   const tokens = 100;
 
   beforeEach(async function () {
@@ -20,6 +20,6 @@ contract('SenseToken', accounts => {
 
   it('initial balance', async function () {
     const amount = await senseToken.balanceOf(accounts[0]);
-    amount.should.be.bignumber.equal(1000000)
+    amount.should.be.bignumber.equal(10000000000)
   });
 });
