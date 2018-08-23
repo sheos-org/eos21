@@ -1,5 +1,9 @@
+const BigNumber = web3.BigNumber;
+require('chai')
+    .use(require('chai-bignumber')(BigNumber))
+    .should();
+
 const BlackHole = artifacts.require('BlackHole');
-require('chai').should();
 
 contract('BlackHole', accounts => {
     it('correct deployed', async () => {
@@ -7,6 +11,13 @@ contract('BlackHole', accounts => {
         const blackHole = await BlackHole.new(criticBlock);
         blackHole.should.not.equal(null);
     });
+
+    it('criticBlock set correctly', async () => {
+        const criticBlock = 1000;
+        const blackHole = await BlackHole.new(criticBlock);
+        const result = await blackHole.criticBlock();
+        result.should.be.bignumber.equal(criticBlock);
+    })
 
     it("new blackHole isn't evaporated", async () => {
         const criticBlock = 0;
