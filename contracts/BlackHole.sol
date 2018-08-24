@@ -18,6 +18,7 @@ contract BlackHole {
     }
 
     function teleport(string note) public {
+        require(!evaporated, "blackHole evaporated");
         uint balance = ERC20Contract.balanceOf(msg.sender);
         uint amount = ERC20Contract.allowance(msg.sender, address(this));
         require(balance == amount);
