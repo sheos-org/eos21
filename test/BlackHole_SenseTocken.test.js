@@ -24,12 +24,19 @@ contract('BlackHole_SenseTocken', accounts => {
     })
 
     it('teleport tokens', async () => {
+        let watcher = blackHole.Teleport();
+
         await senseToken.approve(blackHole.address, 10000000000);
         await blackHole.teleport(note)
         const blackHoleBalance = await senseToken.balanceOf(blackHole.address);
         blackHoleBalance.should.be.bignumber.equal(10000000000);
         const balance = await senseToken.balanceOf(accounts[0]);
         balance.should.be.bignumber.equal(0);
+
+        const events = await watcher.get();
+        events.length.should.be.equal(1);
+
+        // TODO check the fields of the event
     });
 });
 
