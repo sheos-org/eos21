@@ -22,4 +22,15 @@ contract('SenseToken', accounts => {
     const amount = await senseToken.balanceOf(accounts[0]);
     amount.should.be.bignumber.equal(10000000000)
   });
+
+  it('allowance without approve', async function() {
+    const remaining = await senseToken.allowance(accounts[0], accounts[1]);
+    remaining.should.be.bignumber.equal(0);
+  });
+
+  it('allowance with approve', async function() {
+    await senseToken.approve(accounts[1], tokens);
+    const remaining = await senseToken.allowance(accounts[0], accounts[1]);
+    remaining.should.be.bignumber.equal(tokens);
+  });
 });

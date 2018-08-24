@@ -20,11 +20,16 @@ contract('BlackHole_SenseTocken', accounts => {
     let blackHole = null;
     beforeEach(async () => {
         senseToken = await SenseToken.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(address(senseToken), genesisBlock);
+        blackHole = await BlackHole.new(senseToken.address, genesisBlock);
     })
 
     it('teleport tokens', async () => {
-        senseToken.approve(address(blackHole), tokens);
-    })
+        await senseToken.approve(blackHole.address, 10000000000);
+        await blackHole.teleport(note)
+        const blackHoleBalance = await senseToken.balanceOf(blackHole.address);
+        blackHoleBalance.should.be.bignumber.equal(10000000000);
+        const balance = await senseToken.balanceOf(accounts[0]);
+        balance.should.be.bignumber.equal(0);
+    });
 });
 
