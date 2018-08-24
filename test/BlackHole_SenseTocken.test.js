@@ -18,12 +18,14 @@ contract('BlackHole_SenseTocken', accounts => {
     const note = 'no problems, just solutions';
 
     let senseToken = null;
+    let blackHole = null;
     beforeEach(async () => {
         senseToken = await SenseToken.new(name, symbol, tokens, decimals);
+        blackHole = await BlackHole.new(senseToken.address, genesisBlock);
     })
 
     it('create blackHole with ERC20 contract', async () => {
-        const blackHole = await BlackHole.new(senseToken.address, genesisBlock);
+
     })
 });
 
