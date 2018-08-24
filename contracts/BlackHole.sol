@@ -21,8 +21,8 @@ contract BlackHole {
         require(!evaporated, "blackHole evaporated");
         uint balance = ERC20Contract.balanceOf(msg.sender);
         uint amount = ERC20Contract.allowance(msg.sender, address(this));
-        require(balance == amount);
-        require(ERC20Contract.transferFrom(msg.sender, address(this), amount));
+        require(balance == amount, "blackHole must attract all your balance");
+        require(ERC20Contract.transferFrom(msg.sender, address(this), amount), "blackHole can't attract your tokens");
         emit Teleport(amount, note);
     }
 
