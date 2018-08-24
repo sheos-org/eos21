@@ -1,6 +1,7 @@
 const BigNumber = web3.BigNumber;
 require('chai')
     .use(require('chai-bignumber')(BigNumber))
+    .use(require('chai-as-promised'))
     .should();
 
 const BlackHole = artifacts.require('BlackHole');
@@ -38,7 +39,7 @@ contract('BlackHole', accounts => {
     it("blackHole can't evaporate before criticBlock", async () => {
         const criticBlock = web3.eth.blockNumber + 1000;
         const blackHole = await BlackHole.new(nullAddress, criticBlock);
-        await blackHole.evaporate();
+        (blackHole.evaporate()).should.be.eventually.rejected;
         const evaporated = await blackHole.evaporated();
         evaporated.should.equal(false);
     });
