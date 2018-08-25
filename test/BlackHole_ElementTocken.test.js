@@ -5,10 +5,10 @@ require('chai')
     .should();
 
 const BlackHole = artifacts.require('BlackHole');
-const SenseToken = artifacts.require('ElementToken');
+const ElementToken = artifacts.require('ElementToken');
 
-contract('BlackHole_SenseTocken', accounts => {
-    const name = 'Sense test';
+contract('BlackHole_ElementTocken', accounts => {
+    const name = 'Element test';
     const symbol = 'SNS';
     const decimals = 8;
     const tokens = 100;
@@ -16,21 +16,21 @@ contract('BlackHole_SenseTocken', accounts => {
     const genesisBlock = 0;
     const note = 'no problems, just solutions';
 
-    let senseToken = null;
+    let elementToken = null;
     let blackHole = null;
     beforeEach(async () => {
-        senseToken = await SenseToken.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(senseToken.address, genesisBlock);
+        elementToken = await ElementToken.new(name, symbol, tokens, decimals);
+        blackHole = await BlackHole.new(elementToken.address, genesisBlock);
     })
 
     it('teleport tokens', async () => {
         let watcher = blackHole.Teleport();
 
-        await senseToken.approve(blackHole.address, 10000000000);
+        await elementToken.approve(blackHole.address, 10000000000);
         await blackHole.teleport(note)
-        const blackHoleBalance = await senseToken.balanceOf(blackHole.address);
+        const blackHoleBalance = await elementToken.balanceOf(blackHole.address);
         blackHoleBalance.should.be.bignumber.equal(10000000000);
-        const balance = await senseToken.balanceOf(accounts[0]);
+        const balance = await elementToken.balanceOf(accounts[0]);
         balance.should.be.bignumber.equal(0);
 
         const events = await watcher.get();
