@@ -35,8 +35,8 @@ contract('BlackHole_ElementTocken', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-
-        // TODO check the fields of the event
+        events[0].args._note.should.be.equal(note);
+        events[0].args._tokens.should.be.bignumber.equal(10000000000);
     });
 });
 
