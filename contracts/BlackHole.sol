@@ -13,6 +13,7 @@ contract BlackHole {
     }
 
     function evaporate() public {
+        require(!evaporated, "blackHole already evaporated");
         require(block.number >= criticBlock, "blackHole hasn't reached the critical mass");
         evaporated = true;
     }

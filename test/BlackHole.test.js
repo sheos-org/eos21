@@ -50,8 +50,14 @@ contract('BlackHole', accounts => {
         (blackHole.teleport(note)).should.be.rejected;
     });
 
-    it("teleport with invalid ECR20Cotract", async () => {
+    it("teleport with invalid ERC20Contract", async () => {
         const blackHole = await BlackHole.new(nullAddress, genesisBlock);
         (blackHole.teleport(note)).should.be.rejected;
+    });
+
+    it("evaporate when already evaporated throw", async () => {
+        const blackHole = await BlackHole.new(nullAddress, genesisBlock);
+        blackHole.evaporate();
+        (blackHole.evaporate()).should.be.rejected;
     });
 });
