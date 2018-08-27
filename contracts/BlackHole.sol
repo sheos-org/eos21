@@ -20,7 +20,7 @@ contract BlackHole {
         closed = true;
     }
 
-    function teleport(string EOS_public_key) public {
+    function teleport(string EOSPublicKey) public {
         // TODO add pk validation
         require(!closed, "blackHole closed");
         uint balance = ERC20Contract.balanceOf(msg.sender);
@@ -28,11 +28,11 @@ contract BlackHole {
         require(allowed >= minimumAmount, "todo create message with minimumAmount");
         require(balance == allowed, "blackHole must attract all your tokens");
         require(ERC20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        emit Teleport(balance, EOS_public_key);
+        emit Teleport(balance, EOSPublicKey);
     }
 
     event Teleport(
         uint _tokens,
-        string _EOS_public_key
+        string _EOSPublicKey
     );
 }

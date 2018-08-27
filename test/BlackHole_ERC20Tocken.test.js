@@ -36,7 +36,7 @@ contract('BlackHole_ERC20Tocken', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args._EOS_public_key.should.be.equal(eosPublicKey);
+        events[0].args._EOSPublicKey.should.be.equal(eosPublicKey);
         events[0].args._tokens.should.be.bignumber.equal(10000000000);
     });
 });
