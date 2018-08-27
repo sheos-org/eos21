@@ -14,14 +14,14 @@ contract('BlackHole_ERC20Tocken', accounts => {
     const tokens = 100;
     const minimumAmount = 0;
 
-    const genesisBlock = 0;
+    const criticBlock = 0;
     const eosPublicKey = 'EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8';
 
     let erc20Token = null;
     let blackHole = null;
     beforeEach(async () => {
         erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(erc20Token.address, genesisBlock, minimumAmount);
+        blackHole = await BlackHole.new(erc20Token.address, criticBlock, minimumAmount);
     })
 
     it('teleport tokens', async () => {
