@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "chai-as-promised": "^7.1.1",
+    "eosjs": "^16.0.6",
     "openzeppelin-solidity": "1.12.0",
     "web3": "^1.0.0-beta.35"
   }
