@@ -3,7 +3,7 @@ pragma solidity ^0.4.22;
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
 contract BlackHole {
-    bool public evaporated = false;
+    bool public closed = false;
     ERC20 public ERC20Contract;
     uint public criticBlock;
     uint public minimumAmount;
@@ -14,15 +14,15 @@ contract BlackHole {
         minimumAmount = _minimumAmount;
     }
 
-    function evaporate() public {
-        require(!evaporated, "blackHole already evaporated");
+    function close() public {
+        require(!closed, "blackHole already closed");
         require(block.number >= criticBlock, "blackHole hasn't reached the critical mass");
-        evaporated = true;
+        closed = true;
     }
 
     function teleport(string EOS_public_key) public {
         // TODO add pk validation
-        require(!evaporated, "blackHole evaporated");
+        require(!closed, "blackHole closed");
         uint balance = ERC20Contract.balanceOf(msg.sender);
         uint allowed = ERC20Contract.allowance(msg.sender, address(this));
         require(allowed >= minimumAmount, "todo create message with minimumAmount");

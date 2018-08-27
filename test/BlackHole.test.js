@@ -24,30 +24,30 @@ contract('BlackHole', accounts => {
         result.should.be.bignumber.equal(criticBlock);
     })
 
-    it("new blackHole isn't evaporated", async () => {
+    it("new blackHole isn't closed", async () => {
         const blackHole = await BlackHole.new(nullAddress, genesisBlock, minimumAmount);
-        const evaporated = await blackHole.evaporated();
-        evaporated.should.equal(false);
+        const closed = await blackHole.closed();
+        closed.should.equal(false);
     });
 
-    it("blackHole can evaporate after criticBlock", async () => {
+    it("blackHole can close after criticBlock", async () => {
         const blackHole = await BlackHole.new(nullAddress, genesisBlock, minimumAmount);
-        await blackHole.evaporate();
-        const evaporated = await blackHole.evaporated();
-        evaporated.should.equal(true);
+        await blackHole.close();
+        const closed = await blackHole.closed();
+        closed.should.equal(true);
     });
 
-    it("blackHole can't evaporate before criticBlock", async () => {
+    it("blackHole can't close before criticBlock", async () => {
         const criticBlock = web3.eth.blockNumber + 1000;
         const blackHole = await BlackHole.new(nullAddress, criticBlock, minimumAmount);
-        (blackHole.evaporate()).should.be.rejected;
-        const evaporated = await blackHole.evaporated();
-        evaporated.should.equal(false);
+        (blackHole.close()).should.be.rejected;
+        const closed = await blackHole.closed();
+        closed.should.equal(false);
     });
 
-    it ("can't teleport if blackHole is evaporated", async () => {
+    it ("can't teleport if blackHole is closed", async () => {
         const blackHole = await BlackHole.new(nullAddress, genesisBlock, minimumAmount);
-        await blackHole.evaporate();
+        await blackHole.close();
         (blackHole.teleport(note)).should.be.rejected;
     });
 
@@ -56,9 +56,9 @@ contract('BlackHole', accounts => {
         (blackHole.teleport(note)).should.be.rejected;
     });
 
-    it("evaporate when already evaporated throw", async () => {
+    it("close when already closed throw", async () => {
         const blackHole = await BlackHole.new(nullAddress, genesisBlock, minimumAmount);
-        blackHole.evaporate();
-        (blackHole.evaporate()).should.be.rejected;
+        blackHole.close();
+        (blackHole.close()).should.be.rejected;
     });
 });
