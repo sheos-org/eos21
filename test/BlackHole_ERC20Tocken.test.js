@@ -5,38 +5,38 @@ require('chai')
     .should();
 
 const BlackHole = artifacts.require('BlackHole');
-const ElementToken = artifacts.require('ElementToken');
+const ERC20Token = artifacts.require('ERC20Token');
 
-contract('BlackHole_ElementTocken', accounts => {
-    const name = 'Element test';
+contract('BlackHole_ERC20Tocken', accounts => {
+    const name = 'ERC20 test';
     const symbol = 'SNS';
     const decimals = 8;
     const tokens = 100;
     const minimumAmount = 0;
 
     const genesisBlock = 0;
-    const note = 'no problems, just solutions';
+    const eosPublicKey = 'EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8';
 
-    let elementToken = null;
+    let erc20Token = null;
     let blackHole = null;
     beforeEach(async () => {
-        elementToken = await ElementToken.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(elementToken.address, genesisBlock, minimumAmount);
+        erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
+        blackHole = await BlackHole.new(erc20Token.address, genesisBlock, minimumAmount);
     })
 
     it('teleport tokens', async () => {
         let watcher = blackHole.Teleport();
 
-        await elementToken.approve(blackHole.address, 10000000000);
-        await blackHole.teleport(note)
-        const blackHoleBalance = await elementToken.balanceOf(blackHole.address);
+        await erc20Token.approve(blackHole.address, 10000000000);
+        await blackHole.teleport(eosPublicKey)
+        const blackHoleBalance = await erc20Token.balanceOf(blackHole.address);
         blackHoleBalance.should.be.bignumber.equal(10000000000);
-        const balance = await elementToken.balanceOf(accounts[0]);
+        const balance = await erc20Token.balanceOf(accounts[0]);
         balance.should.be.bignumber.equal(0);
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args._EOS_public_key.should.be.equal(note);
+        events[0].args._EOS_public_key.should.be.equal(eosPublicKey);
         events[0].args._tokens.should.be.bignumber.equal(10000000000);
     });
 });

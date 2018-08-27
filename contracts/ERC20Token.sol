@@ -301,7 +301,7 @@ contract Pausable is Ownable {
  * this contract.
  *
  */
-contract ElementToken is StandardToken, Pausable {
+contract ERC20Token is StandardToken, Pausable {
 
   string public name = '';               // Set the token name for display
   string public symbol = '';             // Set the token symbol for display
@@ -319,7 +319,7 @@ contract ElementToken is StandardToken, Pausable {
    * @dev ElementToken Constructor
    * Runs only on initial contract creation.
    */
-  function ElementToken(string _name, string _symbol, uint256 _tokens, uint8 _decimals) {
+  function ERC20Token(string _name, string _symbol, uint256 _tokens, uint8 _decimals) {
     name = _name;
     symbol = _symbol;
     decimals = _decimals;
