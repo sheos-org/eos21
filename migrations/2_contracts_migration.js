@@ -7,9 +7,10 @@ module.exports = function (deployer) {
   const decimals = 8;
   const tokens = 100;
   const genesisBlock = 0;
+  const minimumAmount = 0;
 
   deployer.deploy(ElementToken, name, symbol, tokens, decimals).then(() => {
-    return deployer.deploy(BlackHole, ElementToken.address, genesisBlock);
+    return deployer.deploy(BlackHole, ElementToken.address, genesisBlock, minimumAmount);
   })
 };
 

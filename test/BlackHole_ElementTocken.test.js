@@ -12,6 +12,7 @@ contract('BlackHole_ElementTocken', accounts => {
     const symbol = 'SNS';
     const decimals = 8;
     const tokens = 100;
+    const minimumAmount = 0;
 
     const genesisBlock = 0;
     const note = 'no problems, just solutions';
@@ -20,7 +21,7 @@ contract('BlackHole_ElementTocken', accounts => {
     let blackHole = null;
     beforeEach(async () => {
         elementToken = await ElementToken.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(elementToken.address, genesisBlock);
+        blackHole = await BlackHole.new(elementToken.address, genesisBlock, minimumAmount);
     })
 
     it('teleport tokens', async () => {
@@ -35,7 +36,7 @@ contract('BlackHole_ElementTocken', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args._note.should.be.equal(note);
+        events[0].args._EOS_public_key.should.be.equal(note);
         events[0].args._tokens.should.be.bignumber.equal(10000000000);
     });
 });

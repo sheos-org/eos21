@@ -6,10 +6,12 @@ contract BlackHole {
     bool public evaporated = false;
     ERC20 public ERC20Contract;
     uint public criticBlock;
+    uint public minimumAmount;
 
-    constructor(address _ERC20Contract, uint _criticBlock) public {
+    constructor(address _ERC20Contract, uint _criticBlock, uint _minimumAmount) public {
         ERC20Contract = ERC20(_ERC20Contract);
         criticBlock = _criticBlock;
+        minimumAmount = _minimumAmount;
     }
 
     function evaporate() public {
@@ -18,17 +20,19 @@ contract BlackHole {
         evaporated = true;
     }
 
-    function teleport(string note) public {
+    function teleport(string EOS_public_key) public {
+        // TODO add pk validation
         require(!evaporated, "blackHole evaporated");
         uint balance = ERC20Contract.balanceOf(msg.sender);
         uint allowed = ERC20Contract.allowance(msg.sender, address(this));
+        require(allowed >= minimumAmount, "todo create message with minimumAmount");
         require(balance == allowed, "blackHole must attract all your tokens");
         require(ERC20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        emit Teleport(balance, note);
+        emit Teleport(balance, EOS_public_key);
     }
 
     event Teleport(
         uint _tokens,
-        string _note
+        string _EOS_public_key
     );
 }
