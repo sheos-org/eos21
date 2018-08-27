@@ -1,4 +1,4 @@
-var ElementToken = artifacts.require("./ElementToken.sol");
+var ERC20Token = artifacts.require("./ERC20Token.sol");
 var BlackHole = artifacts.require("./BlackHole.sol")
 
 module.exports = function (deployer) {
@@ -9,8 +9,8 @@ module.exports = function (deployer) {
   const genesisBlock = 0;
   const minimumAmount = 0;
 
-  deployer.deploy(ElementToken, name, symbol, tokens, decimals).then(() => {
-    return deployer.deploy(BlackHole, ElementToken.address, genesisBlock, minimumAmount);
+  deployer.deploy(ERC20Token, name, symbol, tokens, decimals).then(() => {
+    return deployer.deploy(BlackHole, ERC20Token.address, genesisBlock, minimumAmount);
   })
 };
 
