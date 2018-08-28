@@ -20,8 +20,29 @@ contract BlackHole {
         closed = true;
     }
 
+    function isValidKey(string str) public pure returns (bool){
+        bytes memory b = bytes(str);
+        if(b.length != 53) return false;
+
+        // EOS
+        if (bytes1(b[0]) != 0x45 || bytes1(b[1]) != 0x4F || bytes1(b[2]) != 0x53)
+            return false;
+
+        for(uint i = 3; i<b.length; i++){
+            bytes1 char = b[i];
+
+            // 0-9 && !-z && a-z
+            if(!(char >= 0x30 && char <= 0x39) &&
+               !(char >= 0x41 && char <= 0x5A) &&
+               !(char >= 0x61 && char <= 0x7A)) 
+            return false;
+        }
+
+        return true;
+    }
+
     function teleport(string EOSPublicKey) public {
-        // TODO add pk validation
+        require(isValidKey(EOSPublicKey), "not valid EOS public key");
         require(!closed, "blackHole closed");
         uint balance = ERC20Contract.balanceOf(msg.sender);
         uint allowed = ERC20Contract.allowance(msg.sender, address(this));
