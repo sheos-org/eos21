@@ -40,7 +40,7 @@ contract('BlackHole', accounts => {
     it("blackHole can't close before criticBlock", async () => {
         const criticBlock = web3.eth.blockNumber + 1000;
         const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
-        (blackHole.close()).should.be.rejected;
+        await blackHole.close().should.be.rejected;
         const closed = await blackHole.closed();
         closed.should.equal(false);
     });
@@ -48,17 +48,17 @@ contract('BlackHole', accounts => {
     it ("can't teleport if blackHole is closed", async () => {
         const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
         await blackHole.close();
-        (blackHole.teleport(eosPublicKey)).should.be.rejected;
+        await blackHole.teleport(eosPublicKey).should.be.rejected;
     });
 
     it("teleport with invalid ERC20Contract", async () => {
         const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
-        (blackHole.teleport(eosPublicKey)).should.be.rejected;
+        await blackHole.teleport(eosPublicKey).should.be.rejected;
     });
 
     it("close when already closed throw", async () => {
         const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
         blackHole.close();
-        (blackHole.close()).should.be.rejected;
+        await blackHole.close().should.be.rejected;
     });
 });

@@ -22,7 +22,7 @@ contract('BlackHole_ERC20Tocken', accounts => {
     beforeEach(async () => {
         erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
         blackHole = await BlackHole.new(erc20Token.address, criticBlock, minimumAmount);
-    })
+    });
 
     it('teleport tokens', async () => {
         let watcher = blackHole.Teleport();
@@ -38,6 +38,14 @@ contract('BlackHole_ERC20Tocken', accounts => {
         events.length.should.be.equal(1);
         events[0].args._EOSPublicKey.should.be.equal(eosPublicKey);
         events[0].args._tokens.should.be.bignumber.equal(10000000000);
+    });
+
+    it('teleport with not valid EOS key, then valid', async () => {
+        await erc20Token.approve(blackHole.address, 10000000000);
+        await blackHole.teleport("EO7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
+        await blackHole.teleport("EOSM38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
+        await blackHole.teleport("EOW7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
+        await blackHole.teleport(eosPublicKey);
     });
 });
 
