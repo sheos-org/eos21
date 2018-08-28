@@ -6,3 +6,13 @@ In order to burn Ethereum ERC20 Tockens and materialize them into EOS we need 3 
 * **BlackHole** Contract in Ethereum Universe.
 * **WhiteHole** Contract in EOSIO Universe.
 * **WarmHole** to teleport tockens.
+
+# installation:
+Clone the repository then change to repo directory.
+```
+$ sudo npm install -g truffle
+$ npm install
+$ truffle compile
+$ truffle test
+```
+
