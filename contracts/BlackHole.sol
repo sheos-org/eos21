@@ -4,12 +4,12 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
 contract BlackHole {
     bool public closed = false;
-    ERC20 public ERC20Contract;
+    ERC20 public erc20Contract;
     uint public criticBlock;
     uint public minimumAmount;
 
-    constructor(address _ERC20Contract, uint _criticBlock, uint _minimumAmount) public {
-        ERC20Contract = ERC20(_ERC20Contract);
+    constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public {
+        erc20Contract = ERC20(_erc20Contract);
         criticBlock = _criticBlock;
         minimumAmount = _minimumAmount;
     }
@@ -41,19 +41,19 @@ contract BlackHole {
         return true;
     }
 
-    function teleport(string EOSPublicKey) public {
-        require(isValidKey(EOSPublicKey), "not valid EOS public key");
+    function teleport(string eosPublicKey) public {
+        require(isValidKey(eosPublicKey), "not valid EOS public key");
         require(!closed, "blackHole closed");
-        uint balance = ERC20Contract.balanceOf(msg.sender);
-        uint allowed = ERC20Contract.allowance(msg.sender, address(this));
+        uint balance = erc20Contract.balanceOf(msg.sender);
+        uint allowed = erc20Contract.allowance(msg.sender, address(this));
         require(allowed >= minimumAmount, "todo create message with minimumAmount");
         require(balance == allowed, "blackHole must attract all your tokens");
-        require(ERC20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        emit Teleport(balance, EOSPublicKey);
+        require(erc20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
+        emit Teleport(balance, eosPublicKey);
     }
 
     event Teleport(
         uint _tokens,
-        string _EOSPublicKey
+        string _eosPublicKey
     );
 }
