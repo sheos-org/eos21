@@ -17,14 +17,10 @@ contract('BlackHole_ERC20Tocken', accounts => {
     const criticBlock = 0;
     const eosPublicKey = 'EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8';
 
-    let erc20Token = null;
-    let blackHole = null;
-    beforeEach(async () => {
-        erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
-        blackHole = await BlackHole.new(erc20Token.address, criticBlock, minimumAmount);
-    });
-
     it('teleport tokens', async () => {
+        const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
+        const blackHole = await BlackHole.new(erc20Token.address, criticBlock, minimumAmount);
+
         let watcher = blackHole.Teleport();
 
         await erc20Token.approve(blackHole.address, 10000000000);
@@ -41,11 +37,22 @@ contract('BlackHole_ERC20Tocken', accounts => {
     });
 
     it('teleport with not valid EOS key, then valid', async () => {
+        const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
+        const blackHole = await BlackHole.new(erc20Token.address, criticBlock, minimumAmount);
+
         await erc20Token.approve(blackHole.address, 10000000000);
         await blackHole.teleport("EO7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
         await blackHole.teleport("EOSM38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
         await blackHole.teleport("EOW7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
         await blackHole.teleport(eosPublicKey);
+    });
+
+    it('teleport with less than minimum balance', async () => {
+        const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
+        const blackHole = await BlackHole.new(erc20Token.address, criticBlock, 10000000001);
+
+        await erc20Token.approve(blackHole.address, 10000000000);
+        await blackHole.teleport(eosPublicKey).should.be.rejected;
     });
 });
 
