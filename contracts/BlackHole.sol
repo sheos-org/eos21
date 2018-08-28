@@ -31,7 +31,7 @@ contract BlackHole {
         for(uint i = 3; i<b.length; i++){
             bytes1 char = b[i];
 
-            // 0-9 && !-z && a-z
+            // 0-9 && A-Z && a-z
             if(!(char >= 0x30 && char <= 0x39) &&
                !(char >= 0x41 && char <= 0x5A) &&
                !(char >= 0x61 && char <= 0x7A)) 
