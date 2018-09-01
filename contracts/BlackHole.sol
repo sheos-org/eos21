@@ -47,6 +47,13 @@ contract BlackHole {
         return true;
     }
 
+    function isValidAccount(string account) public pure returns (bool){
+        bytes memory b = bytes(account);
+        if (b.length != 12) return false;
+        
+        return true;
+    }
+
 // Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
     function teleportKey(string eosPublicKey) public {
         require(isValidKey(eosPublicKey), "not valid EOS public key");
@@ -61,7 +68,7 @@ contract BlackHole {
 
 // Use this function to move if a user has an existing EOS account, tokens can be moved via this method
     function teleportAccount(string eosAccount) public {
-    // TODO add account eosAccount validation
+        require(isValidAccount(eosAccount), "not valid EOS account");
         require(!closed, "blackHole closed");
         uint balance = erc20Contract.balanceOf(msg.sender);
         uint allowed = erc20Contract.allowance(msg.sender, address(this));
