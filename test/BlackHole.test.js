@@ -61,4 +61,15 @@ contract('BlackHole', accounts => {
         blackHole.close();
         await blackHole.close().should.be.rejected;
     });
+
+    it("valid account name", async () => {
+        const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
+        await blackHole.isValidAccount("te.mgr5ymass").should.eventually.be.true;
+        await blackHole.isValidAccount("teamgreymas").should.eventually.be.false;
+        await blackHole.isValidAccount("teamgreymasss").should.eventually.be.false;
+        await blackHole.isValidAccount("0eamgreymass").should.eventually.be.false;
+        await blackHole.isValidAccount("teAmgreymass").should.eventually.be.false;
+        await blackHole.isValidAccount("te6mgreymass").should.eventually.be.false;
+        await blackHole.isValidAccount("teamgreyZass").should.eventually.be.false;
+    });
 });

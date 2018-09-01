@@ -50,6 +50,16 @@ contract BlackHole {
     function isValidAccount(string account) public pure returns (bool){
         bytes memory b = bytes(account);
         if (b.length != 12) return false;
+
+        for(uint i = 0; i<b.length; i++){
+            bytes1 char = b[i];
+
+            // a-z && 1-5 && .
+            if(!(char >= 0x61 && char <= 0x7A) && 
+               !(char >= 0x31 && char <= 0x35) && 
+               !(char == 0x2E)) 
+            return  false;
+        }
         
         return true;
     }
