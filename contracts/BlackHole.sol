@@ -2,14 +2,14 @@ pragma solidity ^0.4.22;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
-// Blackhole contract - can set minimumAmount and critical block for ending ETH contract active period
-contract Blackhole {
+// BlackHole contract - can set minimumAmount and critical block for ending ETH contract active period
+contract BlackHole {
     bool public closed = false;
     ERC20 public erc20Contract;
     uint public criticBlock;
     uint public minimumAmount;
 
-// Construction of the ETH Blackhole contract
+// Construction of the ETH BlackHole contract
     constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public {
         erc20Contract = ERC20(_erc20Contract);
         criticBlock = _criticBlock;
@@ -18,8 +18,8 @@ contract Blackhole {
 
 // Check to make sure that the contract is still active if it has not reached the critical block expiration date
     function close() public {
-        require(!closed, "This Blackhole contract's active period has expired.");
-        require(block.number >= criticBlock, "Blackhole hasn't reached the critical mass");
+        require(!closed, "This BlackHole contract's active period has expired.");
+        require(block.number >= criticBlock, "BlackHole hasn't reached the critical mass");
         closed = true;
     }
 
