@@ -72,4 +72,16 @@ contract('BlackHole', accounts => {
         await blackHole.isValidAccount("te6mgreymass").should.eventually.be.false;
         await blackHole.isValidAccount("teamgreyZass").should.eventually.be.false;
     });
+
+    it("valid public key", async () => {
+        const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
+        await blackHole.isValidKey("EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.true;
+        await blackHole.isValidKey("EOS77M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.false; // size
+        await blackHole.isValidKey("EOSM38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.false; // size
+        await blackHole.isValidKey("EOW7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.false; // not starting EOS
+        await blackHole.isValidKey("EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so70Ba9hJn9uuKDN7we8").should.eventually.be.false; // 0
+        await blackHole.isValidKey("EOS7M38bvCoO7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.false; // O
+        await blackHole.isValidKey("EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJnIuuKDN7we8").should.eventually.be.false; // I
+        await blackHole.isValidKey("EOS7M38bvCoL7N3mBDbQyqePcKl28G2b3so7XBa9hJn9uuKDN7we8").should.eventually.be.false; // l
+    });
 });
