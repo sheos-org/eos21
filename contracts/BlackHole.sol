@@ -64,16 +64,6 @@ contract BlackHole {
         return true;
     }
 
-    function withdraw() private returns (uint){
-        require(!closed, "blackHole closed");
-        uint balance = erc20Contract.balanceOf(msg.sender);
-        uint allowed = erc20Contract.allowance(msg.sender, address(this));
-        require(allowed >= minimumAmount, "todo create message with minimumAmount");
-        require(balance == allowed, "blackHole must attract all your tokens");
-        require(erc20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        return balance;
-    }
-
 // Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
     function teleportKey(string eosPublicKey) public {
         require(isValidKey(eosPublicKey), "not valid EOS public key");
@@ -99,4 +89,14 @@ contract BlackHole {
         uint _tokens,
         string _eosPublicKey
     );
+
+    function withdraw() private returns (uint){
+        require(!closed, "blackHole closed");
+        uint balance = erc20Contract.balanceOf(msg.sender);
+        uint allowed = erc20Contract.allowance(msg.sender, address(this));
+        require(allowed >= minimumAmount, "todo create message with minimumAmount");
+        require(balance == allowed, "blackHole must attract all your tokens");
+        require(erc20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
+        return balance;
+    }
 }
