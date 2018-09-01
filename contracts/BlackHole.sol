@@ -46,8 +46,7 @@ contract EosValidator {
 }
 
 // BlackHole contract - can set minimumAmount and critical block for ending ETH contract active period
-contract BlackHole {
-    EosValidator private eosValidator;
+contract BlackHole is EosValidator{
     bool public closed = false;
     ERC20 public erc20Contract;
     uint public criticBlock;
@@ -69,14 +68,14 @@ contract BlackHole {
 
 // Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
     function teleportKey(string eosPublicKey) public {
-        require(eosValidator.isValidKey(eosPublicKey), "not valid EOS public key");
+        require(isValidKey(eosPublicKey), "not valid EOS public key");
         uint amount = withdraw();
         emit TeleportKey(amount, eosPublicKey);
     }
 
 // Use this function to move if a user has an existing EOS account, tokens can be moved via this method
     function teleportAccount(string eosAccount) public {
-        require(eosValidator.isValidAccount(eosAccount), "not valid EOS account");
+        require(isValidAccount(eosAccount), "not valid EOS account");
         uint amount = withdraw();
         emit TeleportAccount(amount, eosAccount);
     }
