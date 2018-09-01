@@ -44,6 +44,10 @@ contract('BlackHole_ERC20Tocken', accounts => {
         await blackHole.teleport("EO7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
         await blackHole.teleport("EOSM38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
         await blackHole.teleport("EOW7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected;
+        await blackHole.teleport("EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so70Ba9hJn9uuKDN7we8").should.be.rejected; // 0
+        await blackHole.teleport("EOS7M38bvCoO7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected; // O
+        await blackHole.teleport("EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJnIuuKDN7we8").should.be.rejected; // I
+        await blackHole.teleport("EOS7M38bvCoL7N3mBDbQyqePcKl28G2b3so7XBa9hJn9uuKDN7we8").should.be.rejected; // l
         await blackHole.teleport(eosPublicKey);
     });
 
