@@ -64,28 +64,28 @@ contract BlackHole {
         return true;
     }
 
-// Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
-    function teleportKey(string eosPublicKey) public {
-        require(isValidKey(eosPublicKey), "not valid EOS public key");
+    function withdraw() private returns (uint){
         require(!closed, "blackHole closed");
         uint balance = erc20Contract.balanceOf(msg.sender);
         uint allowed = erc20Contract.allowance(msg.sender, address(this));
         require(allowed >= minimumAmount, "todo create message with minimumAmount");
         require(balance == allowed, "blackHole must attract all your tokens");
         require(erc20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        emit TeleportKey(balance, eosPublicKey);
+        return balance;
+    }
+
+// Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
+    function teleportKey(string eosPublicKey) public {
+        require(isValidKey(eosPublicKey), "not valid EOS public key");
+        uint amount = withdraw();
+        emit TeleportKey(amount, eosPublicKey);
     }
 
 // Use this function to move if a user has an existing EOS account, tokens can be moved via this method
     function teleportAccount(string eosAccount) public {
         require(isValidAccount(eosAccount), "not valid EOS account");
-        require(!closed, "blackHole closed");
-        uint balance = erc20Contract.balanceOf(msg.sender);
-        uint allowed = erc20Contract.allowance(msg.sender, address(this));
-        require(allowed >= minimumAmount, "todo create message with minimumAmount");
-        require(balance == allowed, "blackHole must attract all your tokens");
-        require(erc20Contract.transferFrom(msg.sender, address(this), balance), "blackHole can't attract your tokens");
-        emit TeleportAccount(balance, eosAccount);
+        uint amount = withdraw();
+        emit TeleportAccount(amount, eosAccount);
     }
 
 // Activate teleportation of ERC20 Tokens to an existing EOS account via the src/wormhole.js
