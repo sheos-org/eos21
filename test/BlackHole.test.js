@@ -45,17 +45,6 @@ contract('BlackHole', accounts => {
         closed.should.equal(false);
     });
 
-    it ("can't teleportKey if blackHole is closed", async () => {
-        const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
-        await blackHole.close();
-        await blackHole.teleportKey(eosPublicKey).should.be.rejected;
-    });
-
-    it("teleportKey with invalid ERC20Contract", async () => {
-        const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
-        await blackHole.teleportKey(eosPublicKey).should.be.rejected;
-    });
-
     it("close when already closed throw", async () => {
         const blackHole = await BlackHole.new(erc20ContractAddress, criticBlock, minimumAmount);
         blackHole.close();

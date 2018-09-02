@@ -4,7 +4,7 @@ require('chai')
     .use(require('chai-as-promised'))
     .should();
 
-const BlackHole = artifacts.require('BlackHole');
+const BlackHole = artifacts.require('EosBlackHole');
 const ERC20Token = artifacts.require('ERC20Token');
 
 contract('BlackHole_ERC20Tocken', accounts => {
@@ -17,6 +17,17 @@ contract('BlackHole_ERC20Tocken', accounts => {
     const criticBlock = 0;
     const eosPublicKey = 'EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8';
     const eosAccount = "te.mgr5ymass";
+
+    it ("can't teleportKey if blackHole is closed", async () => {
+        const blackHole = await BlackHole.new(0x0, criticBlock, minimumAmount);
+        await blackHole.close();
+        await blackHole.teleportKey(eosPublicKey).should.be.rejected;
+    });
+
+    it("teleportKey with invalid ERC20Contract", async () => {
+        const blackHole = await BlackHole.new(0x0, criticBlock, minimumAmount);
+        await blackHole.teleportKey(eosPublicKey).should.be.rejected;
+    });
 
     it('teleport key', async () => {
         const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
