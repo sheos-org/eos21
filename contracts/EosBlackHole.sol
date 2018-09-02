@@ -10,8 +10,7 @@ import "./BlackHole.sol";
  */
 contract EosBlackHole is EosValidator, BlackHole{
 // Construction of the ETH BlackHole contract
-    constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) 
-    public 
+    constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public 
     BlackHole(_erc20Contract, _criticBlock, _minimumAmount)
     {
     }
