@@ -3,7 +3,11 @@ pragma solidity ^0.4.22;
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "./EosValidator.sol";
 
-// BlackHole contract - can set minimumAmount and critical block for ending ETH contract active period
+/** @title BlackHole 
+ * 
+ * @dev Implementation of the BlackHole contract.
+ * It deadlocks ERC20 tockens and emit events on burning.
+ */
 contract BlackHole is EosValidator{
     bool public closed = false;
     ERC20 public erc20Contract;
