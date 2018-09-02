@@ -26,7 +26,7 @@ contract BlackHole {
         minimumAmount = _minimumAmount;
     }
 
-    /** @dev Check to make sure that the contract is still active if it has not reached the critical block expiration date
+    /** @dev It closes the BlackHole if critical block has been reached.
      */
     function close() public {
         require(!closed, "This BlackHole contract's active period has expired.");
