@@ -12,13 +12,13 @@ contract EosBlackHole is EosValidator, BlackHole{
      *  @param tokens Amount.
      *  @param eosAccount Associated EOS account.
      */
-    event TeleportAccount(uint tokens, string eosAccount);
+    event TeleportToAccount(uint tokens, string eosAccount);
 
     /** @dev Emitted when tokens are deadlocked.
      *  @param tokens Amount.
      *  @param eosPublicKey Associated EOS public key.
      */
-    event TeleportKey(uint tokens, string eosPublicKey);
+    event TeleportToKey(uint tokens, string eosPublicKey);
 
     constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public 
     BlackHole(_erc20Contract, _criticBlock, _minimumAmount)
@@ -27,17 +27,17 @@ contract EosBlackHole is EosValidator, BlackHole{
 
     /** @dev It deadlocks your tokens and emit an event with amount and EOS public key.
      */
-    function teleportKey(string eosPublicKey) public {
+    function teleportToKey(string eosPublicKey) public {
         require(isValidKey(eosPublicKey), "not valid EOS public key");
         uint amount = attract();
-        emit TeleportKey(amount, eosPublicKey);
+        emit TeleportToKey(amount, eosPublicKey);
     }
 
     /** @dev It deadlocks your tokens and emit an event with amount and EOS account.
      */
-    function teleportAccount(string eosAccount) public {
+    function teleportToAccount(string eosAccount) public {
         require(isValidAccount(eosAccount), "not valid EOS account");
         uint amount = attract();
-        emit TeleportAccount(amount, eosAccount);
+        emit TeleportToAccount(amount, eosAccount);
     }
 }

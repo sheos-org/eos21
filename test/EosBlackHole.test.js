@@ -18,25 +18,25 @@ contract('EosBlackHole', accounts => {
     const eosPublicKey = 'EOS7M38bvCoL7N3mBDbQyqePcK128G2b3so7XBa9hJn9uuKDN7we8';
     const eosAccount = "te.mgr5ymass";
 
-    it ("can't teleportKey if eosBlackHole is closed", async () => {
+    it ("can't teleportToKey if eosBlackHole is closed", async () => {
         const eosBlackHole = await EosBlackHole.new(0x0, criticBlock, minimumAmount);
         await eosBlackHole.close();
-        await eosBlackHole.teleportKey(eosPublicKey).should.be.rejected;
+        await eosBlackHole.teleportToKey(eosPublicKey).should.be.rejected;
     });
 
-    it("teleportKey with invalid ERC20Contract", async () => {
+    it("teleportToKey with invalid ERC20Contract", async () => {
         const eosBlackHole = await EosBlackHole.new(0x0, criticBlock, minimumAmount);
-        await eosBlackHole.teleportKey(eosPublicKey).should.be.rejected;
+        await eosBlackHole.teleportToKey(eosPublicKey).should.be.rejected;
     });
 
     it('teleport key', async () => {
         const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
         const eosBlackHole = await EosBlackHole.new(erc20Token.address, criticBlock, minimumAmount);
 
-        let watcher = eosBlackHole.TeleportKey();
+        let watcher = eosBlackHole.TeleportToKey();
 
         await erc20Token.approve(eosBlackHole.address, 10000000000);
-        await eosBlackHole.teleportKey(eosPublicKey);
+        await eosBlackHole.teleportToKey(eosPublicKey);
         const eosBlackHoleBalance = await erc20Token.balanceOf(eosBlackHole.address);
         eosBlackHoleBalance.should.be.bignumber.equal(10000000000);
         const balance = await erc20Token.balanceOf(accounts[0]);
@@ -52,10 +52,10 @@ contract('EosBlackHole', accounts => {
         const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
         const eosBlackHole = await EosBlackHole.new(erc20Token.address, criticBlock, minimumAmount);
 
-        let watcher = eosBlackHole.TeleportAccount();
+        let watcher = eosBlackHole.TeleportToAccount();
 
         await erc20Token.approve(eosBlackHole.address, 10000000000);
-        await eosBlackHole.teleportAccount(eosAccount);
+        await eosBlackHole.teleportToAccount(eosAccount);
         const eosBlackHoleBalance = await erc20Token.balanceOf(eosBlackHole.address);
         eosBlackHoleBalance.should.be.bignumber.equal(10000000000);
         const balance = await erc20Token.balanceOf(accounts[0]);
@@ -67,12 +67,12 @@ contract('EosBlackHole', accounts => {
         events[0].args.tokens.should.be.bignumber.equal(10000000000);
     });
 
-    it('teleportKey with less than minimum balance', async () => {
+    it('teleportToKey with less than minimum balance', async () => {
         const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
         const eosBlackHole = await EosBlackHole.new(erc20Token.address, criticBlock, 10000000001);
 
         await erc20Token.approve(eosBlackHole.address, 10000000000);
-        await eosBlackHole.teleportKey(eosPublicKey).should.be.rejected;
+        await eosBlackHole.teleportToKey(eosPublicKey).should.be.rejected;
     });
 });
 
