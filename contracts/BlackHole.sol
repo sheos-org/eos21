@@ -1,14 +1,13 @@
 pragma solidity ^0.4.22;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-import "./EosValidator.sol";
 
 /** @title BlackHole 
  * 
  * @dev Implementation of the BlackHole contract.
  * It deadlocks ERC20 tockens and emit events on burning.
  */
-contract BlackHole is EosValidator{
+contract BlackHole {
     bool public closed = false;
     ERC20 public erc20Contract;
     uint public criticBlock;
@@ -28,33 +27,7 @@ contract BlackHole is EosValidator{
         closed = true;
     }
 
-// Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
-    function teleportKey(string eosPublicKey) public {
-        require(isValidKey(eosPublicKey), "not valid EOS public key");
-        uint amount = withdraw();
-        emit TeleportKey(amount, eosPublicKey);
-    }
-
-// Use this function to move if a user has an existing EOS account, tokens can be moved via this method
-    function teleportAccount(string eosAccount) public {
-        require(isValidAccount(eosAccount), "not valid EOS account");
-        uint amount = withdraw();
-        emit TeleportAccount(amount, eosAccount);
-    }
-
-// Activate teleportation of ERC20 Tokens to an existing EOS account via the src/wormhole.js
-    event TeleportAccount(
-        uint _tokens,
-        string _eosAccount
-    );
-
-// Activate teleportation of ERC20 Tokens to a new EOS account that will be created by the src/wormhole.js
-    event TeleportKey(
-        uint _tokens,
-        string _eosPublicKey
-    );
-
-    function withdraw() private returns (uint amount){
+    function withdraw() public returns (uint amount){
         require(!closed, "blackHole closed");
         uint balance = erc20Contract.balanceOf(msg.sender);
         uint allowed = erc20Contract.allowance(msg.sender, address(this));
