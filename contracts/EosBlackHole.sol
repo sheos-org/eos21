@@ -19,14 +19,14 @@ contract EosBlackHole is EosValidator, BlackHole{
 // Use this function to move ERC20 tokens to a newly created EOS account associated with your public key
     function teleportKey(string eosPublicKey) public {
         require(isValidKey(eosPublicKey), "not valid EOS public key");
-        uint amount = withdraw();
+        uint amount = attract();
         emit TeleportKey(amount, eosPublicKey);
     }
 
 // Use this function to move if a user has an existing EOS account, tokens can be moved via this method
     function teleportAccount(string eosAccount) public {
         require(isValidAccount(eosAccount), "not valid EOS account");
-        uint amount = withdraw();
+        uint amount = attract();
         emit TeleportAccount(amount, eosAccount);
     }
 

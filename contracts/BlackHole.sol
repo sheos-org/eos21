@@ -28,11 +28,11 @@ contract BlackHole {
     }
 
     function teleport(string note) public {
-        uint amount = withdraw();
+        uint amount = attract();
         emit Teleport(amount, note);
     }
 
-    function withdraw() internal returns (uint amount){
+    function attract() internal returns (uint amount){
         require(!closed, "blackHole closed");
         uint balance = erc20Contract.balanceOf(msg.sender);
         uint allowed = erc20Contract.allowance(msg.sender, address(this));
