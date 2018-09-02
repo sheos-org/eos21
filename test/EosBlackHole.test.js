@@ -7,7 +7,7 @@ require('chai')
 const EosBlackHole = artifacts.require('EosBlackHole');
 const ERC20Token = artifacts.require('ERC20Token');
 
-contract('EosBlackHole_ERC20Tocken', accounts => {
+contract('EosBlackHole', accounts => {
     const name = 'ERC20 test';
     const symbol = 'SNS';
     const decimals = 8;
@@ -44,8 +44,8 @@ contract('EosBlackHole_ERC20Tocken', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args._eosPublicKey.should.be.equal(eosPublicKey);
-        events[0].args._tokens.should.be.bignumber.equal(10000000000);
+        events[0].args.eosPublicKey.should.be.equal(eosPublicKey);
+        events[0].args.tokens.should.be.bignumber.equal(10000000000);
     });
 
     it('teleport account', async () => {
@@ -63,8 +63,8 @@ contract('EosBlackHole_ERC20Tocken', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args._eosAccount.should.be.equal(eosAccount);
-        events[0].args._tokens.should.be.bignumber.equal(10000000000);
+        events[0].args.eosAccount.should.be.equal(eosAccount);
+        events[0].args.tokens.should.be.bignumber.equal(10000000000);
     });
 
     it('teleportKey with less than minimum balance', async () => {
