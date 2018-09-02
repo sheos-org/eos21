@@ -9,6 +9,12 @@ import "./BlackHole.sol";
  * It deadlocks ERC20 tockens and emit events on burning.
  */
 contract EosBlackHole is EosValidator, BlackHole{
+// Activate teleportation of ERC20 Tokens to an existing EOS account via the src/wormhole.js
+    event TeleportAccount(uint _tokens, string _eosAccount);
+
+// Activate teleportation of ERC20 Tokens to a new EOS account that will be created by the src/wormhole.js
+    event TeleportKey(uint _tokens, string _eosPublicKey);
+
 // Construction of the ETH BlackHole contract
     constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public 
     BlackHole(_erc20Contract, _criticBlock, _minimumAmount)
@@ -28,16 +34,4 @@ contract EosBlackHole is EosValidator, BlackHole{
         uint amount = attract();
         emit TeleportAccount(amount, eosAccount);
     }
-
-// Activate teleportation of ERC20 Tokens to an existing EOS account via the src/wormhole.js
-    event TeleportAccount(
-        uint _tokens,
-        string _eosAccount
-    );
-
-// Activate teleportation of ERC20 Tokens to a new EOS account that will be created by the src/wormhole.js
-    event TeleportKey(
-        uint _tokens,
-        string _eosPublicKey
-    );
 }

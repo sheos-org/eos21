@@ -8,6 +8,8 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
  * It deadlocks ERC20 tockens and emit events on burning.
  */
 contract BlackHole {
+    event Teleport(uint amount, string note);
+
     bool public closed = false;
     ERC20 public erc20Contract;
     uint public criticBlock;
@@ -31,11 +33,6 @@ contract BlackHole {
         uint amount = attract();
         emit Teleport(amount, note);
     }
-
-    event Teleport(
-        uint amount,
-        string note
-    );
 
     function attract() internal returns (uint amount){
         require(!closed, "blackHole closed");
