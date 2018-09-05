@@ -8,7 +8,9 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
  * It deadlocks ERC20 tockens and emit events on success.
  */
 contract BlackHole {
+    event Opened();
     event Teleport(uint amount, string note);
+    event Closed();
 
     bool public closed = false;
     ERC20 public erc20Contract;
@@ -24,6 +26,7 @@ contract BlackHole {
         erc20Contract = ERC20(_erc20Contract);
         criticBlock = _criticBlock;
         minimumAmount = _minimumAmount;
+        emit Opened();
     }
 
     /** @dev It closes the BlackHole if critical block has been reached.
@@ -32,6 +35,7 @@ contract BlackHole {
         require(!closed, "This BlackHole contract's active period has expired.");
         require(block.number >= criticBlock, "BlackHole hasn't reached the critical mass");
         closed = true;
+        emit Closed();
     }
 
     /** @dev teleport attracts tokens and emit Teleport event
