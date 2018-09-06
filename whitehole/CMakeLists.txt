@@ -6,4 +6,4 @@ include(EosioWasmToolchain)
 
 add_subdirectory(eosio.token)
 
-add_executable( hello hello.cpp )
+add_executable(whitehole.wasm whitehole.cpp)
