@@ -1,13 +1,9 @@
-#include <eosiolib/eosio.hpp>
-using namespace eosio;
-class hello : public eosio::contract {
-  public:
-      using contract::contract;
+#include "whitehole.hpp"
 
-      /// @abi action 
-      void hi( account_name user ) {
-         print( "Hello, ", name{user} );
-      }
-};
+whitehole::whitehole(account_name self):
+    eosio::token(self)
+{}
 
-EOSIO_ABI( hello, (hi) )
+void whitehole::hi(account_name user) {
+    print( "Hello, ", eosio::name{user} );
+}
