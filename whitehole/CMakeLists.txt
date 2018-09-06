@@ -4,6 +4,9 @@ project(hello_example VERSION 1.0.0)
 find_package(EOSIOWasmsdk REQUIRED)
 include(EosioWasmToolchain)
 
-add_subdirectory(eosio.token)
+include_directories(eosio.token/include)
 
-add_executable(whitehole.wasm whitehole.cpp)
+add_executable(whitehole.wasm
+    eosio.token/src/eosio.token.cpp
+    whitehole.cpp
+    )
