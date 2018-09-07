@@ -1,7 +1,7 @@
 #include "whitehole.hpp"
 
 whitehole::whitehole(account_name self):
-    eosio::token(self)
+    mToken(self)
 {}
 
 void whitehole::hi(account_name user) {

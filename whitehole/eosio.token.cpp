@@ -3,7 +3,7 @@
  *  @copyright defined in eos/LICENSE.txt
  */
 
-#include <eosio.token/eosio.token.hpp>
+#include "eosio.token.hpp"
 
 namespace eosio {
 
@@ -146,4 +146,4 @@ void token::close( account_name owner, symbol_type symbol ) {
 
 } /// namespace eosio
 
-EOSIO_ABI( eosio::token, (create)(issue)(transfer)(close)(retire) )
+//EOSIO_ABI( eosio::token, (create)(issue)(transfer)(close)(retire) )

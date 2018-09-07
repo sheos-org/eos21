@@ -5,12 +5,15 @@
 
 #include "whitehole.hpp"
 
-class whitehole : public eosio::token {
+class whitehole {
 public:
     whitehole(account_name self);
 
-    /// @abi action
+    [[eosio::action]]
     void hi(account_name user);
+
+    private:
+    eosio::token mToken;
 };
 
 EOSIO_ABI( whitehole, (hi) )
