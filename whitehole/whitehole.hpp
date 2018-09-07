@@ -1,9 +1,8 @@
 #pragma once
 
-#include "eosio.token/include/eosio.token/eosio.token.hpp"
 #include <eosiolib/eosio.hpp>
 
-#include "whitehole.hpp"
+#include "eosio.token.hpp"
 
 class whitehole {
 public:
