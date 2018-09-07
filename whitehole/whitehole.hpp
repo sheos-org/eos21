@@ -9,12 +9,12 @@ public:
     whitehole(account_name self);
 
     [[eosio::action]]
-    void hi(account_name user);
+    void issue( account_name to, eosio::asset quantity, eosio::string memo );
 
-    private:
+private:
     eosio::token mToken;
 };
 
-EOSIO_ABI( whitehole, (hi) )
+EOSIO_ABI( whitehole, (issue) )
 
 
