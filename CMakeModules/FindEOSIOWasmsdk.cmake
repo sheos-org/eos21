@@ -5,3 +5,6 @@ find_package_handle_standard_args(EOSIOWasmsdk REQUIRED_VARS EOSIOWasmsdk_ABIGEN
 
 list(APPEND CMAKE_MODULE_PATH ${EOSIO_WASMSDK_ROOT}/lib/cmake)
 
+set(EOSIOWasmsdk_INCLUDE_DIRS ${EOSIO_WASMSDK_ROOT}/include)
+
+
