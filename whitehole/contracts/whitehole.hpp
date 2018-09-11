@@ -14,13 +14,11 @@ public:
     [[eosio::action]]
     void issue(account_name to, eosio::asset quantity, eosio::string memo);
 
-    [[eosio::action]]
-    bool iscreated() const;
-
+    inline bool isCreated() const;
 
 private:
     eosio::token mToken;
     bool mCreated = {false};
 };
 
-EOSIO_ABI(whitehole, (issue))
+EOSIO_ABI(whitehole, (issue)(create))

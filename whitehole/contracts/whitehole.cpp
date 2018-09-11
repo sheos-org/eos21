@@ -16,7 +16,7 @@ void whitehole::issue(account_name to, eosio::asset quantity, eosio::string memo
     mToken.issue(to, quantity, memo);
 }
 
-bool whitehole::iscreated() const
+bool whitehole::isCreated() const
 {
     return mCreated;
 }
