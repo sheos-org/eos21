@@ -22,11 +22,11 @@ module.exports = {
       network_id: "*" // Match any network id
     }
   },
-  mocha: {
-    reporter: 'eth-gas-reporter',
-    reporterOptions : {
-      currency: 'USD',
-      gasPrice: 21
-    }
-  }
+  // mocha: {
+  //   reporter: '../eth-gas-reporter',
+  //   reporterOptions : {
+  //     currency: 'USD',
+  //     gasPrice: 21
+  //   }
+  // }
 };
