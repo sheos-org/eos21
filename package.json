@@ -15,7 +15,9 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
+    "eosjs": "^16.0.6",
     "eth-gas-reporter": "^0.1.10",
+    "fs": "0.0.1-security",
     "openzeppelin-solidity": "^1.12.0"
   }
 }
