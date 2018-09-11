@@ -21,7 +21,6 @@ public:
 private:
     eosio::token mToken;
     bool mCreated = {false};
-    bool vbefasfawfawf;
 };
 
 EOSIO_ABI(whitehole, (issue))
