@@ -10,8 +10,4 @@ add_executable(whitehole.wasm
     eosio.token.cpp
     whitehole.cpp
     )
-add_custom_command(TARGET whitehole.wasm POST_BUILD
-    COMMAND ${EOSIOWasmsdk_ABIGEN} ${CMAKE_CURRENT_SOURCE_DIR}/whitehole.cpp -output whitehole.abi
-    VERBATIM
-    )
-
+target_abi(whitehole.wasm whitehole.wasm.abi)
