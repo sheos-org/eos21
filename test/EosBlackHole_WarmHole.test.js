@@ -1,10 +1,9 @@
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
+const fs = require('fs');
 
 const identity = EthCrypto.createIdentity();
-console.log(identity);
-
 const web3 = new Web3();
 
 // create a ganache-provider
@@ -18,3 +17,13 @@ const ganacheProvider = ganache.provider({
 
 // set ganache to web3 as provider
 web3.setProvider(ganacheProvider); 
+
+const input = fs.readFileSync('./blackhole/build/contracts/EosBlackHole.json');
+const contract = JSON.parse(input.toString());
+
+const blackHole = new web3.eth.Contract(contract.abi);
+blackHole.deploy({data: contract.bytecode}).estimateGas(function(err, gas){
+    console.log(gas);
+});
+
+// const blackHole = BlackHole.new({from: identity.privateKey, data: contract.bytecode});
