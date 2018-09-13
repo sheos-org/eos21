@@ -9,7 +9,6 @@ In order to burn Ethereum ERC20 Tockens and materialize them into EOS we need 3 
 
 # Compilation
 ## BlackHole
-Clone the repository then change to repo directory.
 ```
 $ sudo npm install -g truffle
 $ npm install
