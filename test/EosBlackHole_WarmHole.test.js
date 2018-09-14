@@ -83,4 +83,12 @@ function deployBlackHole() {
 };
 
 
-deployErc20Token();
+const erc20Token = deployErc20Token();
+const blackHole = deployBlackHole(erc20Token.address);
+const whiteHole = deployWhiteHole();
+const warmHole = new warmHole(blackHole.address, whiteHole.account);
+
+
+
+
+
