@@ -22,8 +22,16 @@ const input = fs.readFileSync('./blackhole/build/contracts/EosBlackHole.json');
 const contract = JSON.parse(input.toString());
 
 const blackHole = new web3.eth.Contract(contract.abi);
-blackHole.deploy({data: contract.bytecode}).estimateGas(function(err, gas){
-    console.log(gas);
-});
+
+const erc20ContractAddress = '0x000';
+const criticBlock = 0;
+const minimumAmount = 0;
+blackHole.deploy({data: contract.bytecode,
+    arguments: [erc20ContractAddress, criticBlock, minimumAmount]
+}).send({
+    from: identity.address,
+    gas: 1500000,
+    gasPrice: '30000000000000'
+}).then(instance => console.log(instance.options.address));
 
 // const blackHole = BlackHole.new({from: identity.privateKey, data: contract.bytecode});
