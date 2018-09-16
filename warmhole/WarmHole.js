@@ -8,7 +8,6 @@ class WarmHole {
         // create the event
 
         blackHoleInstance.events.TeleportToAccount({
-            filter: { myIndexedParam: [20, 23], myOtherIndexedParam: '0x123456789...' }, // Using an array means OR: e.g. 20 or 23
             fromBlock: 0
         }, function (error, event) { console.log(event); })
             .on('data', function (event) {

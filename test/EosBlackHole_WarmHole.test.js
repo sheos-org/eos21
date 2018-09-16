@@ -69,16 +69,14 @@ const deployBlackHole = (erc20ContractAddress) => {
 //        .on('receipt', receipt => console.log(receipt.contractAddress))
 };
 
+deployErc20Token().then(erc20Contract => {
+    console.log("ERC20Contract address: " + erc20Contract.options.address);
+    return deployBlackHole(erc20Contract.options.address);
+}).then(blackHoleContract => {
+    console.log("BlackHole address: " + blackHoleContract.options.address);
+    const warmHole = new WarmHole(blackHoleContract);
 
-deployErc20Token().then(instance => {
-    const erc20TokenAddress = instance.options.address;
-    console.log("ERC20Contract address: " + erc20TokenAddress);
-    return deployBlackHole(erc20TokenAddress);
-}).then(instance => {
-    const blackHoleAddress = instance.options.address;
-    console.log("BlackHole address: " + blackHoleAddress);
-
-    const warmHole = new WarmHole(instance);
+    console.log(warmHole)
 });
 
 
