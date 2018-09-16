@@ -3,6 +3,7 @@ const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
 const fs = require('fs');
 const WarmHole = require('../warmhole/WarmHole.js');
+require('chai').use(require('chai-as-promised')).should();
 
 const identity = EthCrypto.createIdentity();
 const web3 = new Web3();
@@ -65,20 +66,35 @@ const deployBlackHole = (erc20ContractAddress) => {
             gasPrice: '20'
         })
         .on('error', console.log)
-//        .on('transactionHash', console.log)
-//        .on('receipt', receipt => console.log(receipt.contractAddress))
+    //        .on('transactionHash', console.log)
+    //        .on('receipt', receipt => console.log(receipt.contractAddress))
 };
 
-deployErc20Token().then(erc20Contract => {
-    console.log("ERC20Contract address: " + erc20Contract.options.address);
-    return deployBlackHole(erc20Contract.options.address);
-}).then(blackHoleContract => {
-    console.log("BlackHole address: " + blackHoleContract.options.address);
+describe('prova', async () => {
+    // deploy the ERC20 contract
+    const erc20Contract = await deployErc20Token();
+    erc20Contract.should.not.equal(null);
+
+    let amount = await erc20Contract.methods.balanceOf(identity.address).call({from: identity.address});
+
+    // TODO why following line doesn't work
+    //amount.should.be.equal(100000000);
+
+    // deploy BlackHole contract
+    const blackHoleContract = await deployBlackHole(erc20Contract.options.address);
+    blackHoleContract.should.not.equal(null);
+
+    // create WarmHole
     const warmHole = new WarmHole(blackHoleContract);
+    warmHole.should.not.equal(null);
 
-    console.log(warmHole)
+    // Check BlackHole is not closed
+    blackHoleContract.methods.closed().call({ from: identity.address }).should.eventually.be.false;
+   
+    result = await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identity.address });
+    result.status.should.be.true;
+    await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identity.address });
+    result = await erc20Contract.methods.balanceOf(identity.address).call({ from: identity.address });
+   // console.log(result);
 });
-
-
-
 
