@@ -2,6 +2,7 @@ const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
 const fs = require('fs');
+const WarmHole = require('../warmhole/WarmHole.js');
 
 const identity = EthCrypto.createIdentity();
 const web3 = new Web3();
@@ -68,6 +69,7 @@ const deployBlackHole = (erc20ContractAddress) => {
 //        .on('receipt', receipt => console.log(receipt.contractAddress))
 };
 
+
 deployErc20Token().then(instance => {
     const erc20TokenAddress = instance.options.address;
     console.log("ERC20Contract address: " + erc20TokenAddress);
@@ -75,6 +77,8 @@ deployErc20Token().then(instance => {
 }).then(instance => {
     const blackHoleAddress = instance.options.address;
     console.log("BlackHole address: " + blackHoleAddress);
+
+    const warmHole = new WarmHole(instance);
 });
 
 
