@@ -5,7 +5,7 @@ In order to burn Ethereum ERC20 Tockens and materialize them into EOS we need 3 
 
 * **BlackHole** Contract in Ethereum Universe.
 * **WhiteHole** Contract in EOSIO Universe.
-* **WarmHole** to teleport tockens.
+* **WormHole** to teleport tockens.
 
 # Compilation
 ## BlackHole
