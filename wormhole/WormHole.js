@@ -1,4 +1,4 @@
-class WarmHole {
+class WormHole {
     constructor(blackHoleInstance) {
         blackHoleInstance.events.TeleportToAccount({
            // fromBlock: 0
@@ -15,4 +15,4 @@ class WarmHole {
     }
 }
 
-module.exports = WarmHole;
+module.exports = WormHole;

@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
-const WarmHole = require('../warmhole/WarmHole.js');
+const WormHole = require('../wormhole/WormHole.js');
 require('chai').use(require('chai-as-promised')).should();
 const deployer = require('./Deployer.js');
 
@@ -35,9 +35,9 @@ describe('prova', async () => {
     const blackHoleContract = await deployer.deployBlackHole(web3, identities[0], erc20Contract.options.address);
     blackHoleContract.should.not.equal(null);
 
-    // create WarmHole
-    const warmHole = new WarmHole(blackHoleContract);
-    warmHole.should.not.equal(null);
+    // create WormHole
+    const wormHole = new WormHole(blackHoleContract);
+    wormHole.should.not.equal(null);
 
     // Check BlackHole is not closed
     blackHoleContract.methods.closed().call({ from: identities[0].address }).should.eventually.be.false;
