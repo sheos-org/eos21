@@ -22,33 +22,43 @@ const ganacheProvider = ganache.provider({
 // set ganache to web3 as provider
 web3.setProvider(ganacheProvider);
 
-describe('prova', async () => {
-    // deploy the ERC20 contract
-    const erc20Contract = await deployer.deployErc20Token(web3, identities[0]);
-    erc20Contract.should.not.equal(null);
+describe('teleport ERC20 tokens', () => {
+    let erc20Contract;
+    let blackHoleContract;
+    let wormHole;
 
-    for (let i=0 ; i < identitiesCount ; i++){
-        await erc20Contract.methods.transfer(identities[i].address, 10).send({from: identities[0].address});
-    }
+    beforeEach(async () => {
+        erc20Contract = await deployer.deployErc20Token(web3, identities[0]);
+        erc20Contract.should.not.equal(null);
 
-    // deploy BlackHole contract
-    const blackHoleContract = await deployer.deployBlackHole(web3, identities[0], erc20Contract.options.address);
-    blackHoleContract.should.not.equal(null);
+        for (let i = 0; i < identitiesCount; i++) {
+            await erc20Contract.methods.transfer(identities[i].address, 10).send({ from: identities[0].address });
+        }
 
-    // create WormHole
-    const wormHole = new WormHole(blackHoleContract);
-    wormHole.should.not.equal(null);
+        // deploy BlackHole contract
+        blackHoleContract = await deployer.deployBlackHole(web3, identities[0], erc20Contract.options.address);
+        blackHoleContract.should.not.equal(null);
 
-    // Check BlackHole is not closed
-    blackHoleContract.methods.closed().call({ from: identities[0].address }).should.eventually.be.false;
+        // create WormHole
+        wormHole = new WormHole(blackHoleContract);
+        wormHole.should.not.equal(null);
+    });
 
-    for (let i = 0; i < identitiesCount; i++) {
-        let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({from: identities[i].address});
-        result = await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
-        result.status.should.be.true;
-        await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identities[i].address });
-        result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
-        result.should.be.equal('0');
-    }
+    it('BlackHole is opened', async () => {
+        // Check BlackHole is not closed
+        blackHoleContract.methods.closed().call({ from: identities[0].address }).should.eventually.be.false;
+    });
+
+    it('teloportToAccount', async () => {
+        for (let i = 0; i < identitiesCount; i++) {
+            let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
+            result = await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
+            result.status.should.be.true;
+            await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identities[i].address });
+            result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
+            result.should.be.equal('0');
+        }
+    })
+
 });
 
