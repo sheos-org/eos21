@@ -1,14 +1,12 @@
 class WormHole {
-    constructor(blackHoleInstance, eosPrivateKey) {
-        this.eosPrivateKey = eosPrivateKey;
-
+    constructor(blackHoleInstance, whiteHoleInstance, eosPrivateKey) {
         blackHoleInstance.events.TeleportToAccount({
            // fromBlock: 0
         }, function (error, event) { console.log(event); })
             .on('data', function (event) {
                 const { eosAccount, tokens } = event.returnValues;
-                console.log(eosAccount, tokens);
-                //console.log(event); // same results as the optional callback above
+
+                console.log("!!!!!!!!! TODO: make WhiteHole issue " + tokens + " tokens to " + eosAccount + " EOS account. !!!!!!!!!!!");
             })
             .on('changed', function (event) {
                 // remove event from local database
