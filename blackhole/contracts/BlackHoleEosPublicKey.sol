@@ -3,11 +3,11 @@ pragma solidity ^0.4.22;
 import "./EosValidator.sol";
 import "./BlackHole.sol";
 
-/** @title BlackHoleToPublicKey 
+/** @title BlackHoleEosPublicKey 
  * 
  * @dev It burns ERC20 tokens and log it with an associated EOS public key.
  */
-contract BlackHoleToPublicKey is EosValidator, BlackHole{
+contract BlackHoleEosPublicKey is EosValidator, BlackHole{
     /** @dev Emitted when tokens are deadlocked.
      *  @param tokens Amount.
      *  @param eosPublicKey Associated EOS public key.

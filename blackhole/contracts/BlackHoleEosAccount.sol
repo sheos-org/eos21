@@ -3,11 +3,11 @@ pragma solidity ^0.4.22;
 import "./EosValidator.sol";
 import "./BlackHole.sol";
 
-/** @title BlackHoleToAccount 
+/** @title BlackHoleEosToAccount 
  * 
  * @dev It burns ERC20 tokens and log it with an associated EOS account.
  */
-contract BlackHoleToAccount is EosValidator, BlackHole{
+contract BlackHoleEosAccount is EosValidator, BlackHole{
     /** @dev Emitted when tokens are deadlocked.
      *  @param tokens Amount.
      *  @param eosAccount Associated EOS account.
