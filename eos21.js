@@ -40,13 +40,15 @@ const whiteHoleAddress = argv.whitehole;
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
 const web3Provider = argv.provider;
 check(web3Provider, "Ethereum provider: " + web3Provider);
+const blackHoleFile = './blackhole/build/contracts/ERC20Token.json';
+check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 
 const web3 = new Web3();
 const eosJs = new EosJs();
 
 web3.setProvider(new web3.providers.HttpProvider(web3Provider)); 
-const input = fs.readFileSync('./blackhole/build/contracts/ERC20Token.json');
-const contract = JSON.parse(input.toString());
+const input = fs.readFileSync();
+const contract = JSON.parse(input.toString(blackHoleFile));
 const abi = contract.abi;
 
 const blackHoleContract = web3.eth.Contract(abi, blackHoleAddress);
