@@ -2,4 +2,3 @@ node_modules/
 build/
 .DS_Store
 CMakeLists.txt.user
-package-lock.json
