@@ -28,7 +28,7 @@ exports.deployErc20Token = (web3, identity) => {
 };
 
 exports.deployBlackHole = (web3, identity, erc20ContractAddress) => {
-    const input = fs.readFileSync('./blackhole/build/contracts/EosBlackHole.json');
+    const input = fs.readFileSync('./blackhole/build/contracts/BlackHoleEosAccount.json');
     const contract = JSON.parse(input.toString());
 
     const blackHole = new web3.eth.Contract(contract.abi);
