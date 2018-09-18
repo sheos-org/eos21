@@ -1,5 +1,7 @@
 class WormHole {
-    constructor(blackHoleInstance) {
+    constructor(blackHoleInstance, eosPrivateKey) {
+        this.eosPrivateKey = eosPrivateKey;
+
         blackHoleInstance.events.TeleportToAccount({
            // fromBlock: 0
         }, function (error, event) { console.log(event); })
