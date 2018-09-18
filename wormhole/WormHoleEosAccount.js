@@ -1,4 +1,4 @@
-class WormHole {
+class WormHoleEosAccount {
     constructor(blackHoleInstance, whiteHoleInstance, eosPrivateKey) {
         blackHoleInstance.events.TeleportToAccount({
            // fromBlock: 0
@@ -15,4 +15,4 @@ class WormHole {
     }
 }
 
-module.exports = WormHole;
+module.exports = WormHoleEosAccount;
