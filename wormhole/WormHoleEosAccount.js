@@ -1,8 +1,8 @@
 class WormHoleEosAccount {
     constructor(blackHoleInstance, whiteHoleInstance, eosPrivateKey) {
         blackHoleInstance.events.TeleportToAccount({
-           // fromBlock: 0
-        }, function (error, event) { console.log(event); })
+             // fromBlock: 0
+        })
             .on('data', function (event) {
                 const { eosAccount, tokens } = event.returnValues;
 
