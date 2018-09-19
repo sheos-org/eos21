@@ -32,17 +32,14 @@ const check = (condition, msg) => {
 
 console.log("ERC20 teleporting starts ...");
 
-
 const argv = require('minimist')(process.argv.slice(2), {
-    string: ['blackhole', 'whitehole_key'],
     default: {
         config: 'eos21.config'
     }
 });
 
 const configFile = argv.config;
-
-check(fs.existsSync(configFile), "using config file " + configFile);
+check(fs.existsSync(configFile), "configuration file: " + configFile);
 const config = JSON.parse(fs.readFileSync(configFile));
 
 const { blackHoleAddress, whiteHoleAddress, ethereumProvider, whiteHoleKey, blackHoleFile } = config;
