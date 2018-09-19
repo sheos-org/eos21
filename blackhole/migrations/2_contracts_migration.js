@@ -1,5 +1,5 @@
 var ERC20Token = artifacts.require("./ERC20Token.sol");
-var BlackHole = artifacts.require("./BlackHole.sol")
+var BlackHole = artifacts.require("./BlackHoleEosAccount.sol")
 
 module.exports = function (deployer) {
   const name = 'Sense test';

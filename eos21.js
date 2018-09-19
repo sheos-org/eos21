@@ -83,15 +83,19 @@ eosConfig = {
 };
 const eos = new EosJs(eosConfig);
 
-eos.contract(whiteHoleAddress).then(result => {
+eos.contract(whiteHoleAddress)
+.catch(reason => {
+    console.error(reason);
+    process.exit();
+})
+.then(result => {
     // WormHole
 
-    console.log(result);
     const wormHole = new WormHole(blackHole);
     check(wormHole, "instantiate wormhole");
-});
 
-wait();
+    wait();
+});
 
 
 
