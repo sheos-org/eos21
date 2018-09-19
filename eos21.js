@@ -42,13 +42,21 @@ const configFile = argv.config;
 check(fs.existsSync(configFile), "configuration file: " + configFile);
 const config = JSON.parse(fs.readFileSync(configFile));
 
-const { blackHoleAddress, whiteHoleAddress, ethereumProvider, whiteHoleKey, blackHoleFile } = config;
+const {
+    blackHoleAddress,
+    whiteHoleAddress,
+    ethereumProvider,
+    whiteHoleKey,
+    blackHoleFile,
+    eosProvider
+} = config;
 
 check(blackHoleAddress, "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
 check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
 check(whiteHoleKey, 'whitehole key: ' + whiteHoleKey);
 check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
+check(eosProvider, "EOS provider: " + eosProvider);
 
 // Ethereum
 const web3 = new Web3();
@@ -64,21 +72,24 @@ check(blackHole, "create instance to blackhole contract");
 check(blackHole.options.address === web3.utils.toChecksumAddress(blackHoleAddress), "instance has correct address");
 
 // EOS 
-const eosJs = new EosJs();
-
 eosConfig = {
     chainId: null, // 32 byte (64 char) hex string
     keyProvider: [whiteHoleKey], // WIF string or array of keys..
-    httpEndpoint: 'http://127.0.0.1:8888',
+    httpEndpoint: eosProvider,
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
     sign: true
 };
+const eos = new EosJs(eosConfig);
 
-// WormHole
-const wormHole = new WormHole(blackHole);
-check(wormHole, "instantiate wormhole");
+eos.contract(whiteHoleAddress).then(result => {
+    // WormHole
+
+    console.log(result);
+    const wormHole = new WormHole(blackHole);
+    check(wormHole, "instantiate wormhole");
+});
 
 wait();
 
