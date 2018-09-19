@@ -23,7 +23,7 @@
   },
   "scripts": {
     "blackhole_build": "cd blackhole && truffle compile",
-    "blackhole_test": "cd blackhole && truffle test",
+    "blackhole_test": "cd blackhole && truffle test --network test",
     "test": "mocha"
   }
 }
