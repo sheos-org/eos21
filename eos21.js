@@ -53,7 +53,12 @@ const input = fs.readFileSync(blackHoleFile);
 const contract = JSON.parse(input.toString());
 const abi = contract.abi;
 
-const blackHoleContract = new web3.eth.Contract(abi, blackHoleAddress);
+check(web3.utils.isAddress(blackHoleAddress), "validating blackhole address");
+const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
+check(blackHole, "create instance to blackhole contract");
+
+const wormHole = new WormHole(blackHole);
+check(wormHole, "instantiate wormhole");
 
 wait();
 
