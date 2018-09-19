@@ -32,11 +32,13 @@ const check = (condition, msg) => {
 
 console.log("ERC20 teleporting starts ...");
 
+const web3 = new Web3();
+
 const argv = require('minimist')(process.argv.slice(2), {
     string: 'blackhole',
 });
 
-const blackHoleAddress = argv.blackhole;
+const blackHoleAddress = Web3.utils.toChecksumAddress(argv.blackhole);
 check(blackHoleAddress, "blackhole address: " + blackHoleAddress);
 const whiteHoleAddress = argv.whitehole;
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
@@ -45,7 +47,6 @@ check(web3Provider, "Ethereum provider: " + web3Provider);
 const blackHoleFile = './blackhole/build/contracts/BlackHoleEosAccount.json';
 check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 
-const web3 = new Web3();
 const eosJs = new EosJs();
 
 web3.setProvider(new web3.providers.HttpProvider(web3Provider)); 
@@ -56,6 +57,7 @@ const abi = contract.abi;
 check(web3.utils.isAddress(blackHoleAddress), "validating blackhole address");
 const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
 check(blackHole, "create instance to blackhole contract");
+check(blackHole.options.address === blackHoleAddress, "instance has correct address");
 
 const wormHole = new WormHole(blackHole);
 check(wormHole, "instantiate wormhole");
