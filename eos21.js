@@ -34,7 +34,7 @@ console.log("ERC20 teleporting starts ...");
 
 
 const argv = require('minimist')(process.argv.slice(2), {
-    string: 'blackhole',
+    string: ['blackhole', 'whitehole_key']
 });
 
 const blackHoleAddress = Web3.utils.toChecksumAddress(argv.blackhole);
@@ -43,6 +43,8 @@ const whiteHoleAddress = argv.whitehole;
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
 const web3Provider = argv.provider;
 check(web3Provider, "Ethereum provider: " + web3Provider);
+const whitehole_key = argv.whitehole_key; 
+check(whitehole_key, 'whitehole key: ' + whitehole_key);
 const blackHoleFile = './blackhole/build/contracts/BlackHoleEosAccount.json';
 check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 
@@ -62,6 +64,17 @@ check(blackHole.options.address === blackHoleAddress, "instance has correct addr
 // EOS 
 const eosJs = new EosJs();
 
+config = {
+    chainId: null, // 32 byte (64 char) hex string
+    keyProvider: [whitehole_key], // WIF string or array of keys..
+    httpEndpoint: 'http://127.0.0.1:8888',
+    expireInSeconds: 60,
+    broadcast: true,
+    verbose: false, // API activity
+    sign: true
+};
+
+// WormHole
 const wormHole = new WormHole(blackHole);
 check(wormHole, "instantiate wormhole");
 
