@@ -19,7 +19,7 @@ class WormHoleEosAccount {
         this.whiteHole = await this.eos.contract(address)
     }
 
-    initEventHandler() {
+    initEventHandler(onData) {
         const blackHole = this.blackHole;
 
         blackHole.events.TeleportToAccount({
@@ -29,7 +29,10 @@ class WormHoleEosAccount {
                 const { eosAccount, tokens } = event.returnValues;
                 const whiteHole = this.whiteHole;
 
-                console.log("!!!!!!!!! TODO: make WhiteHole issue " + tokens + " tokens to " + eosAccount + " EOS account. !!!!!!!!!!!");
+                if (onData)
+                    onData(eosAccount, tokens);
+                else
+                    console.log("(WW) no hadler function installer. Received (" + eosAccount + ", " + tokens + ")");
             })
             .on('changed', function (event) {
                 // remove event from local database

@@ -61,6 +61,6 @@ describe('teleport ERC20 tokens', () => {
             result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             result.should.be.equal('0');
         }
-    })
+    });
 });
 
