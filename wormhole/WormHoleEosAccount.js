@@ -6,7 +6,7 @@ const check = require('./Check');
 class WormHoleEosAccount {
     initEthereumProvider(provider){
         const web3 = new Web3();
-        web3.setProvider(new web3.providers.HttpProvider(provider));
+        web3.setProvider(provider);
 
         this.web3 = web3;
     }
@@ -19,7 +19,7 @@ class WormHoleEosAccount {
         this.whiteHole = await this.eos.contract(address)
     }
 
-    run() {
+    initEventHandler() {
         const blackHole = this.blackHole;
 
         blackHole.events.TeleportToAccount({
@@ -35,15 +35,13 @@ class WormHoleEosAccount {
                 // remove event from local database
             })
             .on('error', console.error);
-
-        this.wait();
     }
 
     initBlackHole(abi, address) {
         const web3 = this.web3;
 
         check(web3.utils.isAddress(address), "validating blackhole address");
-        const blackHole = new web3.eth.Contract(abi, address);
+        const blackHole =  new web3.eth.Contract(abi, address);
         check(blackHole, "create instance to blackhole contract");
         check(blackHole.options.address === web3.utils.toChecksumAddress(address), "instance has correct address");
 

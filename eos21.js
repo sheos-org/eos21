@@ -1,20 +1,23 @@
-
 const fs = require('fs');
+const Web3 = require('web3');
 const check = require('./wormhole/Check');
 
 const WormHole = require('./wormhole/WormHoleEosAccount.js');
 
 console.log("ERC20 teleporting starts ...");
 
-const argv = require('minimist')(process.argv.slice(2), {
-    default: {
-        config: 'eos21.config'
-    }
-});
+const getParams = () => {
+    const argv = require('minimist')(process.argv.slice(2), {
+        default: {
+            config: 'eos21.config'
+        }
+    });
 
-const configFile = argv.config;
-check(fs.existsSync(configFile), "configuration file: " + configFile);
-const config = JSON.parse(fs.readFileSync(configFile));
+    const configFile = argv.config;
+    check(fs.existsSync(configFile), "configuration file: " + configFile);
+    const config = JSON.parse(fs.readFileSync(configFile));
+    return config;
+}
 
 const {
     blackHoleAddress,
@@ -23,7 +26,7 @@ const {
     whiteHoleKey,
     blackHoleFile,
     eosProvider
-} = config;
+} = getParams();
 
 check(blackHoleAddress, "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
@@ -49,8 +52,9 @@ const abi = contract.abi;
 const wormHole = new WormHole();
 check(wormHole, "instantiate wormhole");
 
-wormHole.initEthereumProvider(ethereumProvider);
+wormHole.initEthereumProvider(new Web3.providers.HttpProvider(ethereumProvider));
 wormHole.initBlackHole(abi, blackHoleAddress);
 wormHole.initEos(eosConfig);
 wormHole.initWhiteHole(whiteHoleAddress);
-wormHole.run();
+wormHole.initEventHandler();
+wormHole.wait();

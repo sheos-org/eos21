@@ -40,8 +40,11 @@ describe('teleport ERC20 tokens', () => {
         blackHoleContract.should.not.equal(null);
 
         // create WormHole
-        wormHole = new WormHole(blackHoleContract);
+        wormHole = new WormHole();
         wormHole.should.not.equal(null);
+        wormHole.initEthereumProvider(ganacheProvider);
+        wormHole.initBlackHole(blackHoleContract._jsonInterface, blackHoleContract._address);
+        wormHole.initEventHandler();
     });
 
     it('BlackHole is opened', async () => {
@@ -59,6 +62,5 @@ describe('teleport ERC20 tokens', () => {
             result.should.be.equal('0');
         }
     })
-
 });
 
