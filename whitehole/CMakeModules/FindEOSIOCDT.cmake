@@ -1,18 +1,18 @@
-find_program(EOSIOWasmsdk_ABIGEN eosio-abigen PATHS ${EOSIO_WASMSDK_ROOT}/bin NO_DEFAULT_PATH)
+find_program(EOSIOCDT_ABIGEN eosio-abigen PATHS ${EOSIOCDT_ROOT}/bin NO_DEFAULT_PATH)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(EOSIOWasmsdk REQUIRED_VARS EOSIOWasmsdk_ABIGEN)
+find_package_handle_standard_args(EOSIOCDT REQUIRED_VARS EOSIOCDT_ABIGEN)
 
-list(APPEND CMAKE_MODULE_PATH ${EOSIO_WASMSDK_ROOT}/lib/cmake)
+list(APPEND CMAKE_MODULE_PATH ${EOSIOCDT_ROOT}/lib/cmake)
 
-set(EOSIOWasmsdk_INCLUDE_DIRS ${EOSIO_WASMSDK_ROOT}/include)
+set(EOSIO.cdt_INCLUDE_DIRS ${EOSIOCDT_ROOT}/include)
 
-include_directories(${EOSIOWasmsdk_INCLUDE_DIRS})
+include_directories(${EOSIOCDT_INCLUDE_DIRS})
 
 macro(target_generate_abi TARGET OUTPUT)
     get_target_property(SOURCES ${TARGET} SOURCES)
     add_custom_command(TARGET ${TARGET} POST_BUILD
-        COMMAND ${EOSIOWasmsdk_ABIGEN} ${SOURCES} -output ${CMAKE_CURRENT_BINARY_DIR}/${OUTPUT}
+	    COMMAND ${EOSIOCDT_ABIGEN} ${SOURCES} -output ${CMAKE_CURRENT_BINARY_DIR}/${OUTPUT}
         COMMENT "Generating ABI ${OUTPUT}"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         VERBATIM
