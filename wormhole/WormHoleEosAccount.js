@@ -1,4 +1,4 @@
-const socket = require('zmq').createSocket('rep');
+const socket = require('zmq');
 const Web3 = require('web3');
 const EosJs = require('eosjs');
 const check = require('./Check');
@@ -52,19 +52,16 @@ class WormHoleEosAccount {
     }
 
     wait() {
-        socket.on('message', function (buf) {
-            // echo request back
-            socket.send(buf);
-        });
+        const soc = socket.createSocket('rep');
 
         process.on('SIGINT', function () {
-            socket.close();
+            soc.close();
             console.log("... exiting.");
             process.exit();
         });
 
         console.log("(II) press ctrl+c to exit");
-        socket.bindSync('tcp://*:5555');
+        soc.bindSync('tcp://*:5555');
     };
 
 }
