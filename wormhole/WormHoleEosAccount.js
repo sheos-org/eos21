@@ -7,7 +7,6 @@ class WormHoleEosAccount {
     initEthereumProvider(provider){
         const web3 = new Web3();
         web3.setProvider(provider);
-
         this.web3 = web3;
     }
 
