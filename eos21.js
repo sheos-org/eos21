@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Web3 = require('web3');
+const EosJs = require('eosjs');
 const check = require('./wormhole/Check');
 
 const WormHole = require('./wormhole/WormHoleEosAccount.js');
@@ -52,9 +53,14 @@ const abi = contract.abi;
 const wormHole = new WormHole();
 check(wormHole, "instantiate wormhole");
 
-wormHole.initEthereumProvider(new Web3.providers.WebsocketProvider(ethereumProvider));
-wormHole.initBlackHole(abi, blackHoleAddress);
-// wormHole.initEos(eosConfig);
-// wormHole.initWhiteHole(whiteHoleAddress);
-wormHole.initEventHandler();
-wormHole.teleport();
+eos = new EosJs(eosConfig);
+eos.contract(whiteHoleAddress).then(whiteHole => {
+    wormHole.initEthereumProvider(new Web3.providers.WebsocketProvider(ethereumProvider));
+    wormHole.initBlackHole(abi, blackHoleAddress);
+    wormHole.initEventHandler();
+    wormHole.teleport((account, amount) => {
+        console.log("have to send " + amount + " to " + account);
+    });
+});
+
+
