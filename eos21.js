@@ -57,10 +57,10 @@ eos = new EosJs(eosConfig);
 eos.contract(whiteHoleAddress).then(whiteHole => {
     wormHole.initEthereumProvider(new Web3.providers.WebsocketProvider(ethereumProvider));
     wormHole.initBlackHole(abi, blackHoleAddress);
-    wormHole.initEventHandler();
-    wormHole.teleport((account, amount) => {
+    wormHole.initEventHandler((account, amount) => {
         console.log("have to send " + amount + " to " + account);
     });
+    wormHole.teleport();
 });
 
 
