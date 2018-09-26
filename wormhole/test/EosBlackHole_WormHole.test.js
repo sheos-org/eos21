@@ -29,23 +29,19 @@ describe('teleport ERC20 tokens', () => {
     let wormHole;
 
     beforeEach(async () => {
+        // deploy ERC20 contract
         erc20Contract = await erc20Deployer(web3, identities[0]);
         erc20Contract.should.not.equal(null);
-
-        for (let i = 0; i < identitiesCount; i++) {
-            await erc20Contract.methods.transfer(identities[i].address, 10).send({ from: identities[0].address });
-        }
 
         // deploy BlackHole contract
         blackHoleContract = await blackHoleDeployer(web3, identities[0], erc20Contract.options.address);
         blackHoleContract.should.not.equal(null);
 
-        // create WormHole
-        wormHole = new WormHole();
-        wormHole.should.not.equal(null);
-        wormHole.initEthereumProvider(ganacheProvider);
-        wormHole.initBlackHole(blackHoleContract._jsonInterface, blackHoleContract._address);
-        wormHole.initEventHandler();
+        // transfer ERC20 tokens to accounts
+        const amount = 10;
+        for (let i = 0; i < identitiesCount; i++) {
+            await erc20Contract.methods.transfer(identities[i].address, amount).send({ from: identities[0].address });
+        }
     });
 
     it('BlackHole is opened', async () => {
@@ -54,6 +50,13 @@ describe('teleport ERC20 tokens', () => {
     });
 
     it('teloportToAccount', async () => {
+        // create WormHole
+        wormHole = new WormHole();
+        wormHole.should.not.equal(null);
+        wormHole.initEthereumProvider(ganacheProvider);
+        wormHole.initBlackHole(blackHoleContract._jsonInterface, blackHoleContract._address);
+        wormHole.initEventHandler();
+
         for (let i = 0; i < identitiesCount; i++) {
             let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             result = await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
@@ -62,6 +65,12 @@ describe('teleport ERC20 tokens', () => {
             result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             result.should.be.equal('0');
         }
+    });
+
+    it('teloportToAccount_using_address', async () => {
+        const blackHoleAddress = blackHoleContract.options.address;
+        console.log("blackHoleAddress: " + blackHoleAddress);
+
     });
 });
 
