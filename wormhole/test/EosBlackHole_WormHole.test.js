@@ -54,7 +54,7 @@ describe('teleport ERC20 tokens', () => {
         // create WormHole
         const wormHole = new WormHole();
         wormHole.initEthereumProvider(ganacheProvider);
-        wormHole.initBlackHole(blackHoleContract._jsonInterface, blackHoleContract._address);
+        wormHole.initBlackHole(blackHoleContract._jsonInterface, blackHoleContract.options.address);
         wormHole.initEventHandler();
 
         for (let i = 0; i < identitiesCount; i++) {
