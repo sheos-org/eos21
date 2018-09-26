@@ -52,7 +52,7 @@ const abi = contract.abi;
 const wormHole = new WormHole();
 check(wormHole, "instantiate wormhole");
 
-wormHole.initEthereumProvider(new Web3.providers.HttpProvider(ethereumProvider));
+wormHole.initEthereumProvider(new Web3.providers.WebsocketProvider(ethereumProvider));
 wormHole.initBlackHole(abi, blackHoleAddress);
 // wormHole.initEos(eosConfig);
 // wormHole.initWhiteHole(whiteHoleAddress);

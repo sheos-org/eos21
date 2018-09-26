@@ -26,7 +26,6 @@ class WormHoleEosAccount {
         })
             .on('data', function (event) {
                 const { eosAccount, tokens } = event.returnValues;
-                const whiteHole = this.whiteHole;
 
                 if (onData)
                     onData(eosAccount, tokens);
