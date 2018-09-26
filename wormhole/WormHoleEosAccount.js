@@ -46,7 +46,7 @@ class WormHoleEosAccount {
         const blackHole =  new web3.eth.Contract(abi, address);
         check(blackHole, "create instance to blackhole contract");
         check(blackHole.options.address === web3.utils.toChecksumAddress(address), "instance has correct address");
-
+        web3.eth.getCode(address).then(result => console.log("(II) bytecode hash: " + web3.utils.sha3(result)))
         this.blackHole = blackHole;
     }
 
