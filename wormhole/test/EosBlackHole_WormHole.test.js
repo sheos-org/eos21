@@ -69,7 +69,6 @@ describe('teleport ERC20 tokens', () => {
 
     it('teloportToAccount_using_address', async () => {
         const blackHoleAddress = blackHoleContract.options.address;
-        console.log("blackHoleAddress: " + blackHoleAddress);
 
         const input = fs.readFileSync('../blackhole/build/contracts/BlackHoleEosAccount.json');
         const contract = JSON.parse(input.toString());
