@@ -4,6 +4,7 @@ const EthCrypto = require('eth-crypto');
 const WormHole = require('../WormHoleEosAccount.js');
 require('chai').use(require('chai-as-promised')).should();
 const deployer = require('./Deployer.js');
+const erc20Deployer = require('./ERC20Deployer');
 
 const web3 = new Web3();
 
@@ -28,7 +29,7 @@ describe('teleport ERC20 tokens', () => {
     let wormHole;
 
     beforeEach(async () => {
-        erc20Contract = await deployer.deployErc20Token(web3, identities[0]);
+        erc20Contract = await erc20Deployer(web3, identities[0]);
         erc20Contract.should.not.equal(null);
 
         for (let i = 0; i < identitiesCount; i++) {
