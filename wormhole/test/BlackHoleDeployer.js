@@ -1,8 +1,6 @@
 const fs = require('fs');
 
-
-
-exports.deployBlackHole = (web3, identity, erc20ContractAddress) => {
+module.exports = (web3, identity, erc20ContractAddress) => {
     const input = fs.readFileSync('../blackhole/build/contracts/BlackHoleEosAccount.json');
     const contract = JSON.parse(input.toString());
 

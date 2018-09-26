@@ -3,8 +3,8 @@ const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
 const WormHole = require('../WormHoleEosAccount.js');
 require('chai').use(require('chai-as-promised')).should();
-const deployer = require('./Deployer.js');
 const erc20Deployer = require('./ERC20Deployer');
+const blackHoleDeployer = require('./BlackHoleDeployer.js');
 
 const web3 = new Web3();
 
@@ -37,7 +37,7 @@ describe('teleport ERC20 tokens', () => {
         }
 
         // deploy BlackHole contract
-        blackHoleContract = await deployer.deployBlackHole(web3, identities[0], erc20Contract.options.address);
+        blackHoleContract = await blackHoleDeployer(web3, identities[0], erc20Contract.options.address);
         blackHoleContract.should.not.equal(null);
 
         // create WormHole
