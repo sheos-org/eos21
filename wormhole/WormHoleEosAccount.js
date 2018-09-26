@@ -51,7 +51,7 @@ class WormHoleEosAccount {
         this.blackHole = blackHole;
     }
 
-    wait() {
+    teleport() {
         const soc = socket.createSocket('rep');
 
         process.on('SIGINT', function () {

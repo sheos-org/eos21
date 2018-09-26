@@ -57,4 +57,4 @@ wormHole.initBlackHole(abi, blackHoleAddress);
 wormHole.initEos(eosConfig);
 wormHole.initWhiteHole(whiteHoleAddress);
 wormHole.initEventHandler();
-wormHole.wait();
+wormHole.teleport();
