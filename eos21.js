@@ -54,7 +54,7 @@ check(wormHole, "instantiate wormhole");
 
 wormHole.initEthereumProvider(new Web3.providers.HttpProvider(ethereumProvider));
 wormHole.initBlackHole(abi, blackHoleAddress);
-wormHole.initEos(eosConfig);
-wormHole.initWhiteHole(whiteHoleAddress);
+// wormHole.initEos(eosConfig);
+// wormHole.initWhiteHole(whiteHoleAddress);
 wormHole.initEventHandler();
 wormHole.teleport();
