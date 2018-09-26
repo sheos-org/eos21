@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const EthCrypto = require('eth-crypto');
-const WormHole = require('../wormhole/WormHoleEosAccount.js');
+const WormHole = require('../WormHoleEosAccount.js');
 require('chai').use(require('chai-as-promised')).should();
 const deployer = require('./Deployer.js');
 

@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 exports.deployErc20Token = (web3, identity) => {
-    const input = fs.readFileSync('./blackhole/build/contracts/ERC20Token.json');
+    const input = fs.readFileSync('../blackhole/build/contracts/ERC20Token.json');
     const contract = JSON.parse(input.toString());
     const abi = contract.abi;
     const bytecode = contract.bytecode;
@@ -28,7 +28,7 @@ exports.deployErc20Token = (web3, identity) => {
 };
 
 exports.deployBlackHole = (web3, identity, erc20ContractAddress) => {
-    const input = fs.readFileSync('./blackhole/build/contracts/BlackHoleEosAccount.json');
+    const input = fs.readFileSync('../blackhole/build/contracts/BlackHoleEosAccount.json');
     const contract = JSON.parse(input.toString());
 
     const blackHole = new web3.eth.Contract(contract.abi);
