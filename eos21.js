@@ -28,7 +28,7 @@ const {
     eosProvider
 } = getParams();
 
-check(blackHoleAddress, "blackhole address: " + blackHoleAddress);
+check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
 check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
 check(whiteHoleKey, 'whitehole key: ' + whiteHoleKey);
