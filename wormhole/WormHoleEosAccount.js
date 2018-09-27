@@ -1,6 +1,5 @@
 const socket = require('zmq');
 const Web3 = require('web3');
-const EosJs = require('eosjs');
 const check = require('./Check');
 
 class WormHoleEosAccount {
@@ -8,14 +7,6 @@ class WormHoleEosAccount {
         const web3 = new Web3();
         web3.setProvider(provider);
         this.web3 = web3;
-    }
-
-    initEos(config){
-        this.eos = new EosJs(config);
-    }
-
-    async initWhiteHole(address){
-        this.whiteHole = await this.eos.contract(address)
     }
 
     initEventHandler(onData) {

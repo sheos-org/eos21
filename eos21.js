@@ -55,7 +55,8 @@ check(wormHole, "instantiate wormhole");
 
 eos = new EosJs(eosConfig);
 eos.contract(whiteHoleAddress).then(whiteHole => {
-    wormHole.initEthereumProvider(new Web3.providers.WebsocketProvider(ethereumProvider));
+    const ethereumProvider = new Web3.providers.WebsocketProvider(ethereumProvider);
+    wormHole.initEthereumProvider(ethereumProvider);
     wormHole.initBlackHole(abi, blackHoleAddress);
     wormHole.initEventHandler((account, amount) => {
         console.log("have to send " + amount + " to " + account);
