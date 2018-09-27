@@ -2,7 +2,7 @@ module.exports = (blackHole, whiteHole) => {
     blackHole.events.TeleportToAccount({
         // fromBlock: 0
     })
-        .on('data', function (event) {
+        .on('data', event => {
             const { eosAccount, tokens } = event.returnValues;
 
             console.log("(II) blackHole event (account=" + eosAccount + ", amount=" + tokens + ")");
