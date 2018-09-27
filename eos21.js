@@ -3,7 +3,7 @@ const Web3 = require('web3');
 const EosJs = require('eosjs');
 const check = require('./wormhole/Check');
 
-const WormHole = require('./wormhole/WormHoleEosAccount.js');
+const createWormHole = require('./wormhole/WormHoleEosAccount.js');
 
 console.log("ERC20 teleporting starts ...");
 
@@ -50,18 +50,18 @@ const input = fs.readFileSync(blackHoleFile);
 const contract = JSON.parse(input.toString());
 const abi = contract.abi;
 
-const wormHole = new WormHole();
-check(wormHole, "instantiate wormhole");
-
-eos = new EosJs(eosConfig);
-eos.contract(whiteHoleAddress).then(whiteHole => {
-    const ethereumProvider = new Web3.providers.WebsocketProvider(ethereumProvider);
-    wormHole.initEthereumProvider(ethereumProvider);
-    wormHole.initBlackHole(abi, blackHoleAddress);
-    wormHole.initEventHandler((account, amount) => {
-        console.log("have to send " + amount + " to " + account);
+const websocketProvider = new Web3.providers.WebsocketProvider(ethereumProvider);
+const web3 = new Web3(websocketProvider);
+const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
+const eos = new EosJs(eosConfig);
+eos.contract(whiteHoleAddress)
+    .then(whiteHole => {
+        createWormHole(blackHole, whiteHole);
+    })
+    .catch(reason => {
+        console.log(reason);
+        process.exit();
     });
-    wormHole.teleport();
-});
+
 
 

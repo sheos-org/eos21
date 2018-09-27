@@ -4,11 +4,10 @@ const EthCrypto = require('eth-crypto');
 const fs = require('fs');
 require('chai').use(require('chai-as-promised')).should();
 
-const WormHole = require('../WormHoleEosAccount.js');
+const wormHole = require('../WormHoleEosAccount.js');
 const erc20Deployer = require('./ERC20Deployer');
 const blackHoleDeployer = require('./BlackHoleDeployer.js');
 
-const web3 = new Web3();
 
 var identities = []
 const identitiesCount = 10;
@@ -19,11 +18,11 @@ for (let i = 0; i < identitiesCount; i++) {
 // create a ganache-provider
 const ganacheProvider = ganache.provider({
     // we preset the balance of our identities to 10 ether
-    accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: web3.utils.toWei('10', 'ether') })),
+    accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: Web3.utils.toWei('10', 'ether') })),
 });
 
 // set ganache to web3 as provider
-web3.setProvider(ganacheProvider);
+const web3 = new Web3(ganacheProvider);
 
 describe('teleport ERC20 tokens', () => {
     let erc20Contract;
@@ -51,11 +50,7 @@ describe('teleport ERC20 tokens', () => {
     });
 
     it('teloportToAccount', async () => {
-        // create WormHole
-        const wormHole = new WormHole();
-        wormHole.initEthereumProvider(ganacheProvider);
-        wormHole.initBlackHole(blackHoleContract.options.jsonInterface, blackHoleContract.options.address);
-        wormHole.initEventHandler();
+        wormHole(blackHoleContract);
 
         for (let i = 0; i < identitiesCount; i++) {
             let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
@@ -65,31 +60,6 @@ describe('teleport ERC20 tokens', () => {
             result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             result.should.be.equal('0');
         }
-    });
-
-    it('teloportToAccount_using_address', async () => {
-        const blackHoleAddress = blackHoleContract.options.address;
-
-        const input = fs.readFileSync('../blackhole/build/contracts/BlackHoleEosAccount.json');
-        const contract = JSON.parse(input.toString());
-        const abi = contract.abi;
-        let count = 0;
-
-        const wormHole = new WormHole();
-        wormHole.initEthereumProvider(ganacheProvider);
-        wormHole.initBlackHole(abi, blackHoleAddress);
-        wormHole.initEventHandler((account, amount) => count++);
-
-        for (let i = 0; i < identitiesCount; i++) {
-            let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
-            result = await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
-            result.status.should.be.true;
-            await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identities[i].address });
-            result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
-            result.should.be.equal('0');
-        }
-
-        count.should.be.equal(identitiesCount);
     });
 });
 
