@@ -7,8 +7,22 @@ const argv = require('minimist')(process.argv.slice(2), {
         provider: 'http://localhost:8545',
         gas: 3000000
     },
+    boolean: ['help'],
     string: ['erc20_address', 'sender']
 });
+
+if (argv.help){
+    console.log("Help for BlackHole contract deployer:");
+    console.log("");
+    console.log("  --sender           address of account that is installing the contract");
+    console.log("  --erc20_address    address of erc20 contract blackhole will teleport from");
+    console.log("  --gas              amount of gas used in the transaction");
+    console.log("  --critic_block     after it anyone can close the blackhole");
+    console.log("  --minimum_amount   the minimum number of teportable tokens");
+    process.exit();
+}
+console.log(argv.help)
+return;
 
 console.log("(II) provider: " + argv.provider);
 let web3 = new Web3(argv.provider);
