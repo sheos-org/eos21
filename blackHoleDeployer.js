@@ -5,6 +5,7 @@ const check = require('./wormhole/Check');
 const argv = require('minimist')(process.argv.slice(2), {
     default: {
         provider: 'http://localhost:8545',
+        contract_file: './blackhole/build/contracts/BlackHoleEosAccount.json',
         gas: 3000000
     },
     boolean: ['help'],
@@ -19,10 +20,9 @@ if (argv.help){
     console.log("  --gas              amount of gas used in the transaction");
     console.log("  --critic_block     after it anyone can close the blackhole");
     console.log("  --minimum_amount   the minimum number of teportable tokens");
+    console.log("  --contract_file    compiled blackhole contract");
     process.exit();
 }
-console.log(argv.help)
-return;
 
 console.log("(II) provider: " + argv.provider);
 let web3 = new Web3(argv.provider);
@@ -30,9 +30,8 @@ let web3 = new Web3(argv.provider);
 // Read the compiled contract code
 // Compile with
 // solc SampleContract.sol --combined-json abi,asm,ast,bin,bin-runtime,clone-bin,devdoc,interface,opcodes,srcmap,srcmap-runtime,userdoc > contracts.json
-const contractFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
-check(fs.existsSync(contractFile), "contract: " + contractFile);
-const input = fs.readFileSync(contractFile);
+check(fs.existsSync(argv.contract_file), "contract: " + argv.contract_file);
+const input = fs.readFileSync(argv.contract_file);
 const contract = JSON.parse(input.toString());
 
 // Create Contract proxy class
