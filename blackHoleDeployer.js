@@ -5,6 +5,7 @@ const check = require('./wormhole/Check');
 const argv = require('minimist')(process.argv.slice(2), {
     default: {
         provider: 'http://localhost:8545',
+        gas: 3000000
     },
     string: ['erc20_address']
 });
@@ -26,6 +27,8 @@ const BlackHole = new web3.eth.Contract(contract.abi);
 check(argv.erc20_address, "erc20_address: " + argv.erc20_address);
 check(argv.critic_block, "critic_block: " + argv.critic_block);
 check(argv.minimum_amount, "minimum_amount: " + argv.minimum_amount);
+
+console.log("(II) start deployment (gas: " + argv.gas + ") ...");
 const sender = '0x259dFB6c0e57232184cAc7209Ba1032F755f925b';
 BlackHole.deploy({
     data: contract.bytecode,
@@ -33,13 +36,12 @@ BlackHole.deploy({
 })
     .send({
         from: sender,
-        gas: 3000000,
-        gasPrice: '20'
+        gas: argv.gas,
     })
     .on('error', error => console.log("(EE) " + error))
     .on('transactionHash', transactionHash => console.log("(II) transactionHash: " + transactionHash))
     .on('receipt', receipt => console.log("(II) receipt: \n" , receipt)) // contains the new contract address
     .on('confirmation', (confirmationNumber, receipt) => console.log("(II) confirmation: " + confirmationNumber))
     .then(blackHole => {
-        console.log("(II) done");
+        console.log("(II) ... done");
     });
