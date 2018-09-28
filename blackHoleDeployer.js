@@ -9,10 +9,6 @@ const argv = require('minimist')(process.argv.slice(2), {
     string: ['erc20_address']
 });
 
-// Create a web3 connection to a running geth node over JSON-RPC running at
-// http://localhost:8545
-// For geth VPS server + SSH tunneling see
-// https://gist.github.com/miohtama/ce612b35415e74268ff243af645048f4
 console.log("(II) provider: " + argv.provider);
 let web3 = new Web3(argv.provider);
 
