@@ -6,7 +6,7 @@ require('chai').use(require('chai-as-promised')).should();
 
 const wormHole = require('../WormHoleEosAccount.js');
 const erc20Deployer = require('./ERC20Deployer');
-const blackHoleDeployer = require('./BlackHoleDeployer.js');
+const blackHoleDeployer = require('../../utils/BlackHoleDeployer.js');
 
 
 var identities = []
@@ -21,6 +21,8 @@ const ganacheProvider = ganache.provider({
     accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: Web3.utils.toWei('10', 'ether') })),
 });
 
+console.log(ganacheProvider)
+
 // set ganache to web3 as provider
 const web3 = new Web3(ganacheProvider);
 
@@ -34,7 +36,15 @@ describe('teleport ERC20 tokens', () => {
         erc20Contract.should.not.equal(null);
 
         // deploy BlackHole contract
-        blackHoleContract = await blackHoleDeployer(web3, identities[0], erc20Contract.options.address);
+        blackHoleContract = await blackHoleDeployer({
+            provider: ganacheProvider,
+            contract_file: '../blackhole/build/contracts/BlackHoleEosAccount.json',
+            sender: identities[0].address,
+            erc20_address: erc20Contract.options.address,
+            critic_block: 0,
+            minimum_amount: 0,
+            gas: 3000000
+        });
         blackHoleContract.should.not.equal(null);
 
         // transfer ERC20 tokens to accounts
