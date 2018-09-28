@@ -1,14 +1,11 @@
 let fs = require("fs");
-let Web3 = require('web3'); // https://www.npmjs.com/package/web3
+let Web3 = require('web3');
 const check = require('../wormhole/Check');
 
 module.exports = (argv) => {
     console.log("(II) provider: " + argv.provider);
     let web3 = new Web3(argv.provider);
 
-    // Read the compiled contract code
-    // Compile with
-    // solc SampleContract.sol --combined-json abi,asm,ast,bin,bin-runtime,clone-bin,devdoc,interface,opcodes,srcmap,srcmap-runtime,userdoc > contracts.json
     check(fs.existsSync(argv.contract_file), "contract_file: " + argv.contract_file);
     const input = fs.readFileSync(argv.contract_file);
     const contract = JSON.parse(input.toString());
