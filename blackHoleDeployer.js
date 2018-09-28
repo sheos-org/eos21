@@ -44,11 +44,11 @@ BlackHole.deploy({
     .on('transactionHash', console.log)
     .on('receipt', receipt => console.log(receipt.contractAddress)) // contains the new contract address
     .on('confirmation', (confirmationNumber, receipt) => console.log(confirmationNumber, receipt))
-    .then(newContractInstance => {
-        console.log(newContractInstance.options.address) // instance with the new contract address
+    .then(blackHole => {
+        console.log(blackHole.options.address) // instance with the new contract address
 
         // Transaction has entered to geth memory pool
-        console.log("Your contract is being deployed in transaction at http://testnet.etherscan.io/tx/" + contract.transactionHash);
+        console.log("Your contract is being deployed in transaction at http://testnet.etherscan.io/tx/" + blackHole.transactionHash);
 
         // http://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
         function sleep(ms) {
