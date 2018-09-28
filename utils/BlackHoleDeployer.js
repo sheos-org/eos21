@@ -17,11 +17,12 @@ module.exports = (argv) => {
     const BlackHole = new web3.eth.Contract(contract.abi);
 
     check(argv.sender, "sender: " + argv.sender);
+    check(argv.gas, "gas: " + argv.gas);
     check(argv.erc20_address, "erc20_address: " + argv.erc20_address);
     check(argv.critic_block | argv.critic_block === 0, "critic_block: " + argv.critic_block);
     check(argv.minimum_amount | argv.minimum_amount === 0, "minimum_amount: " + argv.minimum_amount);
 
-    console.log("(II) start deployment (gas: " + argv.gas + ") ...");
+    console.log("(II) start deployment ...");
     return BlackHole.deploy({
         data: contract.bytecode,
         arguments: [argv.erc20_address, argv.critic_block, argv.minimum_amount]
