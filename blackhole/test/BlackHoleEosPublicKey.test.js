@@ -21,10 +21,10 @@ contract('BlackHoleEosPublicKey', accounts => {
         const erc20Token = await ERC20Token.new(name, symbol, tokens, decimals);
         const blackHole = await BlackHoleEosPublicKey.new(erc20Token.address, criticBlock, minimumAmount);
 
-        let watcher = blackHole.TeleportToKey();
+        let watcher = blackHole.Teleport();
 
         await erc20Token.approve(blackHole.address, 10000000000);
-        await blackHole.teleportToKey(eosPublicKey);
+        await blackHole.teleport(eosPublicKey);
         const blackHoleBalance = await erc20Token.balanceOf(blackHole.address);
         blackHoleBalance.should.be.bignumber.equal(10000000000);
         const balance = await erc20Token.balanceOf(accounts[0]);
@@ -32,8 +32,8 @@ contract('BlackHoleEosPublicKey', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args.eosPublicKey.should.be.equal(eosPublicKey);
-        events[0].args.tokens.should.be.bignumber.equal(10000000000);
+        events[0].args.note.should.be.equal(eosPublicKey);
+        events[0].args.amount.should.be.bignumber.equal(10000000000);
     });
 });
 
