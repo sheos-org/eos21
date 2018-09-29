@@ -9,10 +9,11 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
  */
 contract BlackHole {
     event Opened();
-    event Teleport(uint amount, string note);
+    event Teleport(uint id, uint amount, string note);
     event Closed();
 
     bool public closed = false;
+    uint public id = 0;
     ERC20 public erc20Contract;
     uint public criticBlock;
     uint public minimumAmount;
@@ -43,7 +44,8 @@ contract BlackHole {
      */
     function teleport(string note) public {
         uint amount = attract();
-        emit Teleport(amount, note);
+        emit Teleport(id, amount, note);
+        id++;
     }
 
     function attract() private returns (uint amount){
