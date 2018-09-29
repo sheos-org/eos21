@@ -8,12 +8,6 @@ import "./BlackHole.sol";
  * @dev It burns ERC20 tokens and log it with an associated EOS account.
  */
 contract BlackHoleEosAccount is EosValidator, BlackHole{
-    /** @dev Emitted when tokens are deadlocked.
-     *  @param tokens Amount.
-     *  @param eosAccount Associated EOS account.
-     */
-    event TeleportToAccount(uint tokens, string eosAccount);
-
     constructor(address _erc20Contract, uint _criticBlock, uint _minimumAmount) public 
     BlackHole(_erc20Contract, _criticBlock, _minimumAmount)
     {
@@ -21,9 +15,8 @@ contract BlackHoleEosAccount is EosValidator, BlackHole{
 
     /** @dev It deadlocks your tokens and emit an event with amount and EOS account.
      */
-    function teleportToAccount(string eosAccount) public {
+    function teleport(string eosAccount) public {
         require(isValidAccount(eosAccount), "not valid EOS account");
-        uint amount = attract();
-        emit TeleportToAccount(amount, eosAccount);
+        super.teleport(eosAccount);
     }
 }

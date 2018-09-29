@@ -67,7 +67,7 @@ describe('teleport ERC20 tokens', () => {
             await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
             const allowed = await erc20Contract.methods.allowance(identities[i].address, blackHoleContract.options.address).call();
             allowed.should.be.equal(amount);
-            await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identities[i].address });
+            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address });
             result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             result.should.be.equal('0');
         }
@@ -83,7 +83,7 @@ describe('teleport ERC20 tokens', () => {
             await erc20Contract.methods.approve(blackHoleContract.options.address, tokenBalance).send({ from: identities[i].address });
             const allowed = await erc20Contract.methods.allowance(identities[i].address, blackHoleContract.options.address).call();
             allowed.should.be.equal(tokenBalance);
-            await blackHoleContract.methods.teleportToAccount("te.mgr5ymass").send({ from: identities[i].address });
+            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address });
             tokenBalance = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
             tokenBalance.should.be.equal('0');
         }
