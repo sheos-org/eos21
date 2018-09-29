@@ -2,7 +2,7 @@ module.exports = (params) => {
     const { blackHole, onData } = params;
 
     blackHole.events.TeleportToAccount({
-        // fromBlock: 0
+         fromBlock: 0
     })
         .on('data', event => {
             const { eosAccount, tokens } = event.returnValues;
@@ -10,7 +10,7 @@ module.exports = (params) => {
             console.log("(II) blackHole event (account=" + eosAccount + ", amount=" + tokens + ")");
 
             if (onData) {
-                onData(eosAccount, tokens);
+                onData(event);
             }
             else
                 console.log("(WW) No callback define. Doing nothing.")
