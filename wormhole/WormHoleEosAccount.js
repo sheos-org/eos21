@@ -1,4 +1,6 @@
-module.exports = (blackHole, whiteHole) => {
+module.exports = (params) => {
+    const { blackHole, onData } = params;
+
     blackHole.events.TeleportToAccount({
         // fromBlock: 0
     })
@@ -7,11 +9,11 @@ module.exports = (blackHole, whiteHole) => {
 
             console.log("(II) blackHole event (account=" + eosAccount + ", amount=" + tokens + ")");
 
-            if (whiteHole){
-                console.log("(TODO) issue tokens");
+            if (onData) {
+                onData(eosAccount, tokens);
             }
             else
-                console.log("(WW) No whiteHole define. Doing nothing.")
+                console.log("(WW) No callback define. Doing nothing.")
         })
         .on('changed', console.log)
         .on('error', console.error);

@@ -21,8 +21,6 @@ const ganacheProvider = ganache.provider({
     accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: Web3.utils.toWei('10', 'ether') })),
 });
 
-console.log(ganacheProvider)
-
 // set ganache to web3 as provider
 const web3 = new Web3(ganacheProvider);
 
@@ -60,7 +58,7 @@ describe('teleport ERC20 tokens', () => {
     });
 
     it('teloportToAccount', async () => {
-        wormHole(blackHoleContract);
+        wormHole({ blackHole: blackHoleContract});
 
         for (let i = 0; i < identitiesCount; i++) {
             let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
