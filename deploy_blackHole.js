@@ -19,7 +19,7 @@ if (argv.help){
     console.log("  --critic_block     after it anyone can close the blackhole");
     console.log("  --minimum_amount   the minimum number of teportable tokens");
     console.log("  --contract_file    compiled blackhole contract");
-    process.exit();
+    process.exit(0);
 }
 
 blackHoleDeployer(argv);

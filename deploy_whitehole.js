@@ -15,7 +15,7 @@ if (argv.help){
     console.log("  --httpEndpoint     eos node endpoint");
     console.log("  --wasm_file        whitehole wasm file");
     console.log("  --abi_file         whitehole abi file");
-    process.exit();
+    process.exit(0);
 }
 
 whiteHoleDeployer(argv);
