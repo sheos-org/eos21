@@ -1,12 +1,15 @@
 #pragma once
 
 #include <eosiolib/eosio.hpp>
+#include <eosiolib/asset.hpp>
+#include <string>
 
-#include "eosio.token.hpp"
-
-class whitehole : public eosio::token {
+class whitehole : public eosio::contract {
 public:
     whitehole(account_name self);
+
+    [[eosio::action]]
+    void issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo);
 };
 
-EOSIO_ABI(whitehole, (issue)(create))
+EOSIO_ABI(whitehole, (issue))
