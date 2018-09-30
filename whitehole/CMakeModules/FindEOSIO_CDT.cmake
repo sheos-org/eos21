@@ -5,7 +5,7 @@ find_package_handle_standard_args(EOSIO_CDT REQUIRED_VARS EOSIO_CDT_ABIGEN)
 
 list(APPEND CMAKE_MODULE_PATH ${EOSIO_CDT_ROOT}/lib/cmake)
 
-set(EOSIO.cdt_INCLUDE_DIRS ${EOSIO_CDT_ROOT}/include)
+set(EOSIO_CDT_INCLUDE_DIRS ${EOSIO_CDT_ROOT}/include)
 
 include_directories(${EOSIO_CDT_INCLUDE_DIRS})
 
