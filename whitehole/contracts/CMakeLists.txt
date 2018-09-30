@@ -1,3 +1,5 @@
+add_subdirectory(eosio.token)
+
 add_executable(whitehole.wasm
     eosio.token.cpp
     whitehole.cpp
