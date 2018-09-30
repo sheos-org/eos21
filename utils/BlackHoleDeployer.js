@@ -3,7 +3,7 @@ let Web3 = require('web3');
 const check = require('../wormhole/Check');
 
 module.exports = (argv) => {
-    console.log("(II) provider: " + argv.provider);
+    check(argv.provider, "provider: " + argv.provider);
     let web3 = new Web3(argv.provider);
 
     check(fs.existsSync(argv.contract_file), "contract_file: " + argv.contract_file);
@@ -35,5 +35,9 @@ module.exports = (argv) => {
         .then(blackHole => {
             console.log("(II) ... done");
             return blackHole;
+        })
+        .catch(reason => {
+            console.error(reason);
+            process.exit(1);
         });
 }
