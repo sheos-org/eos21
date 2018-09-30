@@ -3,9 +3,10 @@
 #include <eosiolib/print.hpp>
 
 whitehole::whitehole(account_name self):
-    contract(self)
+    contract(self),
+    m_id(self, self)
 {
-    eosio::print("constructor callefffd, owner: ", eosio::name{self});
+    eosio::print("constructor called, owner: ", eosio::name{self});
 }
 
 void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo){

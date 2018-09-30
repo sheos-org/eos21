@@ -13,7 +13,7 @@ public:
     void issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo);
 
 private:
-    uint64_t myId;
+    eosio::singleton<N(singleton), uint64_t> m_id;
 };
 
 EOSIO_ABI(whitehole, (issue))
