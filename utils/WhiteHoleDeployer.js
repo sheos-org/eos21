@@ -3,7 +3,7 @@ EosJs = require('eosjs');
 const check = require('./Check');
 
 module.exports = (argv) => {
-    check(argv.httpEndpoint, "httpEndpoint: " + argv.httpEndpoint);
+    check(argv.http_endpoint, "http_endpoint: " + argv.http_endpoint);
     let eos = EosJs(argv);
 
     const { wasm_file, abi_file, account } = argv;

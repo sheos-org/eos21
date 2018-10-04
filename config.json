@@ -7,6 +7,10 @@
         "critic_block": "434235523",
         "minimum_amount": "100"
     },
+    "whitehole": {
+        "http_endpoint": "http://dev.cryptolions.io:38888",
+        "account": "whitehole111"
+    },
     "blackHoleFile": "./blackhole/build/contracts/BlackHoleEosAccount.json",
     "blackHoleAddress": "0x5455a6f1f85d18dd1e1a56fbe05b780656118705",
     "ethereumProvider": "ws://127.0.0.1:8545",
