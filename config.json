@@ -1,6 +1,7 @@
 {
     "blackhole": {
-        "provider": "http://127.0.0.1:8545",
+        "http_provider": "http://127.0.0.1:8545",
+        "websocket_provider": "ws://127.0.0.1:8545",
         "sender": "0x82cC3f53b9DD7Fc8F546DB9eBC497b8D69B1AebA",
         "gas": "3000000",
         "erc20_address": "0x0A60a35F0657d16cCbD610288A5f3CF21912659B",
@@ -13,10 +14,5 @@
         "account": "whitehole112",
         "private_key": "5KfTg5iPQ3qycY8J4eAgQfxigDPZagGG1Ns2dDbPrVE1oekfKZR"
     },
-    "blackHoleFile": "./blackhole/build/contracts/BlackHoleEosAccount.json",
-    "blackHoleAddress": "0x5455a6f1f85d18dd1e1a56fbe05b780656118705",
-    "ethereumProvider": "ws://127.0.0.1:8545",
-    "whiteHoleAddress": "whitehole",
-    "whiteHoleKey": "5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3",
-    "eosProvider": "http://127.0.0.1:8888"
+    "blackhole_address": "0xa7dd37Cf2CbeA5c3413602be9365BFfCC2d131Cf"
 }

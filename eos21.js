@@ -20,14 +20,14 @@ const getParams = () => {
     return config;
 }
 
-const {
-    blackHoleAddress,
-    whiteHoleAddress,
-    ethereumProvider,
-    whiteHoleKey,
-    blackHoleFile,
-    eosProvider
-} = getParams();
+const params = getParams();
+
+const whiteHoleKey = params.whitehole.private_key;
+const eosProvider = params.whitehole.http_endpoint;
+const blackHoleFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
+const ethereumProvider = params.blackhole.websocket_provider;
+const whiteHoleAddress = params.whitehole.account;
+const blackHoleAddress = params.blackhole_address;
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
@@ -56,7 +56,10 @@ const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
 const eos = new EosJs(eosConfig);
 eos.contract(whiteHoleAddress)
     .then(whiteHole => {
-        createWormHole(blackHole, whiteHole);
+        createWormHole({
+               blackHole, 
+               onData: () => console.log("ciao")
+        });
     })
     .catch(reason => {
         console.log(reason);

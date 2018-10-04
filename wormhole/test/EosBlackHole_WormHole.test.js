@@ -35,7 +35,7 @@ describe('teleport ERC20 tokens', () => {
 
         // deploy BlackHole contract
         blackHoleContract = await blackHoleDeployer({
-            provider: ganacheProvider,
+            http_provider: ganacheProvider,
             contract_file: '../blackhole/build/contracts/BlackHoleEosAccount.json',
             sender: identities[0].address,
             erc20_address: erc20Contract.options.address,
