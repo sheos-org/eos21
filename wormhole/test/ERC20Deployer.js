@@ -7,7 +7,7 @@ module.exports = (web3, identity) => {
     const bytecode = contract.bytecode;
     const erc20Token = new web3.eth.Contract(abi);
     const name = 'ERC20 test';
-    const symbol = 'SNS';
+    const symbol = 'PARTICLE';
     const decimals = 8;
     const tokens = 100;
 
