@@ -1,12 +1,12 @@
 let fs = require("fs");
 let Web3 = require('web3');
-const check = require('../wormhole/Check');
+const check = require('./Check');
 
 module.exports = (argv) => {
     check(argv.provider, "provider: " + argv.provider);
     let web3 = new Web3(argv.provider);
 
-    check(fs.existsSync(argv.contract_file), "contract_file: " + argv.contract_file);
+    //check(fs.existsSync(argv.contract_file), "contract_file: " + argv.contract_file);
     const input = fs.readFileSync(argv.contract_file);
     const contract = JSON.parse(input.toString());
 

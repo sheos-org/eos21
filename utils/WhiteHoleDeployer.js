@@ -1,6 +1,6 @@
 let fs = require("fs");
 EosJs = require('eosjs');
-const check = require('../wormhole/Check');
+const check = require('./Check');
 
 module.exports = (argv) => {
     check(argv.httpEndpoint, "httpEndpoint: " + argv.httpEndpoint);

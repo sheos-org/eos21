@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Web3 = require('web3');
 const EosJs = require('eosjs');
-const check = require('./wormhole/Check');
+const check = require('./utils/Check');
 
 const createWormHole = require('./wormhole/WormHoleEosAccount.js');
 
@@ -10,7 +10,7 @@ console.log("ERC20 teleporting starts ...");
 const getParams = () => {
     const argv = require('minimist')(process.argv.slice(2), {
         default: {
-            config: 'eos21.config'
+            config: 'config.json'
         }
     });
 
