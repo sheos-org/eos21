@@ -18,7 +18,7 @@ for (let i = 0; i < identitiesCount; i++) {
 // create a ganache-provider
 const ganacheProvider = ganache.provider({
     // we preset the balance of our identities to 10 ether
-    accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: Web3.utils.toWei('10', 'ether') })),
+    accounts: identities.map(identity => ({secretKey: identity.privateKey, balance: Web3.utils.toWei('100', 'ether') })),
 });
 
 // set ganache to web3 as provider
@@ -41,14 +41,15 @@ describe('teleport ERC20 tokens', () => {
             erc20_address: erc20Contract.options.address,
             critic_block: 0,
             minimum_amount: 0,
-            gas: 3000000
+            gas: 3000000,
+            gasPrice: 20
         });
         blackHoleContract.should.not.equal(null);
 
         // transfer ERC20 tokens to accounts
         const amount = 10;
         for (let i = 0; i < identitiesCount; i++) {
-            await erc20Contract.methods.transfer(identities[i].address, amount).send({ from: identities[0].address });
+            await erc20Contract.methods.transfer(identities[i].address, amount).send({ from: identities[0].address, gas: 3000000 });
         }
     });
 
@@ -63,12 +64,12 @@ describe('teleport ERC20 tokens', () => {
         wormHole({ blackHole: blackHoleContract, onData: () => count++ });
 
         for (let i = 0; i < identitiesCount; i++) {
-            let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
-            await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address });
+            let amount = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address , gas: 3000000});
+            await erc20Contract.methods.approve(blackHoleContract.options.address, amount).send({ from: identities[i].address , gas: 3000000});
             const allowed = await erc20Contract.methods.allowance(identities[i].address, blackHoleContract.options.address).call();
             allowed.should.be.equal(amount);
-            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address });
-            result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
+            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address , gas: 3000000});
+            result = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address , gas: 3000000});
             result.should.be.equal('0');
         }
         count.should.be.equal(identitiesCount);
@@ -79,12 +80,12 @@ describe('teleport ERC20 tokens', () => {
         wormHole({ blackHole: blackHoleContract, onData: () => count++ });
 
         for (let i = 0; i < 2; i++) {
-            let tokenBalance = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
-            await erc20Contract.methods.approve(blackHoleContract.options.address, tokenBalance).send({ from: identities[i].address });
+            let tokenBalance = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address , gas: 3000000});
+            await erc20Contract.methods.approve(blackHoleContract.options.address, tokenBalance).send({ from: identities[i].address , gas: 3000000});
             const allowed = await erc20Contract.methods.allowance(identities[i].address, blackHoleContract.options.address).call();
             allowed.should.be.equal(tokenBalance);
-            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address });
-            tokenBalance = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address });
+            await blackHoleContract.methods.teleport("te.mgr5ymass").send({ from: identities[i].address , gas: 3000000});
+            tokenBalance = await erc20Contract.methods.balanceOf(identities[i].address).call({ from: identities[i].address , gas: 3000000});
             tokenBalance.should.be.equal('0');
         }
 
