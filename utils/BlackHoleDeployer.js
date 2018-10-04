@@ -30,7 +30,7 @@ module.exports = (argv) => {
         })
         .on('error', error => console.log("(EE) " + error))
         .on('transactionHash', transactionHash => console.log("(II) transactionHash: " + transactionHash))
-        .on('receipt', receipt => console.log("(II) receipt: \n", receipt)) // contains the new contract address
+        .on('receipt', receipt => console.log("(RESULT): blackhole address: ", receipt.contractAddress)) // contains the new contract address
         .on('confirmation', (confirmationNumber, receipt) => console.log("(II) confirmation: " + confirmationNumber))
         .then(blackHole => {
             console.log("(II) ... done");
