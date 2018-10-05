@@ -3,7 +3,7 @@ const Web3 = require('web3');
 const EosJs = require('eosjs');
 const check = require('./utils/Check');
 
-const createWormHole = require('./wormhole/WormHoleEosAccount.js');
+const createWormHole = require('./oracle/TeleportOracle.js');
 
 console.log("ERC20 teleporting starts ...");
 
