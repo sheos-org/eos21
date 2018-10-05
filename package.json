@@ -24,7 +24,7 @@
   "scripts": {
     "blackhole_build": "cd blackhole && truffle compile",
     "blackhole_test": "cd blackhole && truffle test --network test",
-    "wormhole_test": "cd wormhole && mocha",
+    "oracle_test": "cd oracle && mocha",
     "start": "nodejs ./eos21.js",
     "test": "npm run blackhole_test && npm run wormhole_test"
   }

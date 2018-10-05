@@ -5,15 +5,11 @@ module.exports = (params) => {
          fromBlock: 0
     })
         .on('data', event => {
-            const { note, amount } = event.returnValues;
-
-            console.log("(II) blackHole event (account=" + note + ", amount=" + amount + ")");
-
             if (onData) {
                 onData(event);
             }
             else
-                console.log("(WW) No callback define. Doing nothing.")
+                console.log("(II) blackHole event " + event.returnValues);
         })
         .on('changed', console.log)
         .on('error', console.error);
