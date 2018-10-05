@@ -59,9 +59,11 @@ eos.contract(whiteHoleAddress)
         createWormHole({
                blackHole, 
                onData: event => {
-                   console.log("ciao");
                     const { id, amount, note } = event.returnValues;
-                    console.log(event.returnValues);
+                    console.log("(EVENT) id=" + id + ", amount=" + amount + ", note=" + note);
+                    whiteHole.issue(id, note, amount, "Emerged from whitehole")
+                    .then(console.log)
+                    .catch(console.error);
                }
         });
     })
