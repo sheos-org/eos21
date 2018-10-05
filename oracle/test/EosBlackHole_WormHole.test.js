@@ -5,7 +5,7 @@ const fs = require('fs');
 require('chai').use(require('chai-as-promised')).should();
 
 const wormHole = require('../TeleportOracle.js');
-const erc20Deployer = require('./ERC20Deployer');
+const erc20Deployer = require('../../utils/ERC20Deployer.js');
 const blackHoleDeployer = require('../../utils/BlackHoleDeployer.js');
 
 
@@ -30,7 +30,13 @@ describe('teleport ERC20 tokens', () => {
 
     beforeEach(async () => {
         // deploy ERC20 contract
-        erc20Contract = await erc20Deployer(web3, identities[0]);
+        erc20Contract = await erc20Deployer({
+            http_provider: ganacheProvider,
+            contract_file: '../blackhole/build/contracts/ERC20Token.json',
+            sender: identities[0].address,
+            gas: 3000000,
+            gasPrice: 20
+        });
         erc20Contract.should.not.equal(null);
 
         // deploy BlackHole contract
