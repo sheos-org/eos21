@@ -45,7 +45,7 @@ eosConfig = {
     verbose: false, // API activity
     sign: true
 };
- 
+
 const input = fs.readFileSync(blackHoleFile);
 const contract = JSON.parse(input.toString());
 const abi = contract.abi;
@@ -53,24 +53,28 @@ const abi = contract.abi;
 const websocketProvider = new Web3.providers.WebsocketProvider(ethereumProvider);
 const web3 = new Web3(websocketProvider);
 const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
-const eos = new EosJs(eosConfig);
-eos.contract(whiteHoleAddress)
-    .then(whiteHole => {
-        createWormHole({
-               blackHole, 
-               onData: event => {
-                    const { id, amount, note } = event.returnValues;
-                    console.log("(EVENT) id=" + id + ", amount=" + amount + ", note=" + note);
-                    whiteHole.issue(id, note, amount, "Emerged from whitehole")
-                    .then(console.log)
-                    .catch(console.error);
-               }
-        });
-    })
-    .catch(reason => {
-        console.log(reason);
-        process.exit();
+const eos = EosJs(eosConfig);
+eos.getInfo({})
+    .then(result => {
+        console.log("(II) getInfo:");
+        console.log(result);
+        return eos.contract(whiteHoleAddress)
+            .then(whiteHole => {
+                createWormHole({
+                    blackHole,
+                    onData: event => {
+                        const { id, amount, note } = event.returnValues;
+                        console.log("(EVENT) id=" + id + ", amount=" + amount + ", note=" + note);
+                        whiteHole.issue(id, note, amount, "Emerged from whitehole")
+                            .then(console.log("done"))
+                            .catch(console.error);
+                    }
+                });
+                console.log("(II) waiting blackhole events ...");
+            })
+            .catch(reason => {
+                console.log("error" + reason);
+                process.exit();
+            });
     });
-
-
 
