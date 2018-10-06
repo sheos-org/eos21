@@ -6,9 +6,9 @@ Eos = require('eosjs');
 
 // Default configuration
 config = {
-    chainId: null, // 32 byte (64 char) hex string
-    keyProvider: ['5KJxTJGLYyWAvNyUYNkxeeqbkEVnuAVwh78AdoqLxkzF86gVhbP'], // WIF string or array of keys..
-    httpEndpoint: 'http://127.0.0.1:8888',
+    chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca", // 32 byte (64 char) hex string
+    keyProvider: ['5KfTg5iPQ3qycY8J4eAgQfxigDPZagGG1Ns2dDbPrVE1oekfKZR'], // WIF string or array of keys..
+    httpEndpoint: 'http://dev.cryptolions.io:38888',
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
@@ -24,7 +24,7 @@ describe('Array', function() {
 //    eos.setcode('whitehole', 0, 0, wasm).should.be.fulfilled;
 
     it('fetch whitehole', async () => {
-        let contract = await eos.contract('whitehole');
+        let contract = await eos.contract('whitehole112');
         contract.should.not.equal(null);
     });
 
