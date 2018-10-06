@@ -12,12 +12,19 @@ config = {
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
-    sign: true
+    sign: true,
+    authorization: 'whitehole112@active'
 };
 
 describe('Array', () => {
     const eos = Eos(config);
     const account = 'whitehole112';
+
+    const options = {
+        authorization: 'whitehole112@active',
+        broadcast: true,
+        sign: true
+    };
 
     it('fetch whitehole', async () => {
         const whiteHole = await eos.contract(account);
