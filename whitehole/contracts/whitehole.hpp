@@ -10,7 +10,7 @@ public:
     whitehole(account_name self);
 
     [[eosio::action]]
-    void setissuer(account_name tokenAccount);
+    void setissuer(account_name account);
 
     [[eosio::action]]
     void issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo);
@@ -18,8 +18,8 @@ public:
 private:
     struct state
     {
-        uint64_t lastId;
-        account_name tokenAccount;
+        uint64_t lastId = 0;
+        account_name tokenAccount = 0;
     };
     eosio::singleton<N(singleton), state> _state;
 };

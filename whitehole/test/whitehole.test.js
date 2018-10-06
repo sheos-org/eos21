@@ -29,7 +29,7 @@ describe('Array', () => {
     it('issue without token contract set', async () => {
         const whiteHole = await eos.contract(account);
         await whiteHole.issue({
-            id: 10,
+            id: 1,
             to: "mary",
             quantity: "10 EOS",
             memo: "non so"
