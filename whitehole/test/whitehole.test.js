@@ -15,23 +15,36 @@ config = {
     sign: true
 };
 
-describe('Array', function() {
-    let eos = Eos(config);
-
-    let wasm = fs.readFileSync(`./build/contracts/whitehole.wasm`);
-    let abi = fs.readFileSync(`./build/contracts/whitehole.abi`);
-
-//    eos.setcode('whitehole', 0, 0, wasm).should.be.fulfilled;
+describe('Array', () => {
+    const eos = Eos(config);
+    const account = 'whitehole112';
 
     it('fetch whitehole', async () => {
-        let contract = await eos.contract('whitehole112');
-        contract.should.not.equal(null);
+        const whiteHole = await eos.contract(account);
+        whiteHole.should.not.equal(null);
     });
 
+    it('issue without token contract set', async () => {
+        const whiteHole = await eos.contract(account);
+        await whiteHole.issue({
+            id: 10,
+            to: "mary",
+            quantity: "10 EOS",
+            memo: "non so"
+        }).should.be.rejected;
+    });
 
-//   describe('#indexOf()', function() {
-//     it('should return -1 when the value is not present', function() {
-//       assert.equal([1,2,3].indexOf(4), -1);
-//     });
-//   });
+    it('set issuer owner account', async () => {
+        const whiteHole = await eos.contract(account);
+        await whiteHole.setissuer({
+            tokenAccount: account
+        }).should.be.rejected;
+    });
+
+    it('set issuer not owner account', async () => {
+        const whiteHole = await eos.contract(account);
+        await whiteHole.setissuer({
+            tokenAccount: "whitehole111"
+        }).should.be.fulfilled;
+    });
 });
