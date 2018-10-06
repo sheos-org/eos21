@@ -24,13 +24,17 @@ void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::
 {
     require_auth( _self );
     auto state = _state.get();
-    eosio_assert(_self != state.tokenAccount, "token account not set");
+    auto tokenAccount = state.tokenAccount;
     auto nextId = state.lastId + 1;
+    eosio_assert(_self != state.tokenAccount, "token account not set");
     eosio_assert(id == nextId, "wrong id");
 
-
-    // TODO call the eosio.token
-
+    eosio::action(
+                eosio::permission_level{_self, N(active)},
+                tokenAccount,
+                N(issue),
+                make_tuple(to, quantity, memo)
+                ).send();
 
     state.lastId = nextId;
     _state.set(state, _self);
