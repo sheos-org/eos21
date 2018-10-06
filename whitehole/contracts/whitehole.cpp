@@ -11,7 +11,7 @@ whitehole::whitehole(account_name self):
     _state.set({initId, initTokenAccount}, _self);
 }
 
-void whitehole::set_token_account(account_name tokenAccount)
+void whitehole::setissuer(account_name tokenAccount)
 {
     require_auth(_self);
     auto state = _state.get();
