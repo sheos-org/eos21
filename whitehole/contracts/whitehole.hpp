@@ -13,6 +13,12 @@ public:
     void setissuer(account_name account);
 
     [[eosio::action]]
+    void getissuer();
+
+    [[eosio::action]]
+    void getlastid();
+
+    [[eosio::action]]
     void issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo);
 
 private:
@@ -24,4 +30,4 @@ private:
     eosio::singleton<N(singleton), state> _state;
 };
 
-EOSIO_ABI(whitehole, (issue)(setissuer))
+EOSIO_ABI(whitehole, (issue)(setissuer)(getissuer)(getlastid))

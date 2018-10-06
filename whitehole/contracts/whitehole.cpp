@@ -18,13 +18,25 @@ void whitehole::setissuer(account_name account)
     _state.set(state, _self);
 }
 
+void whitehole::getissuer()
+{
+    auto state = _state.get_or_default();
+    eosio::print(eosio::name{state.tokenAccount});
+}
+
+void whitehole::getlastid()
+{
+    auto state = _state.get_or_default();
+    eosio::print(eosio::name{state.lastId});
+}
+
 void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo)
 {
     require_auth( _self );
     auto state = _state.get_or_default();
     auto tokenAccount = state.tokenAccount;
     auto nextId = state.lastId + 1;
-    eosio_assert(0 != state.tokenAccount, eosio::name{tokenAccount}.to_string().c_str());
+    eosio_assert(0 != state.tokenAccount, "");
     eosio_assert(id == nextId, "wrong id");
 
     eosio::action(
