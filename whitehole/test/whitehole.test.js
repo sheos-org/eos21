@@ -4,6 +4,8 @@ require('chai')
     .should();
 Eos = require('eosjs');
 
+const account = 'whitehole112';
+
 // Default configuration
 config = {
     chainId: "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca", // 32 byte (64 char) hex string
@@ -13,18 +15,11 @@ config = {
     broadcast: true,
     verbose: false, // API activity
     sign: true,
-    authorization: 'whitehole112@active'
+    authorization: account + '@active'
 };
 
 describe('Array', () => {
     const eos = Eos(config);
-    const account = 'whitehole112';
-
-    const options = {
-        authorization: 'whitehole112@active',
-        broadcast: true,
-        sign: true
-    };
 
     it('fetch whitehole', async () => {
         const whiteHole = await eos.contract(account);

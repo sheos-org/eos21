@@ -16,7 +16,7 @@ void whitehole::setissuer(account_name tokenAccount)
     require_auth(_self);
     eosio_assert(tokenAccount != _self, "issuer can't be whitehole");
     auto state = _state.get();
-    eosio_assert(_self != state.tokenAccount, eosio::name{state.tokenAccount}.to_string());
+    eosio_assert(_self != state.tokenAccount, "issuer already set");
     state.tokenAccount = tokenAccount;
     _state.set(state, _self);
 }
