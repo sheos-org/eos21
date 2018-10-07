@@ -28,6 +28,8 @@ const blackHoleFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
 const ethereumProvider = params.blackhole.websocket_provider;
 const whiteHoleAddress = params.whitehole.account;
 const blackHoleAddress = fs.readFileSync('./blackhole_address', 'utf-8')
+const decimals = params.blackhole.decimals;
+const symbol = params.blackhole.symbol;
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
@@ -35,6 +37,8 @@ check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
 check(whiteHoleKey, 'whitehole key: ' + whiteHoleKey);
 check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 check(eosProvider, "EOS provider: " + eosProvider);
+check(symbol, "ERC20 symbol: " + symbol);
+check(decimals, "ERC20 decimals: " + decimals);
 
 eosConfig = {
     chainId: null, // 32 byte (64 char) hex string
@@ -64,8 +68,11 @@ eos.getInfo({})
                     blackHole,
                     onData: event => {
                         const { id, amount, note } = event.returnValues;
-                        console.log("(EVENT) id=" + id + ", amount=" + amount + ", note=" + note);
-                        whiteHole.issue(id, note, amount, "Emerged from whitehole")
+                        const amountFloat = (amount/10**decimals).toFixed(decimals);
+                        const amountWithSymbol = amountFloat + " " + symbol;
+                        console.log("(EVENT) id=" + id + ", amount=" + amountWithSymbol + ", note=" + note);
+                        
+                        whiteHole.issue(id, note, amountWithSymbol, "Emerged from whitehole")
                             .then(console.log("done"))
                             .catch(console.error);
                     }

@@ -68,6 +68,11 @@ describe('teleport ERC20 tokens', () => {
         blackHoleContract.methods.closed().call({ from: identities[0].address }).should.eventually.be.false;
     });
 
+    it('check the number of tokens', async () => {
+        const amount = await erc20Contract.methods.balanceOf(identities[0].address).call({ from: identities[0].address , gas: 3000000});
+        amount.should.be.equal(1000);
+    });
+
     it('teloportToAccount', async () => {
         let count = 0;
 

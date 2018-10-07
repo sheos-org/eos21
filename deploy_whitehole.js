@@ -20,4 +20,7 @@ const params = getParams().whitehole;
 params.wasm_file = './whitehole/build/contracts/whitehole.wasm';
 params.abi_file = './whitehole/build/contracts/whitehole.abi';
 
-whiteHoleDeployer(params);
+whiteHoleDeployer(params)
+.then(instance => {
+    console.log(instance.address);
+});
