@@ -20,9 +20,9 @@ const params = getParams().blackhole;
 params.contract_file = "./blackhole/build/contracts/BlackHoleEosAccount.json";
 
 blackHoleDeployer(params)
-.then(blackHole => {
-    console.log("(RESULT) blackhole address: " + blackHole.options.address)
-    fs.writeFileSync('./blackhole_address', blackHole.options.address)
+.then(instance => {
+    console.log("(RESULT) blackhole address: " + instance.options.address);
+    fs.writeFileSync('./blackhole_address', instance.options.address);
 })
 .catch(console.error);
 

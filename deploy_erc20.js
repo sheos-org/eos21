@@ -19,7 +19,12 @@ const params = getParams().blackhole;
 
 params.contract_file = "./blackhole/build/contracts/ERC20Token.json";
 
-erc20Deployer(params);
+erc20Deployer(params)
+.then(instance => {
+    console.log("(RESULT) erc20 address: " + instance.options.address);
+    fs.writeFileSync('./erc20_address', instance.options.address);
+})
+.catch(console.error);
 
 // const argv = require('minimist')(process.argv.slice(2), {
 //     default: {
