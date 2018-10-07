@@ -35,7 +35,11 @@ describe('teleport ERC20 tokens', () => {
             contract_file: '../blackhole/build/contracts/ERC20Token.json',
             sender: identities[0].address,
             gas: 3000000,
-            gasPrice: 20
+            gasPrice: 20,
+            name: "ERC20 Test",
+            symbol: "TEST",
+            decimals: "4",
+            tokens: "100"
         });
         erc20Contract.should.not.equal(null);
 
