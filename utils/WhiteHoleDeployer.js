@@ -22,12 +22,9 @@ module.exports = (argv) => {
 
     const wasm = fs.readFileSync(wasm_file);
     const abi = fs.readFileSync(abi_file);
-    eos.setcode(account, 0, 0, wasm)
+    return eos.setcode(account, 0, 0, wasm)
         .then(result => {
             console.log(result);
             return eos.setabi(account, JSON.parse(abi));
         })
-        .catch(console.log)
-        .then(console.log)
-        .catch(console.log);
 }

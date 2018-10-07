@@ -37,7 +37,7 @@ void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::
     auto tokenAccount = state.tokenAccount;
     auto nextId = state.lastId + 1;
     eosio_assert(0 != state.tokenAccount, "issuer not set");
-    eosio_assert(id == nextId, "wrong id");
+    //eosio_assert(id == nextId, "wrong id");
 
     eosio::action(
                 eosio::permission_level{_self, N(active)},

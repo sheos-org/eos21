@@ -30,6 +30,7 @@ const whiteHoleAddress = params.whitehole.account;
 const blackHoleAddress = fs.readFileSync('./blackhole_address', 'utf-8')
 const decimals = params.blackhole.decimals;
 const symbol = params.blackhole.symbol;
+const chainId = params.whitehole.chain_id;
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
@@ -39,15 +40,17 @@ check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 check(eosProvider, "EOS provider: " + eosProvider);
 check(symbol, "ERC20 symbol: " + symbol);
 check(decimals, "ERC20 decimals: " + decimals);
+check(chainId, "chain_id: " + chainId);
 
 eosConfig = {
-    chainId: null, // 32 byte (64 char) hex string
+    chainId: chainId, // 32 byte (64 char) hex string
     keyProvider: [whiteHoleKey], // WIF string or array of keys..
     httpEndpoint: eosProvider,
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
-    sign: true
+    sign: true,
+    authorization: whiteHoleAddress + '@active'
 };
 
 const input = fs.readFileSync(blackHoleFile);
@@ -68,11 +71,12 @@ eos.getInfo({})
                     blackHole,
                     onData: event => {
                         const { id, amount, note } = event.returnValues;
+                        const nextId = parseInt(id)+1;
                         const amountFloat = (amount/10**decimals).toFixed(decimals);
                         const amountWithSymbol = amountFloat + " " + symbol;
-                        console.log("(EVENT) id=" + id + ", amount=" + amountWithSymbol + ", note=" + note);
+                        console.log("(EVENT) id=" + nextId + ", amount=" + amountWithSymbol + ", note=" + note);
                         
-                        whiteHole.issue(id, note, amountWithSymbol, "Emerged from whitehole")
+                        whiteHole.issue(nextId, note, amountWithSymbol, "Emerged from whitehole")
                             .then(console.log("done"))
                             .catch(console.error);
                     }

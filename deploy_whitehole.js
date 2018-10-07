@@ -23,4 +23,5 @@ params.abi_file = './whitehole/build/contracts/whitehole.abi';
 whiteHoleDeployer(params)
 .then(instance => {
     console.log(instance.address);
-});
+})
+.catch(console.error);

@@ -43,8 +43,8 @@ describe('teleport ERC20 tokens', () => {
         });
         erc20Contract.should.not.equal(null);
 
-        // deploy BlackHole contract
         blackHoleContract = await blackHoleDeployer({
+            // deploy BlackHole contract
             http_provider: ganacheProvider,
             contract_file: '../blackhole/build/contracts/BlackHoleEosAccount.json',
             sender: identities[0].address,
@@ -66,11 +66,6 @@ describe('teleport ERC20 tokens', () => {
     it('BlackHole is opened', async () => {
         // Check BlackHole is not closed
         blackHoleContract.methods.closed().call({ from: identities[0].address }).should.eventually.be.false;
-    });
-
-    it('check the number of tokens', async () => {
-        const amount = await erc20Contract.methods.balanceOf(identities[0].address).call({ from: identities[0].address , gas: 3000000});
-        amount.should.be.equal(1000);
     });
 
     it('teloportToAccount', async () => {
