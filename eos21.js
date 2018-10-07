@@ -68,12 +68,12 @@ eos.getInfo({})
                 createWormHole({
                     blackHole,
                     onData: event => {
-                        const { id, amount, note } = event.returnValues;
+                        const { amount, note } = event.returnValues;
                         const amountFloat = (amount/10**decimals).toFixed(decimals);
                         const amountWithSymbol = amountFloat + " " + symbol;
-                        console.log("(EVENT) id=" + id + ", amount=" + amountWithSymbol + ", to=" + note);
+                        console.log("(EVENT) amount=" + amountWithSymbol + ", to=" + note);
                         
-                        whiteHole.issue(id, note, amountWithSymbol, "Emerged from whitehole")
+                        whiteHole.issue(note, amountWithSymbol, "Emerged from whitehole")
                             .catch(console.error);
                     }
                 });
