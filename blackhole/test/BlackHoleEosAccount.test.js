@@ -32,7 +32,6 @@ contract('BlackHoleEosAccount', accounts => {
 
         const events = await watcher.get();
         events.length.should.be.equal(1);
-        events[0].args.id.should.be.bignumber.equal(0);
         events[0].args.note.should.be.equal(eosAccount);
         events[0].args.amount.should.be.bignumber.equal(10000000000);
     });
