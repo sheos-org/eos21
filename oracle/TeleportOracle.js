@@ -2,7 +2,7 @@ module.exports = (params) => {
     const { blackHole, onData } = params;
 
     blackHole.events.Teleport({
-        fromBlock: 0
+//        fromBlock: 0
     })
         .on('data', event => {
             if (onData) {
