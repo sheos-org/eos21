@@ -4,16 +4,19 @@
         "websocket_provider": "ws://127.0.0.1:8545",
         "sender": "0x82cC3f53b9DD7Fc8F546DB9eBC497b8D69B1AebA",
         "gas": "3000000",
-        "erc20_address": "0x0A60a35F0657d16cCbD610288A5f3CF21912659B",
         "critic_block": "434235523",
-        "minimum_amount": "100"
+        "minimum_amount": "100",
+        "erc20_address": "0xC3DAE0F9CAD79b073878a55DDC3cd569f9B45A24",
+        "address": "0x23e6bc41bcf1a7669a305033c52b9bb516a512de",
+        "name": "ERC20 Test",
+        "symbol": "TEST",
+        "decimals": "4",
+        "tokens": "100"
     },
     "whitehole": {
         "chain_id": "038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca",
         "http_endpoint": "http://dev.cryptolions.io:38888",
-        "account": "whitehole112",
+        "account": "asiniscalch4",
         "private_key": "5KfTg5iPQ3qycY8J4eAgQfxigDPZagGG1Ns2dDbPrVE1oekfKZR"
-    },
-    "blackhole_address": "0xa7dd37Cf2CbeA5c3413602be9365BFfCC2d131Cf",
-    "erc20_address": "0x339515fE37C334F1e246F445505c39eA2D3BB956"
+    }
 }

@@ -27,7 +27,7 @@ const eosProvider = params.whitehole.http_endpoint;
 const blackHoleFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
 const ethereumProvider = params.blackhole.websocket_provider;
 const whiteHoleAddress = params.whitehole.account;
-const blackHoleAddress = params.blackhole_address;
+const blackHoleAddress = fs.readFileSync('./blackhole_address', 'utf-8')
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
 check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);

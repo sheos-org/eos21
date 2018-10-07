@@ -2,9 +2,9 @@ var ERC20Token = artifacts.require("./ERC20Token.sol");
 var BlackHole = artifacts.require("./BlackHoleEosAccount.sol")
 
 module.exports = function (deployer) {
-  const name = 'Sense test';
-  const symbol = 'SNS';
-  const decimals = 8;
+  const name = 'Test Token';
+  const symbol = 'TEST';
+  const decimals = 4;
   const tokens = 100;
   const genesisBlock = 0;
   const minimumAmount = 0;
