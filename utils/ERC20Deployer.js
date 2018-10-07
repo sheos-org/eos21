@@ -5,7 +5,7 @@ const check = require('./Check');
 module.exports = (argv) => {
     const name = 'ERC20 test';
     const symbol = 'PARTICLE';
-    const decimals = 8;
+    const decimals = 4;
     const tokens = 100;
 
     check(argv.http_provider, "http_provider: " + argv.http_provider);

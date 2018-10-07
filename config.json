@@ -14,5 +14,6 @@
         "account": "whitehole112",
         "private_key": "5KfTg5iPQ3qycY8J4eAgQfxigDPZagGG1Ns2dDbPrVE1oekfKZR"
     },
-    "blackhole_address": "0xa7dd37Cf2CbeA5c3413602be9365BFfCC2d131Cf"
+    "blackhole_address": "0xa7dd37Cf2CbeA5c3413602be9365BFfCC2d131Cf",
+    "erc20_address": "0x339515fE37C334F1e246F445505c39eA2D3BB956"
 }

@@ -2,3 +2,4 @@ node_modules/
 build/
 .DS_Store
 CMakeLists.txt.user
+blackhole_address

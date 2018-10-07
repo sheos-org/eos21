@@ -1,5 +1,5 @@
 const fs = require("fs");
-const blackHoleDeployer = require('./utils/BlackHoleDeployer');
+const erc20Deployer = require('./utils/ERC20Deployer');
 const check = require('./utils/Check');
 
 const getParams = () => {
@@ -17,14 +17,9 @@ const getParams = () => {
 
 const params = getParams().blackhole;
 
-params.contract_file = "./blackhole/build/contracts/BlackHoleEosAccount.json";
+params.contract_file = "./blackhole/build/contracts/ERC20Token.json";
 
-blackHoleDeployer(params)
-.then(blackHole => {
-    console.log("(RESULT) blackhole address: " + blackHole.options.address)
-    fs.writeFileSync('./blackhole_address', blackHole.options.address)
-})
-.catch(console.error);
+erc20Deployer(params);
 
 // const argv = require('minimist')(process.argv.slice(2), {
 //     default: {
