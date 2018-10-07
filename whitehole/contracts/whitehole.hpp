@@ -24,7 +24,7 @@ public:
 private:
     struct state
     {
-        uint64_t lastId = 0;
+        uint64_t nextId = 0;
         account_name tokenAccount = 0;
     };
     eosio::singleton<N(singleton), state> _state;

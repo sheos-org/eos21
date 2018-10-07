@@ -27,7 +27,7 @@ void whitehole::getissuer()
 void whitehole::getlastid()
 {
     auto state = _state.get_or_default();
-    eosio::print(eosio::name{state.lastId});
+    eosio::print(eosio::name{state.nextId});
 }
 
 void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::string memo)
@@ -35,9 +35,9 @@ void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::
     require_auth( _self );
     auto state = _state.get_or_default();
     auto tokenAccount = state.tokenAccount;
-    auto nextId = state.lastId + 1;
+    auto nextId = state.nextId;
     eosio_assert(0 != state.tokenAccount, "issuer not set");
-    //eosio_assert(id == nextId, "wrong id");
+ //   eosio_assert(id == nextId, "wrong id");
 
     eosio::action(
                 eosio::permission_level{_self, N(active)},
@@ -46,7 +46,7 @@ void whitehole::issue(uint64_t id, account_name to, eosio::asset quantity, std::
                 make_tuple(to, quantity, memo)
                 ).send();
 
-    state.lastId = nextId;
+    state.nextId++;
     _state.set(state, _self);
 }
 

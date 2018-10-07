@@ -4,10 +4,14 @@ var ERC20Token = artifacts.require("./ERC20Token.sol");
 var BlackHole = artifacts.require("./BlackHoleEosAccount.sol")
 
 module.exports = function (deployer) {
-  const name = 'Test Token';
-  const symbol = 'TEST';
-  const decimals = 4;
-  const tokens = 100;
+  const configFile = "../config.json";
+  //check(fs.existsSync(configFile), "configuration file: " + configFile);
+  const config = JSON.parse(fs.readFileSync(configFile));
+  //console.log(config)
+  const name = config.blackhole.name;
+  const symbol = config.blackhole.symbol;
+  const decimals = config.blackhole.decimals;
+  const tokens = config.blackhole.tokens;
   const genesisBlock = 0;
   const minimumAmount = 0;
 

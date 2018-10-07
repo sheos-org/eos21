@@ -27,4 +27,7 @@ module.exports = (argv) => {
             console.log(result);
             return eos.setabi(account, JSON.parse(abi));
         })
+        .catch(console.log)
+        .then(console.log)
+        .catch(console.log);
 }

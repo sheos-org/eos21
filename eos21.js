@@ -32,11 +32,11 @@ const decimals = params.blackhole.decimals;
 const symbol = params.blackhole.symbol;
 const chainId = params.whitehole.chain_id;
 
-check(Web3.utils.isAddress(blackHoleAddress), "blackhole address: " + blackHoleAddress);
-check(whiteHoleAddress, "whitehole address: " + whiteHoleAddress);
-check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
+check(Web3.utils.isAddress(blackHoleAddress), "blackhole account: " + blackHoleAddress);
+check(whiteHoleAddress, "whitehole account: " + whiteHoleAddress);
 check(whiteHoleKey, 'whitehole key: ' + whiteHoleKey);
-check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
+check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
+//check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 check(eosProvider, "EOS provider: " + eosProvider);
 check(symbol, "ERC20 symbol: " + symbol);
 check(decimals, "ERC20 decimals: " + decimals);
@@ -63,21 +63,17 @@ const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
 const eos = EosJs(eosConfig);
 eos.getInfo({})
     .then(result => {
-        console.log("(II) getInfo:");
-        console.log(result);
         return eos.contract(whiteHoleAddress)
             .then(whiteHole => {
                 createWormHole({
                     blackHole,
                     onData: event => {
                         const { id, amount, note } = event.returnValues;
-                        const nextId = parseInt(id)+1;
                         const amountFloat = (amount/10**decimals).toFixed(decimals);
                         const amountWithSymbol = amountFloat + " " + symbol;
-                        console.log("(EVENT) id=" + nextId + ", amount=" + amountWithSymbol + ", note=" + note);
+                        console.log("(EVENT) id=" + id + ", amount=" + amountWithSymbol + ", to=" + note);
                         
-                        whiteHole.issue(nextId, note, amountWithSymbol, "Emerged from whitehole")
-                            .then(console.log("done"))
+                        whiteHole.issue(id, note, amountWithSymbol, "Emerged from whitehole")
                             .catch(console.error);
                     }
                 });
