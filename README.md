@@ -1,28 +1,20 @@
 # eos21
 Teleport your ERC20 tokens to EOS.
 
+# WARNING !
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 In order to burn Ethereum ERC20 Tockens and materialize them into EOS we need 3 actors:
 
 * **BlackHole** Contract in Ethereum Universe.
-* **WhiteHole** Contract in EOSIO Universe.
-* **WormHole** to teleport tockens.
+* **token.eosio** Contract in EOSIO Universe.
+* **oracle** to teleport tockens.
 
-# Compilation
-## BlackHole
-```
-$ sudo npm install -g truffle
-$ npm install
-$ cd blackhole
-$ truffle compile
-$ truffle test
-```
-
-## WhiteHole
-```
-$ cd blackhole
-$ mkdir build
-$ cd build
-$ cmake .. -DEOSIO_WASMSDK_ROOT=<path_to_eosio.wasmsdk>
-$ make
 
 
