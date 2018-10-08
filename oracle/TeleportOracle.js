@@ -1,6 +1,14 @@
 module.exports = (params) => {
     const { blackHole, onData } = params;
 
+    blackHole.methods.closed().call()
+    .then(result => {
+        if (result === true){
+            console.log("(EE) blackHole closed ... exiting");
+            process.exit(0);
+        }
+    })
+
     blackHole.events.Teleport({
 //        fromBlock: 0
     })
