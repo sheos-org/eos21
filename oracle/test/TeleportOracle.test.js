@@ -5,8 +5,8 @@ const fs = require('fs');
 require('chai').use(require('chai-as-promised')).should();
 
 const wormHole = require('../TeleportOracle.js');
-const erc20Deployer = require('../../utils/ERC20Deployer.js');
-const blackHoleDeployer = require('../../utils/BlackHoleDeployer.js');
+const erc20Deployer = require('./ERC20Deployer.js');
+const blackHoleDeployer = require('./BlackHoleDeployer.js');
 
 
 var identities = []
