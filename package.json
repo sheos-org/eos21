@@ -19,7 +19,6 @@
     "ganache-cli": "^6.1.8",
     "openzeppelin-solidity": "^1.12.0",
     "web3": "^1.0.0-beta.36",
-    "zmq": "^2.15.3"
   },
   "scripts": {		  
     "blackhole_build": "cd blackhole && truffle compile",
