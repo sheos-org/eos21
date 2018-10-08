@@ -22,19 +22,19 @@ const getParams = () => {
 
 const params = getParams();
 
-const whiteHoleKey = params.whitehole.private_key;
-const eosProvider = params.whitehole.http_endpoint;
+const whiteHoleKey = params.eosiotoken.private_key;
+const eosProvider = params.eosiotoken.http_endpoint;
 const blackHoleFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
 const ethereumProvider = params.blackhole.websocket_provider;
-const whiteHoleAddress = params.whitehole.account;
+const whiteHoleAddress = params.eosiotoken.account;
 const blackHoleAddress = fs.readFileSync('./blackhole_address', 'utf-8')
 const decimals = params.blackhole.decimals;
 const symbol = params.blackhole.symbol;
-const chainId = params.whitehole.chain_id;
+const chainId = params.eosiotoken.chain_id;
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole account: " + blackHoleAddress);
-check(whiteHoleAddress, "whitehole account: " + whiteHoleAddress);
-check(whiteHoleKey, 'whitehole key: ' + whiteHoleKey);
+check(whiteHoleAddress, "eosio.token account: " + whiteHoleAddress);
+check(whiteHoleKey, 'eosio.token key: ' + whiteHoleKey);
 check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
 //check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 check(eosProvider, "EOS provider: " + eosProvider);

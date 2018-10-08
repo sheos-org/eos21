@@ -1,6 +1,6 @@
 let fs = require("fs");
 let Web3 = require('web3');
-const check = require('./Check');
+const check = require('../../utils/Check');
 
 module.exports = (argv) => {
     check(argv.http_provider, "http_provider: " + argv.http_provider);
