@@ -2,7 +2,6 @@
     "blackhole": {
         "http_provider": "http://127.0.0.1:8545",
         "websocket_provider": "ws://127.0.0.1:8545",
-        "sender": "0x82cC3f53b9DD7Fc8F546DB9eBC497b8D69B1AebA",
         "gas": "3000000",
         "critic_block": "0",
         "minimum_amount": "100",
