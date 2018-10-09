@@ -236,7 +236,7 @@ SOFTWARE.
 
 ## Shoutouts
 
-[Cryptolions](https://cryptolions.io/) - *For keeping the Jungle Testnet alive! And for the awesome Jungle Testnet T-Shirts. *
+[Cryptolions](https://cryptolions.io/) - *For keeping the Jungle Testnet alive! And for the awesome Jungle Testnet T-Shirts.*
 
 [Brock Pierce](https://twitter.com/brockpierce) - *Thanks for giving the protocol a name - EOS21.*
 
