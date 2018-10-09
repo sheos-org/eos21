@@ -129,7 +129,7 @@ ERC20Token.deployed().then(i => erc20=i)
 BlackHoleEosAccount.deployed().then(i => blackhole=i)
 
 # approve blackhole to take tokens
-erc20.approve(blackhole.address, 40000, {from:'0x52410180254B53A0816e77082EC0578D7A141c5c'})
+erc20.approve(blackhole.address, 40000, {from:'<use public key of ERC20 token address above in our example it is 0x524...>'})
 
 # teleport tokens by entering destination EOS account
 blackhole.teleport("<destinationEOSaccount>")
