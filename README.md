@@ -18,19 +18,19 @@ The goal of this protocol is to provide a standard for app developers to move th
 
 We believe that any token should be able to move as the developers desire or require as their apps may be best run on different chains at different times.
 
-Typically, the way this has been done is by using what we call the "snapshot" method. 📸  This method is commonly used by token "airdrops" to send to accounts on ETH or EOS chains that match certain criteria such as having an address with at least X balance of the chain's native token. The EOS native token generation from the ERC20 was a snapshot airdrop. EOS was able to do this by expiring their ERC20 contract thereby making the ERC20 EOS tokens infungible.
+Typically, the way this has been done is by using what we call the "snapshot" method. 📸  This method is commonly used by token "airdrops" to send to accounts on ETH or EOS chains that match certain criteria such as having an address with at least X balance of the chain's native token. The EOS native token generation from the ERC20 was a snapshot airdrop. EOS was able to do this by expiring their ERC20 contract thereby making the ERC20 EOS tokens non-fungible.
 
 In the EOS21 protocol, we are providing another option for ERC20 contracts that do not have a built-in pause/expiry function but who want to move their token to another chain. We are calling this action: teleportation. To teleport a token from one chain to another, it will exist on the destination chain, but no longer exist in a fungible form on the source chain.
 
 **EOS21 is comprised of 3 layers.**
 
-* Layer 1 is on the source chain - in this case, ETH. There is a Blackhole 🌌 contract on ETH to perform the absorption of ERC20 tokens and also to receive account information for the destination chain (EOS).
-* Layer 2 is an Oracle 🔮 program that runs off-chain to watch the ETH transactions and authorize the distribution of EOS tokens (in a future version of this protocol, the Oracle could be run entirely on EOS).
-* Layer 3 is the EOS token contract which distributes the tokens to the 📩  destination EOS account sent by the token holders in Layer 1.
+* **Layer 1** is on the source chain - in this case, ETH. There is a Blackhole 🌌 contract on ETH to perform the absorption of ERC20 tokens and also to receive account information for the destination chain (EOS).
+* **Layer 2** is an Oracle 🔮 program that runs off-chain to watch the ETH transactions and authorize the distribution of EOS tokens (in a future version of this protocol, the Oracle could be run entirely on EOS).
+* **Layer 3** is the EOS token contract which distributes the tokens to the 📩  destination EOS account sent by the token holders in Layer 1.
 
 The standard Blackhole contract has 2 functions - be authorized to receive token Y and then receive the account info or key for the tokens to be distributed on the destination chain.
 
-Once a user sends their tokens and destination account to the Blackhole, the ERC20 tokens will become infungible and the EOS tokens will be teleported to their destination account on the EOS chain. The developer can choose to either send the tokens to a 0X000 address and thereby 🔥 them, or hold them in the Blackhole contract.
+Once a user sends their tokens and destination account to the Blackhole, the ERC20 tokens will become non-fungible and the EOS tokens will be teleported to their destination account on the EOS chain. The developer can choose to either send the tokens to a 0X000 address and thereby 🔥 them, or hold them in the Blackhole contract.
 
 ##### EOS21 is open-source and it can be customized or built-on by other developers. Some of the ideas we have include:
 
@@ -41,8 +41,28 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
 * **EOS21 oracle  🔮 could be written to run entirely on an EOS chain (instead of js).**
 * **EOS21 can be used to move tokens between EOS sister-chains.**
 * **EOS21 Solidity contract could be rewritten to support other chains such as Stellar.**
+----------
+##### EOS21 Github Inventory
+* **eos21/eos21.js** - Oracle for managing teleportation of tokens from ETH to EOS
+* **eos21/config.json** - configuration file for blackhole and oracle contracts
+* **eos21/blackhole/contracts/** - blackhole contracts listed below
+    * **BlackHole.sol**	- blackhole contract that will attract ERC20 tokens
+    * **BlackHoleEosAccount.sol**	- blackhole contract that takes an EOS Account as an input to activate a teleportation
+    * **BlackHoleEosPublicKey.sol** - takes an EOS public key as an input to activate a teleportation (you will need to create  accounts using a modified oracle for account creation)
+    * **TestERC20Token.sol** - used to specify ElementToken.sol for test deployments
+    * **TestElementToken.sol** - default ElementToken contract for ERC20 tokens
+    * **EosValidator.sol** - validates EOS account or key
 
-## EOS21 System Requirements
+
+* **eos21/blackhole/migrations/** - scripts for deploying truffle test
+* **eos21/blackhole/test/** - truffle tests of the blackhole
+* **eos21/eosio.token/** - standard EOSIO token contracts for testing from EOS.IO github
+* **eos21/utils/** - error checking script.
+* **eos21/package.json** - NPM installer for test suite
+
+----------
+
+## EOS21 System Prerequisites
 * cmake
 * nodejs
 * eos.io https://github.com/EOSIO/eos
@@ -141,7 +161,7 @@ http://dev.cryptolions.io/#faucet
 `node ./eos21.js`
 
 
-## Deploy EOS Token Contract
+### Deploy EOS Token Contract
 ##### create basic EOSIO.token contract
 `cleos -u http://dev.cryptolions.io:38888 set contract <EOSTokenCreatorAccount> ./eosio.token`
 
