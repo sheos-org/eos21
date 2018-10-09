@@ -119,8 +119,7 @@ http://dev.cryptolions.io/#faucet
 ##### get root of eosio.cdt folder - to find a clue - which eosio-cpp
 
 ##### Compile the blackhole contract On OS X - /usr/local/bin/eosio-cpp on Linux could be ~/opt/eosio.cdt
-```cmake .. -DEOSIO_CDT_ROOT=/usr/local/eosio.cdt
-make```
+`cmake .. -DEOSIO_CDT_ROOT=/usr/local/eosio.cdt && make`
 
 ##### cd to root of project to install NPM
 `cd ../../../`
@@ -132,8 +131,7 @@ make```
 `npm install -g truffle`
 
 ##### compile blackhole contract
-```cd blackhole
-truffle compile```
+`cd blackhole && truffle compile`
 
 ##### test all contracts
 `truffle test`
@@ -150,7 +148,7 @@ truffle compile```
 `cleos -u http://dev.cryptolions.io:38888 set contract <EOSTokenCreatorAccount> ./eosio.token`
 
 ##### create custom EOS token (you may need to unlock wallet first)
-```cleos -u http://dev.cryptolions.io:38888 push action <EOSTokenCreatorAccount> create '["<EOSTokenCreatorAccount>","4.0000 <EOSTokenName>"]' -p <EOSTokenCreatorAccount>@active```
+`cleos -u http://dev.cryptolions.io:38888 push action <EOSTokenCreatorAccount> create '["<EOSTokenCreatorAccount>","4.0000 <EOSTokenName>"]' -p <EOSTokenCreatorAccount>@active`
 
 ### Test Blackhole Teleportation
 #####  Enter ganache console
@@ -174,7 +172,7 @@ truffle compile```
 
 ##### You should see the action happen in the console of your oracle!
 
-* check balance
+##### Check balance of Custom EOS Tokens in the Destination EOS account
 `cleos -u http://dev.cryptolions.io:38888 get table <EOSTokenCreatorAccount> <DestinationEOSAccount> accounts`
 
 ## Your tokens have been teleported!
