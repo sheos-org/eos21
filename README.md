@@ -24,18 +24,6 @@ In order to burn Ethereum ERC20 tokens and materialize them into EOS we need 4 a
 * node (tested with 8.10 and 10.11)
 * `npm install -g ethereum/web3.js` (if you run the oracle on OS X, this will help to get things running)
 
-EOS21 Testing Requirements
-
-# Testing Prerequisites
-* Truffle https://truffleframework.com/ (`npm install -g truffle`)
-* Ganache https://truffleframework.com/ganache running locally on port 8545 (you may need to set this port manually in Ganache preferences)
-* EOS Account on Jungle Testnet - http://dev.cryptolions.io
-    * Use faucet for tokens
-    * Setup EOS account, buy ram.
-    * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOStokencreatoraccount> <EOStokencreatoraccount> "20.0000 EOS"`
-* Setup eos wallet and import private key for account
-    * `cleos wallet create --name "<name of wallet>" --to-console`
-    * `cleos wallet import --private-key <EOS private key>--name "<name of wallet>"`
 
 # Mainnet Deployment Instructions
 ## Strongly recommend testing first using instructions below.
@@ -50,6 +38,20 @@ EOS21 Testing Requirements
         * `private_key` private key that can has permission to transfer the EOS token
     * Install `eos21/blackhole/contracts/BlackHoleEosAccount.sol` on Ethereum mainnet (or official testnet if you want to test there instead of Ganache)
     * Run the oracle eos21/oracle/TeleportOracle.js
+
+
+# EOS21 Testing
+
+# Testing Prerequisites
+* Truffle https://truffleframework.com/ (`npm install -g truffle`)
+* Ganache https://truffleframework.com/ganache running locally on port 8545 (you may need to set this port manually in Ganache preferences)
+* EOS Account on Jungle Testnet - http://dev.cryptolions.io
+    * Use faucet for tokens
+    * Setup EOS account, buy ram.
+    * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOStokencreatoraccount> <EOStokencreatoraccount> "20.0000 EOS"`
+* Setup eos wallet and import private key for account
+    * `cleos wallet create --name "<name of wallet>" --to-console`
+    * `cleos wallet import --private-key <EOS private key>--name "<name of wallet>"`
 
 # Overview for testing
 1. Create token on Ethereum Ganache/Truffle. (4 tokens will be notated as 40000 with 4 decimals in ETH).
@@ -103,7 +105,7 @@ cd ../
 node ./eos21.js
 ```
 
-# EOS Contract Deployment
+## EOS Contract Deployment
 ```
 # create basic EOSIO.token contract
 cleos -u http://dev.cryptolions.io:38888 set contract <EOStokencreatoraccount> ./eosio.token
@@ -111,7 +113,7 @@ cleos -u http://dev.cryptolions.io:38888 set contract <EOStokencreatoraccount> .
 # create token on EOS (you may need to unlock wallet)
 cleos -u http://dev.cryptolions.io:38888 push action <EOStokencreatoraccount> create '["<EOStokencreatoraccount>","4.0000 <tokenname>"]' -p <EOStokencreatoraccount>@active
 ```
-# Test blackhole teleportation
+## Test blackhole teleportation
 ```
 # Enter ganache
 truffle console --network ganache
