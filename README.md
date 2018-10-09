@@ -112,9 +112,9 @@ http://dev.cryptolions.io/#faucet
 ### Install EOS21 blackhole / ERC20 test token
 
 ##### Clone repo from here
-```git clone https://github.com/sheos-org/eos21.git
-mkdir build
-cd build```
+`git clone https://github.com/sheos-org/eos21.git`
+`mkdir build`
+`cd build`
 
 ##### get root of eosio.cdt folder - to find a clue - which eosio-cpp
 
