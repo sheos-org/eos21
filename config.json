@@ -1,10 +1,8 @@
 {
     "blackhole": {
         "websocket_provider": "ws://127.0.0.1:8545",
-        "gas": "3000000",
         "critic_block": "0",
         "minimum_amount": "100",
-        "name": "ERC20 Test",
         "symbol": "EEE",
         "decimals": "4",
         "tokens": "4"

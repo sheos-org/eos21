@@ -9,7 +9,7 @@ module.exports = function (deployer) {
   //check(fs.existsSync(configFile), "configuration file: " + configFile);
   const config = JSON.parse(fs.readFileSync(configFile));
   //console.log(config)
-  const name = config.blackhole.name;
+  const name = "ERC20 Test";
   const symbol = config.blackhole.symbol;
   const decimals = config.blackhole.decimals;
   const tokens = config.blackhole.tokens;
