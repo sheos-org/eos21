@@ -22,7 +22,7 @@ In order to burn Ethereum ERC20 tokens and materialize them into EOS we need 3 p
 * eos.io https://github.com/EOSIO/eos
 * EOSIO.CDT (Contract Development Toolkit) https://github.com/EOSIO/eosio.cdt
 * node (tested with 8.10 and 10.11)
-* npm install -g ethereum/web3.js (if you run the oracle on OS X, this will help to get things running)
+* `npm install -g ethereum/web3.js` (if you run the oracle on OS X, this will help to get things running)
 
 EOS21 Testing Requirements
 
@@ -32,25 +32,27 @@ EOS21 Testing Requirements
 * EOS Account on Jungle Testnet - http://dev.cryptolions.io
     * Use faucet for tokens
     * Setup EOS account, buy ram.
-    * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOStokencreatoraccount> <EOStokencreatoraccount> "20.0000 EOS"``
+    * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOStokencreatoraccount> <EOStokencreatoraccount> "20.0000 EOS"`
 * Setup eos wallet and import private key for account
     * `cleos wallet create --name "<name of wallet>" --to-console`
-    * `cleos wallet import --private-key <EOS private key>--name "<name of wallet>"``
+    * `cleos wallet import --private-key <EOS private key>--name "<name of wallet>"`
 
 # Overview
 1. Create token on Ethereum Ganache/Truffle. (4 tokens will be notated as 40000 with 4 decimals in ETH).
 2. Distribute new tokens to fresh Ethereum account.
 3. Deploy blackhole contract (contract address will automatically update in the config file).
 4. Create standard EOS token contract on Jungle Testnet.
-5. Deploy new token via contract. "cleos push action <issuer> create '["issuer","#.0000"]'"
+5. Deploy new token via contract.
 6. Start teleport_oracle on node.js server
 7. User on Ethereum must send 2 actions a) authorize blackhole teleport amount b) send EOS account name.
 8. Oracle will catch the event and send the tokens.
 9. Close blackhole.
 
+
+# Step by Step Instructions
 ```
-# instructions
-git clone
+# Clone repo from here
+git clone https://github.com/sheos-org/eos21.git
 mkdir build
 cd build
 
@@ -64,6 +66,9 @@ make
 
 # create basic EOSIO.token contract
 cleos -u http://dev.cryptolions.io:38888 set contract <EOStokencreatoraccount> ./eosio.token
+
+# issue EOS tokens
+`"cleos push action <EOStokencreatoraccount> create '["EOStokencreatoraccount","4.0000"]'"`
 
 # cd to root of project
 cd ../../../
