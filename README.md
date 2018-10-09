@@ -190,9 +190,12 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 * ** Check balance of Custom EOS Tokens in the Destination EOS account**
     *  `cleos -u http://dev.cryptolions.io:38888 get table <EOSTokenCreatorAccount> <DestinationEOSAccount> accounts`
 
-## Your tokens have been teleported!
+### Your tokens have been teleported!
 -------
-#### WARNING !
+
+# Mainnet Deployment
+
+## WARNING !
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -201,11 +204,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Mainnet Deployment
-#### *Strongly recommend testing first using the Ganache / Jungle Guide outlined above.*
+#### *We strongly recommend testing first using the Ganache / Jungle Guide outlined above.*
 
-#### Preparation
-* Must have ERC20 token deployed on Ethereum mainnet, EOS token deployed on EOS mainnet, and have the keys that control the EOS account loaded in a wallet where the oracle will be running.
+#### Testing Preparation
+* You must have ERC20 token deployed on Ethereum mainnet, EOS token deployed on EOS mainnet, and have the keys that have permission to transfer the EOS token loaded in a wallet where the oracle will be running.
 * In config.json configure `blackhole` and `eosiotoken` sections to your token parameters.
     * `websocket_provider` will point to Ethereum node - on mainnet use `wss://mainnet.infura.io/ws`
     * `critic_block` will be the Ethereum block number that you want the blackhole contract to expire, set to 0 if it never expires.
