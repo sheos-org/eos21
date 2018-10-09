@@ -3,9 +3,9 @@ Teleport your ERC20 tokens to EOS.
 
 ## Summary
 
-EOS21 is a protocol for cross-chain ⛓ token movement between ETH and EOS.
+EOS21 is a protocol to enable cross-chain ⛓ token movement between ETH and EOS.
 
-ETH (ERC20) --> EOS (tokens)
+* ETH (ERC20)  --> EOS21 --> EOS (tokens)
 
 The goal of this protocol is to provide a standard for app developers to move their tokens and apps between chains.
 
@@ -60,14 +60,14 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 
 *EOS21 is open-source and we encourage you to customize, fork, and use the code. We built this as a example case. Some of the ideas we have include:*
 
-* **EOS21 contracts could be modified to power a snapshot distribution using registration of EOS accounts or keys.**
-* **EOS21 contracts could be modified to burn ETH tokens by sending them to a 0x00 address after the Oracle successfully moves them to EOS.**
-* **EOS21 could be modified to allow tokens to travel both ways in the Teleporter ETH ↔ EOS.**
-* **EOS21 could create public keys on either chain which share the same private key.**
-* **EOS21 could be used to authenticate ETH transactions using EOS or vice-versa.**
-* **EOS21 oracle could be written to run entirely on an EOS chain (instead of node.js).**
-* **EOS21 can be used to move tokens between EOS sister-chains.**
-* **EOS21 Solidity contract could be rewritten to support other chains such as Stellar.**
+* *EOS21 contracts could be modified to power a snapshot distribution using registration of EOS accounts or keys.*
+* *EOS21 "teleporter" or "oracle" could be written to run entirely on an EOS chain (instead of node.js) and simplified payment verification (SPV) could be done entirely on-chain.*
+* *EOS21 contracts could be modified to burn ETH tokens by sending them to a 0x00 address after the Oracle successfully moves them to EOS.*
+* *EOS21 could be modified to allow tokens to travel both ways in the Teleporter ETH ↔ EOS by using a "2-way-peg" of tokens - locking the tokens inside of a contract on each chain.*
+* *EOS21 could create public keys on either chain which share the same private key.*
+* *EOS21 could be used to authenticate ETH transactions using EOS or vice-versa.*
+* *EOS21 can be used to move tokens between EOS sister-chains.*
+* *EOS21 BlackHole contract could be rewritten to support other Ethereum forks chains such as GoChain, or other chains that support tokens such as Stellar.*
 ----------
 
 # End-to-End Testing
