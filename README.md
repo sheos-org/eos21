@@ -40,7 +40,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 
 ##### EOS21 Github Inventory
 * **eos21/eos21.js** - Oracle for managing teleportation of tokens from ETH to EOS
-* **eos21/config.json** - configuration file for blackhole and oracle contracts
+* **eos21/[config.json](https://github.com/sheos-org/eos21/blob/master/config.json)** - configuration file for blackhole and oracle contracts
 * **eos21/blackhole/contracts/** - blackhole contracts listed below
     * **BlackHole.sol**	- blackhole contract that will attract ERC20 tokens
     * **BlackHoleEosAccount.sol**	- blackhole contract that takes an EOS Account as an input to activate a teleportation
@@ -56,7 +56,9 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 * **eos21/utils/** - error checking script.
 * **eos21/package.json** - NPM installer for test suite
 
-# Contributions
+# Contributing
+
+Pleaes read [CONTRIBUTING.md](https://github.com/sheos-org/eos21/blob/master/CONTRIBUTING.md)
 
 *EOS21 is open-source and we encourage you to customize, fork, and use the code. We built this as a example case. Some of the ideas we have include:*
 
@@ -68,7 +70,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 * *EOS21 could be used to authenticate ETH transactions using EOS or vice-versa.*
 * *EOS21 can be used to move tokens between EOS sister-chains.*
 * *EOS21 BlackHole contract could be rewritten to support other Ethereum forks chains such as GoChain, or other chains that support tokens such as Stellar.*
-----------
+
 
 # End-to-End Testing
 
@@ -78,11 +80,11 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 
 *Our scripts automate some of this process, but this is to help you understand what each step is in the process.*
 
-1. **Create token on Ethereum.** *Truffle does this. (4 tokens will be notated as 40000 with 4 decimals in Ethereum contract - configure this in the config.json).*
+1. **Create token on Ethereum.** *Truffle does this. (4 tokens will be notated as 40000 with 4 decimals in Ethereum contract - configure this in the [config.json](https://github.com/sheos-org/eos21/blob/master/config.json)).*
 2. **Distribute new tokens to fresh Ethereum account.** *Truffle does this.*
 3. **Deploy blackhole contract.** *Contract address will automatically update in the truffle config file).*
 4. **Deploy standard eosio.token contract on Jungle Testnet.**
-5. **Issue EOS token via eosio.token contract.** *Parameters are configured in config.json*
+5. **Issue EOS token via eosio.token contract.** *Parameters are configured in [config.json](https://github.com/sheos-org/eos21/blob/master/config.json)*
 6. **Start teleport_oracle on node.js server.**
 7. **Source Ethereum account must send 2 actions.**
     * Authorize blackhole to teleport an amount of ERC20 tokens.
@@ -93,7 +95,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 ### Ganache / Jungle Testing Prerequisites
 * [Truffle](https://truffleframework.com) - `npm install -g truffle`
 * [Ganache](https://truffleframework.com/ganache) - One click local Ethereum blockchain  
-    * *Ganache should be configured to run locally on port 8545 (you may need to set this port in Ganache preferences or edit config.json to match the port number.)*
+    * *Ganache should be configured to run locally on port 8545 (you may need to set this port in Ganache preferences or edit [config.json](https://github.com/sheos-org/eos21/blob/master/config.json) to match the port number.)*
 
 ### Ganache / Jungle Testing Preparation
 * [Create EOS Account on Jungle Testnet. GUI](http://dev.cryptolions.io/#account) *This will be our EOSTokenCreatorAccount.*
@@ -145,7 +147,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
     * `truffle test`
 
 
-* ** Deploy ERC20 contract and the blackhole contract defined in config.json**
+* ** Deploy ERC20 contract and the blackhole contract defined in [config.json](https://github.com/sheos-org/eos21/blob/master/config.json)**
     * `truffle migrate --reset --network ganache`
     * *This process will also send your newly created ERC20 tokens to your first account in the Ganache interface.*
 
@@ -191,7 +193,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
     *  `cleos -u http://dev.cryptolions.io:38888 get table <EOSTokenCreatorAccount> <DestinationEOSAccount> accounts`
 
 ### Your tokens have been teleported!
--------
+
 
 # Mainnet Deployment
 
@@ -208,7 +210,7 @@ SOFTWARE.
 
 #### Testing Preparation
 * You must have ERC20 token deployed on Ethereum mainnet, EOS token deployed on EOS mainnet, and have the keys that have permission to transfer the EOS token loaded in a wallet where the oracle will be running.
-* In config.json configure `blackhole` and `eosiotoken` sections to your token parameters.
+* In [config.json](https://github.com/sheos-org/eos21/blob/master/config.json) configure `blackhole` and `eosiotoken` sections to your token parameters.
     * `websocket_provider` will point to Ethereum node - on mainnet use `wss://mainnet.infura.io/ws`
     * `critic_block` will be the Ethereum block number that you want the blackhole contract to expire, set to 0 if it never expires.
     * `decimals` `symbol` and `tokens` will be the number of decimals defined in your ERC20 token contract, the symbol of your ERC20 token, and the maximum amount of tokens in your ERC20 contract.
