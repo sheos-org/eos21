@@ -42,15 +42,17 @@ EOS21 Testing Requirements
 2. Distribute new tokens to fresh Ethereum account.
 3. Deploy blackhole contract (contract address will automatically update in the config file).
 4. Create standard EOS token contract on Jungle Testnet.
-5. Deploy new token via contract. `"cleos push action <issuer> create '["issuer","#.0000"]'"`
+5. Deploy new token via contract.
 6. Start teleport_oracle on node.js server
 7. User on Ethereum must send 2 actions a) authorize blackhole teleport amount b) send EOS account name.
 8. Oracle will catch the event and send the tokens.
 9. Close blackhole.
 
-```
+
 # Step by Step Instructions
-git clone
+```
+# Clone repo from here
+git clone https://github.com/sheos-org/eos21.git
 mkdir build
 cd build
 
@@ -64,6 +66,9 @@ make
 
 # create basic EOSIO.token contract
 cleos -u http://dev.cryptolions.io:38888 set contract <EOStokencreatoraccount> ./eosio.token
+
+# issue EOS tokens
+`"cleos push action <EOStokencreatoraccount> create '["EOStokencreatoraccount","4.0000"]'"`
 
 # cd to root of project
 cd ../../../
