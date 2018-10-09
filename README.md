@@ -55,14 +55,16 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
 * **eos21/package.json** - NPM installer for test suite
 
 ----------
+### Contributions
 
-##### EOS21 is open-source and it can be customized or built-on by other developers. Some of the ideas we have include:
+** *EOS21 is open-source and we encourage you to customize, fork, and use the code. We built this as a example case. Some of the ideas we have include:* **
 
 * **EOS21 contracts could be modified to power a snapshot distribution using registration of EOS accounts or keys.**
+* **EOS21 contracts could be modified to burn ETH tokens by sending them to a 0x00 address after the Oracle successfully moves them to EOS.**
 * **EOS21 could be modified to allow tokens to travel both ways in the Teleporter ETH ↔ EOS.**
 * **EOS21 could create public keys on either chain which share the same private key.**
 * **EOS21 could be used to authenticate ETH transactions using EOS or vice-versa.**
-* **EOS21 oracle could be written to run entirely on an EOS chain (instead of js).**
+* **EOS21 oracle could be written to run entirely on an EOS chain (instead of node.js).**
 * **EOS21 can be used to move tokens between EOS sister-chains.**
 * **EOS21 Solidity contract could be rewritten to support other chains such as Stellar.**
 ----------
@@ -93,10 +95,8 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
     * *Ganache should be configured to run locally on port 8545 (you may need to set this port in Ganache preferences or edit config.json to match the port number.)*
 
 ### Ganache / Jungle Testing Preparation
-* [Create EOS Account on Jungle Testnet. GUI](http://dev.cryptolions.io/#account)
-* [Use Jungle Testnet Faucet GUI to get EOS into your EOS Account. ](http://dev.cryptolions.io/#faucet)
-* **Setup EOS account, buy ram.**
- * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOStokencreatoraccount> <EOStokencreatoraccount> "20.0000 EOS"`
+* [Create EOS Account on Jungle Testnet. GUI](http://dev.cryptolions.io/#account) *This will be our EOSTokenCreatorAccount.*
+* [Use Jungle Testnet Faucet GUI to get EOS into your EOS Account. ](http://dev.cryptolions.io/#faucet)*Jungle Testnet gives you free tokens!*
 
 
 * **Setup EOS wallet**
@@ -105,6 +105,11 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
 
 * **Import private key for account**
     * `cleos wallet import --private-key <EOS private key>--name "<name of wallet>"`
+
+
+* **Buy ram to deploy EOS token contract.** *This requires about 300kb of RAM, so 20 EOS should be enough on the testnet. For the mainnet, use [EOS NY's EOS Resource Planner](https://www.eosrp.io/) to estimate pricing*
+ * `cleos -u http://dev.cryptolions.io:38888 system buyram <EOSTokenCreatorAccount> <EOSTokenCreatorAccount> "20.0000 EOS"`
+
 
 
 ## Step 1: Truffle Deployment of Ethereum Contracts (ERC20 token + Blackhole)
@@ -186,6 +191,15 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
 
 ## Your tokens have been teleported!
 -------
+#### WARNING !
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 ## Mainnet Deployment
 #### *Strongly recommend testing first using the Ganache / Jungle Guide outlined above.*
 
@@ -215,15 +229,14 @@ Once a user sends their tokens and destination account to the Blackhole, the ERC
 * **Vladimir Venediktov** - *js/C++ Guidance*
 [venediktov](https://github.com/venediktov)
 
+## Shoutouts
+
+[Cryptolions](https://cryptolions.io/) - *For keeping the Jungle Testnet alive! And for the awesome Jungle Testnet T-Shirts. *
+
+[Brock Pierce](https://twitter.com/brockpierce) - *Thanks for giving the protocol a name - EOS21.*
+
+[Crystal Rose](https://twitter.com/crystalrose) - *Thanks for giving birth to the idea for this protocol and all of your support.*
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-#### WARNING !
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
