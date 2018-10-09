@@ -192,7 +192,7 @@ Pleaes read [CONTRIBUTING.md](https://github.com/sheos-org/eos21/blob/master/CON
 * ** Check balance of Custom EOS Tokens in the Destination EOS account**
     *  `cleos -u http://dev.cryptolions.io:38888 get table <EOSTokenCreatorAccount> <DestinationEOSAccount> accounts`
 
-### Your tokens have been teleported!
+### Your test tokens have been teleported!
 
 
 # Mainnet Deployment
@@ -220,6 +220,7 @@ SOFTWARE.
     * `private_key` private key that can has permission to transfer the EOS token
 * Install `eos21/blackhole/contracts/BlackHoleEosAccount.sol` or `blackhole/contracts/BlackHoleEosPublicKey.sol` on Ethereum mainnet
 * Start the Oracle 🔮 eos21/oracle/TeleportOracle.js
+* From an Ethereum account containing tokens you want to teleport, authorize the blackhole to attract tokens from your account, then send your EOS account name to the contract "teleport" action to initiate the movement of tokens to EOS. *This process could be made really simple through very good UX/UI design for an interface.*
 
 # People
 
