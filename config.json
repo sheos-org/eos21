@@ -1,6 +1,5 @@
 {
     "blackhole": {
-        "http_provider": "http://127.0.0.1:8545",
         "websocket_provider": "ws://127.0.0.1:8545",
         "gas": "3000000",
         "critic_block": "0",
