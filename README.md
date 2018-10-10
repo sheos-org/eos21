@@ -9,6 +9,9 @@ EOS21 is a protocol to enable cross-chain ⛓ token movement between ETH and EOS
 
 The goal of this protocol is to provide a standard for app developers to move their tokens and apps between chains.
 
+Join the [shEOS telegram](https://t.me/sheos_org) to discuss EOS21.
+Also please consider casting your vote for sheos21sheos as a Block Producer.
+
 ## Built With
 * [EOS.IO](https://github.com/EOSIO/eos) - EOS Blockchain
 * [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) - EOS Contract Development Toolkit
@@ -58,7 +61,7 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 
 # Contributing
 
-Pleaes read [CONTRIBUTING.md](https://github.com/sheos-org/eos21/blob/master/CONTRIBUTING.md)
+Pleaes read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 *EOS21 is open-source and we encourage you to customize, fork, and use the code. We built this as a example case. Some of the ideas we have include:*
 
