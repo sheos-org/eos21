@@ -1,6 +1,8 @@
 # EOS21 Protocol ✌🏻☝🏼
 Teleport your ERC20 tokens to EOS.
 
+中文版(https://gist.github.com/bensig/5bb30cd31d5175cfb1c9b747c9ea1763)
+
 ## Summary
 
 EOS21 is a protocol to enable cross-chain ⛓ token movement between ETH and EOS.
