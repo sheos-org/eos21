@@ -232,6 +232,8 @@ THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRES
 
 [Crystal Rose](https://twitter.com/crystalrose) - 特别感谢您诞生了这个协议的想法，和您的鼎力支持。_._
 
+感谢EOS Nation的Lena的翻译。PotatoheadYa on WeChat.
+
 # 许可证
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://sheos-org.github.io/eos21/LICENSE.md) file for details
