@@ -2,7 +2,7 @@
 
 将您的ERC20代币传送到EOS。
 
-[English Version](README.MD)
+[English Version](README.md)
 
 ## 概述
 
