@@ -1,7 +1,7 @@
 # EOS21 Protocol ✌🏻☝🏼
 Teleport your ERC20 tokens to EOS.
 
-[中文版](EOS21-CH.MD)
+[中文版](README-CH.MD)
 
 ## Summary
 

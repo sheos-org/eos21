@@ -2,6 +2,8 @@
 
 将您的ERC20代币传送到EOS。
 
+[English Version](README.MD)
+
 ## 概述
 
 EOS21协议可以实现ETH和EOS跨链代币转移。
