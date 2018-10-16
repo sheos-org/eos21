@@ -61,12 +61,12 @@ The developer can choose to either send the tokens to a 0X000 address and thereb
 - . **eos21/eos21.js**  - Oracle 负责管理代币从ETH到EOS转移。
 - . **eos21/** [**config.json**](https://github.com/sheos-org/eos21/blob/master/config.json) - blackhole和Oracle合约的配置文件
 - . **eos21/blackhole/**** 合约 ****/**  - blackhole合约如下
-  - . **sol** - blackhole合约吸收ERC20代币。
-  - . **sol** - blackhole 合约将EOS账户作为一个输入来激活代币传输操作。
-  - . **sol**  - 将一个EOS公匙作为一个输入激活代币传输操作。（您需要使用修改后的Oracle创建账户）
-  - . **sol**  - 用于为测试部署指定 ElementToken.sol
-  - . **sol**  - 对ERC20代币的默认ElementToken合约
-  - . **sol**  - 确认EOS账户或钥匙
+  - . **BlackHole.sol** - blackhole合约吸收ERC20代币。
+  - . **BlackHoleEosAccount.sol** - blackhole 合约将EOS账户作为一个输入来激活代币传输操作。
+  - . **BlackHoleEosPublicKey.sol **  - 将一个EOS公匙作为一个输入激活代币传输操作。（您需要使用修改后的Oracle创建账户）
+  - . **TestERC20Token.sol**  - 用于为测试部署指定 ElementToken.sol
+  - . **TestElementToken.sol **  - 对ERC20代币的默认ElementToken合约
+  - . **EosValidator.sol **  - 确认EOS账户或钥匙
 - . **eos21/blackhole/migrations/**  - 部署truffle测试的脚本
 - . **eos21/blackhole/test/**  -blackhole的 truffle 测试
 - . **eos21/eosio.token/**  - 来自EOS.IO GitHub的标准EOSIO代币合约测试
