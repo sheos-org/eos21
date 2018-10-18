@@ -124,23 +124,23 @@ Pleaes read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 * **Clone EOS21 repository**
    * `git clone https://github.com/sheos-org/eos21.git`
+
+* ** Compile the EOS token contract**
+   * `cd eosio.token`
    * `mkdir build`
    * `cd build`
-
-
-* ** Compile the blackhole contract**
-    * `cmake .. -DEOSIO_CDT_ROOT=/usr/local/eosio.cdt && make`
+   * `cmake .. -DEOSIO_CDT_ROOT=/usr/local/eosio.cdt && make`
 
 
 * ** Change directories to root of project**
-    * `cd ../../../`
-
+    * `cd ../../`
+    
 
 * ** Install npm for project**
     * `npm install`
 
 
-* ** Install truffle infrastructure**
+* ** Install truffle infrastructure **
     * `npm install -g truffle`
 
 
