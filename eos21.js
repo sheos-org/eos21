@@ -22,19 +22,19 @@ const getParams = () => {
 
 const params = getParams();
 
-const whiteHoleKey = params.eosiotoken.private_key;
+const eosioTokenKey = params.eosiotoken.private_key;
 const eosProvider = params.eosiotoken.http_endpoint;
 const blackHoleFile = "./blackhole/build/contracts/BlackHoleEosAccount.json";
 const ethereumProvider = params.blackhole.websocket_provider;
-const whiteHoleAddress = params.eosiotoken.account;
+const eosioTokenAddress = params.eosiotoken.account;
 const blackHoleAddress = fs.readFileSync('./blackhole_address', 'utf-8')
 const decimals = params.blackhole.decimals;
 const symbol = params.blackhole.symbol;
 const chainId = params.eosiotoken.chain_id;
 
 check(Web3.utils.isAddress(blackHoleAddress), "blackhole account: " + blackHoleAddress);
-check(whiteHoleAddress, "eosio.token account: " + whiteHoleAddress);
-check(whiteHoleKey, 'eosio.token key: ' + whiteHoleKey);
+check(eosioTokenAddress, "eosio.token account: " + eosioTokenAddress);
+check(eosioTokenKey, 'eosio.token key: ' + eosioTokenKey);
 check(ethereumProvider, "Ethereum provider: " + ethereumProvider);
 //check(fs.existsSync(blackHoleFile), "blackhole file: " + blackHoleFile);
 check(eosProvider, "EOS provider: " + eosProvider);
@@ -44,13 +44,13 @@ check(chainId, "chain_id: " + chainId);
 
 eosConfig = {
     chainId: chainId, // 32 byte (64 char) hex string
-    keyProvider: [whiteHoleKey], // WIF string or array of keys..
+    keyProvider: [eosioTokenKey], // WIF string or array of keys..
     httpEndpoint: eosProvider,
     expireInSeconds: 60,
     broadcast: true,
     verbose: false, // API activity
     sign: true,
-    authorization: whiteHoleAddress + '@active'
+    authorization: eosioTokenAddress + '@active'
 };
 
 const input = fs.readFileSync(blackHoleFile);
@@ -63,8 +63,8 @@ const blackHole = new web3.eth.Contract(abi, blackHoleAddress);
 const eos = EosJs(eosConfig);
 eos.getInfo({})
     .then(result => {
-        return eos.contract(whiteHoleAddress)
-            .then(whiteHole => {
+        return eos.contract(eosioTokenAddress)
+            .then(eosioToken => {
                 createWormHole({
                     blackHole,
                     onData: event => {
@@ -73,7 +73,7 @@ eos.getInfo({})
                         const amountWithSymbol = amountFloat + " " + symbol;
                         console.log("(EVENT) amount=" + amountWithSymbol + ", to=" + note);
                         
-                        whiteHole.issue(note, amountWithSymbol, "Emerged from whitehole")
+                        eosioToken.issue(note, amountWithSymbol, "Emerged from eosioToken")
                             .catch(console.error);
                     }
                 });
