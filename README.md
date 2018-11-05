@@ -232,8 +232,7 @@ SOFTWARE.
 ## Authors
 
 * **Ben Sigman** - *architecture, testing, and documentation* - [bensig](https://github.com/bensig)
-* **Alessandro Siniscalchi** - *C++/js heavy lifting*
-[asiniscalchi](https://github.com/asiniscalchi)
+* **Alessandro Siniscalchi** - *Solidity/js/C++ heavy lifting* - [asiniscalchi](https://github.com/asiniscalchi)
 
 ## Contributors
 
