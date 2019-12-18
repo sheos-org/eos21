@@ -11,16 +11,16 @@
   "dependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "chai-bignumber": "^2.0.2",
-    "eosjs": "^16.0.9",
-    "eth-crypto": "^1.2.4",
-    "eth-gas-reporter": "^0.1.12",
+    "chai-bignumber": "^3.0.0",
+    "eosjs": "^20.0.0",
+    "eth-crypto": "^1.5.0",
+    "eth-gas-reporter": "^0.2.14",
     "fs": "0.0.1-security",
-    "ganache-cli": "^6.1.8",
-    "openzeppelin-solidity": "^1.12.0",
-    "web3": "^1.0.0-beta.36"
+    "ganache-cli": "^6.7.0",
+    "openzeppelin-solidity": "^2.4.0",
+    "web3": "^1.2.4"
   },
-  "scripts": {		  
+  "scripts": {
     "blackhole_test": "cd blackhole && truffle test",
     "oracle_test": "cd oracle && mocha",
     "start": "nodejs ./eos21.js",
