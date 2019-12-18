@@ -1,13 +1,13 @@
-# EOS21 Protocol ✌🏻☝🏼
-Teleport your ERC20 tokens to EOS.
+# EOSIO21 Protocol ✌🏻☝🏼
+Teleport your ERC20 tokens to EOS (or any EOSIO sidechain or fork - such as WAX, TELOS, or BOS).
 
 [中文版](README-CH.MD)
 
 ## Summary
 
-EOS21 is a protocol to enable cross-chain ⛓ token movement between ETH and EOS.
+EOSIO21 is a protocol to enable cross-chain ⛓ token movement between ETH and EOS.
 
-* ETH (ERC20)  --> EOS21 --> EOS (tokens)
+* ETH (ERC20)  --> EOS21 --> Any EOSIO Chain (tokens)
 
 The goal of this protocol is to provide a standard for app developers to move their tokens and apps between chains.
 
@@ -22,7 +22,7 @@ Also please consider casting your vote for sheos21sheos as a Block Producer.
 * [node.js](https://nodejs.org) - Javascript runtime (tested with v8.10 and 10.11)
 * [cmake](https://cmake.org/) - Packaging
 
-## EOS21 Overview
+## EOSIO21 Overview
 
 We believe that any token should be able to move as the developers desire or require as their apps may be best run on different chains at different times.
 
@@ -30,20 +30,20 @@ Typically, the way this has been done is by using what we call the "snapshot" me
 
 In the EOS21 protocol, we are providing another option for ERC20 contracts that do not have a built-in pause/expiry function but who want to move their token to another chain. We are calling this action: teleportation. To teleport a token from one chain to another, it will exist on the destination chain, but no longer exist in a fungible form on the source chain.
 
-#### The EOS21 Protocol has 3 Dimensions
+#### The EOSIO21 Protocol has 3 Dimensions
 
-* **Dimension 1** is on the source chain, Ethereum. There is a Blackhole 🌌 contract on ETH to perform the absorption of ERC20 tokens and also to receive account information for the destination chain (EOS). This information can either be configured to use the EOS Account name or an EOS Public Key. In the second case, the oracle must be changed to create an EOS account for the user.
-* **Dimension 2** is an Oracle 🔮 program that runs off-chain to watch the ETH transactions and authorize the distribution of EOS tokens (in a future version of this protocol, the Oracle could be run entirely on EOS).
-* **Dimension 3** is the destination chain, EOS. The EOS token contract which distributes the tokens to the 📩  destination EOS account sent by the token holders in Layer 1.
+* **Dimension 1** is on the source chain, Ethereum. There is a Blackhole 🌌 contract on ETH to perform the absorption of ERC20 tokens and also to receive account information for the destination chain (EOSIO). This information can either be configured to use the EOSIO Account name or an EOS Public Key. In the second case, the oracle must be changed to create an EOS account for the user.
+* **Dimension 2** is an Oracle 🔮 program that runs off-chain to watch the ETH transactions and authorize the distribution of EOS tokens (in a future version of this protocol, the Oracle could be run entirely on EOSIO).
+* **Dimension 3** is the destination chain, EOSIO. The EOSIO token contract which distributes the tokens to the 📩  destination EOS account sent by the token holders in Layer 1.
 
 The standard Blackhole contract has 2 functions - be authorized to receive token Y from Ethereum and then receive the EOS account info the tokens to be distributed on the destination chain via the Oracle.
 
-Once a user sends their tokens and destination account to the Blackhole, the ERC20 tokens will become non-fungible and the EOS tokens will be teleported to their destination account on the EOS chain.
+Once a user sends their tokens and destination account to the Blackhole, the ERC20 tokens will become non-fungible and the EOS tokens will be teleported to their destination account on the EOSIO chain.
 
 The developer can choose to either send the tokens to a 0X000 address and thereby 🔥 them, or hold them in the Blackhole contract.
 
 
-##### EOS21 Github Inventory
+##### EOSIO21 Github Inventory
 * **eos21/eos21.js** - Oracle for managing teleportation of tokens from ETH to EOS
 * **eos21/[config.json](https://github.com/sheos-org/eos21/blob/master/config.json)** - configuration file for blackhole and oracle contracts
 * **eos21/blackhole/contracts/** - blackhole contracts listed below
@@ -122,7 +122,7 @@ Pleaes read [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Step 1: Truffle Deployment of Ethereum Contracts (ERC20 token + Blackhole)
 
-* **Clone EOS21 repository**
+* **Clone EOSIO21 repository**
    * `git clone https://github.com/sheos-org/eos21.git`
 
 * ** Compile the EOS token contract**
@@ -161,7 +161,7 @@ Pleaes read [CONTRIBUTING.md](CONTRIBUTING.md)
   * *Open another session - or even better [screen](https://www.rackaid.com/blog/linux-screen-tutorial-and-how-to/) the command.*
   * `node ./eos21.js`
 
-## Step 3: Deploy EOS Token Contract
+## Step 3: Deploy EOSIO Token Contract
 * ** Deploy standard EOSIO.token contract**
   * `cleos -u http://dev.cryptolions.io:38888 set contract <EOSTokenCreatorAccount> ./eosio.token`
 
@@ -214,7 +214,7 @@ SOFTWARE.
 #### *We strongly recommend testing first using the Ganache / Jungle Guide outlined above.*
 
 #### Testing Preparation
-* You must have ERC20 token deployed on Ethereum mainnet, EOS token deployed on EOS mainnet, and have the keys that have permission to transfer the EOS token loaded in a wallet where the oracle will be running.
+* You must have ERC20 token deployed on Ethereum mainnet, EOS token deployed on EOS mainnet, and have the keys that have permission to transfer the EOSIO token loaded in a wallet where the oracle will be running.
 * In [config.json](https://github.com/sheos-org/eos21/blob/master/config.json) configure `blackhole` and `eosiotoken` sections to your token parameters.
     * `websocket_provider` will point to Ethereum node - on mainnet use `wss://mainnet.infura.io/ws`
     * `critic_block` will be the Ethereum block number that you want the blackhole contract to expire, set to 0 if it never expires.
